@@ -4,6 +4,7 @@ proxy-groups:
     type: select
     proxies:
       - 自动选择
+      - 负载均衡
       - 香港节点
       - 台湾节点
       - 狮城节点
@@ -21,7 +22,7 @@ proxy-groups:
     type: url-test
     include-all: true
     interval: 300
-    tolerance: 50
+    tolerance: 50  
   - name: 电报消息
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
@@ -70,7 +71,6 @@ proxy-groups:
     proxies:
       - 节点选择
       - 自动选择
-      - 奈飞节点
       - 狮城节点
       - 香港节点
       - 台湾节点
@@ -238,6 +238,15 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
+  - name: 负载均衡
+    type: load-balance
+    proxies:
+      - 狮城节点
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
   - name: 香港节点
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
@@ -280,11 +289,6 @@ proxy-groups:
     type: url-test
     interval: 300
     tolerance: 50
-  - name: 奈飞节点
-    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
-    include-all: true
-    filter: (?i)NF|奈飞|解锁|Netflix|NETFLIX|Media
-    type: select
   - name: GLOBAL
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
     include-all: true
@@ -318,7 +322,6 @@ proxy-groups:
       - 台湾节点
       - 狮城节点
       - 韩国节点
-      - 奈飞节点
 
 rule-providers:
   LocalAreaNetwork:
@@ -503,13 +506,6 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  ProxyGFWlist:
-    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/ProxyGFWlist.list
-    path: ./ruleset/ProxyGFWlist.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   ChinaDomain:
     url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/ChinaDomain.list
     path: ./ruleset/ChinaDomain.list
@@ -559,9 +555,36 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,ChinaMedia,国内媒体"
   - "RULE-SET,ProxyMedia,国外媒体"
-  - "RULE-SET,ProxyGFWlist,节点选择"
   - "RULE-SET,ChinaDomain,全球直连"
   - "RULE-SET,ChinaCompanyIp,全球直连"
   - "RULE-SET,Download,全球直连"
+  - "GEOSITE,CN,全球直连"
   - "GEOIP,CN,全球直连"
   - "MATCH,漏网之鱼"
+
+dns:
+  enable: true
+  ipv6: false
+  prefer-h3: true
+  use-system-hosts: true
+  nameserver:
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.sb/dns-query
+    - https://dns.google/dns-query
+    - https://public.dns.iij.jp/dns-query
+    - https://jp.tiar.app/dns-query
+    - https://jp.tiarap.org/dns-query
+  nameserver-policy:
+    geosite:cn:
+      - tls://dot.onedns.net
+      - tls://dot.pub
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+    - tls://101.101.101.101
+  proxy-server-nameserver:
+    - tls://223.5.5.5
+    - https://doh.pub/dns-query
+  direct-nameserver:
+    - tls://dot.onedns.net
+    - tls://dot.pub
