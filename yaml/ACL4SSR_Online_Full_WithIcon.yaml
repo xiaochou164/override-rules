@@ -567,13 +567,13 @@ rule-providers:
     interval: 43200
     url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt
     path: ./sukkaw_ruleset/microsoft_cdn_non_ip.txt
-  neteasemusic_non_ip:
+  ai_non_ip:
     type: http
     behavior: classical
     format: text
     interval: 43200
-    url: https://ruleset.skk.moe/Clash/non_ip/neteasemusic.txt
-    path: ./sukkaw_ruleset/neteasemusic_non_ip.txt
+    url: https://ruleset.skk.moe/Clash/non_ip/ai.txt
+    path: ./sukkaw_ruleset/ai_non_ip.txt
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -596,7 +596,7 @@ rules:
   - "RULE-SET,OneDrive,微软云盘"
   - "RULE-SET,Microsoft,微软服务"
   - "RULE-SET,Telegram,电报消息"
-  - "RULE-SET,OpenAi,人工智能"
+  - "RULE-SET,ai_non_ip,人工智能"
   - "RULE-SET,NetEaseMusic,网易音乐"
   - "RULE-SET,Epic,游戏平台"
   - "RULE-SET,Origin,游戏平台"
