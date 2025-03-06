@@ -4,7 +4,6 @@ proxy-groups:
     type: select
     proxies:
       - 自动选择
-      - 负载均衡
       - 香港节点
       - 台湾节点
       - 狮城节点
@@ -94,6 +93,14 @@ proxy-groups:
       - 全球直连
       - 台湾节点
       - 香港节点
+  - name: Truth Social
+    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png
+    type: select
+    proxies:
+      - 节点选择
+      - 美国节点
+      - 手动切换
+      - DIRECT
   - name: 国外媒体
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ForeignMedia.png
     type: select
@@ -238,15 +245,6 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-  - name: 负载均衡
-    type: load-balance
-    proxies:
-      - 狮城节点
-      - 香港节点
-      - 台湾节点
-      - 日本节点
-      - 美国节点
-      - 韩国节点
   - name: 香港节点
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
@@ -506,6 +504,13 @@ rule-providers:
     interval: 86400
     format: text
     type: http
+  TruthSocial:
+    url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list
+    path: ./ruleset/TruthSocial.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
   ChinaDomain:
     url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/ChinaDomain.list
     path: ./ruleset/ChinaDomain.list
@@ -555,6 +560,7 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,ChinaMedia,国内媒体"
   - "RULE-SET,ProxyMedia,国外媒体"
+  - "RULE-SET,TruthSocial,Truth Social"
   - "RULE-SET,ChinaDomain,全球直连"
   - "RULE-SET,ChinaCompanyIp,全球直连"
   - "RULE-SET,Download,全球直连"
