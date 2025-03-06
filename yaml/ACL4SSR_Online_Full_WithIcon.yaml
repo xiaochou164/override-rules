@@ -636,7 +636,7 @@ dns:
   enable: true
   ipv6: false
   prefer-h3: true
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
   use-system-hosts: true
   default-nameserver:
     - 119.28.28.28
