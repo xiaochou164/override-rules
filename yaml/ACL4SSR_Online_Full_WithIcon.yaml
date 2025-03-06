@@ -322,13 +322,6 @@ proxy-groups:
       - 韩国节点
 
 rule-providers:
-  LocalAreaNetwork:
-    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/LocalAreaNetwork.list
-    path: ./ruleset/LocalAreaNetwork.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   UnBan:
     url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/UnBan.list
     path: ./ruleset/UnBan.list
@@ -565,6 +558,7 @@ rules:
   - "RULE-SET,ChinaCompanyIp,全球直连"
   - "RULE-SET,Download,全球直连"
   - "GEOSITE,CN,全球直连"
+  - "GEOIP,LAN,DIRECT,no-resolve"
   - "GEOIP,CN,DIRECT,no-resolve"
   - "MATCH,漏网之鱼"
 
