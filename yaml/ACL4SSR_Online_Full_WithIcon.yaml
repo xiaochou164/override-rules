@@ -93,7 +93,7 @@ proxy-groups:
       - 全球直连
       - 台湾节点
       - 香港节点
-  - name: Truth Social
+  - name: 懂王社媒
     icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png
     type: select
     proxies:
@@ -560,7 +560,7 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,ChinaMedia,国内媒体"
   - "RULE-SET,ProxyMedia,国外媒体"
-  - "RULE-SET,TruthSocial,Truth Social"
+  - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,ChinaDomain,全球直连"
   - "RULE-SET,ChinaCompanyIp,全球直连"
   - "RULE-SET,Download,全球直连"
