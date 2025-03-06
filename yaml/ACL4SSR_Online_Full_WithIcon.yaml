@@ -100,7 +100,6 @@ proxy-groups:
       - 节点选择
       - 美国节点
       - 手动切换
-      - DIRECT
   - name: 国外媒体
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ForeignMedia.png
     type: select
