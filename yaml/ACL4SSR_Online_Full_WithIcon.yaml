@@ -592,6 +592,12 @@ dns:
     - 223.6.6.6
   nameserver:
     - system
+    - tls://dot.pub:853
+    - tls://dns.alidns.com:853
+    - tls://dns.cloudflare.com:853
+    - tls://dns.google:853
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   fallback:
     - "https://dns.cloudflare.com/dns-query"
     - "https://dns.sb/dns-query"
