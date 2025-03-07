@@ -211,7 +211,7 @@ proxy-groups:
       - 节点选择
       - 自动选择
   - name: 搜狗输入
-    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png
+    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png
     type: select
     proxies:
       - 全球直连
