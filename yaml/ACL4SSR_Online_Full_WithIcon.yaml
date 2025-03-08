@@ -21,7 +21,7 @@ proxy-groups:
     include-all: true
     interval: 300
     tolerance: 50  
-  - name: 电报消息
+  - name: Telegram
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
@@ -261,9 +261,14 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 美国节点
+      - 香港节点
+      - 台湾节点
+      - 狮城节点
+      - 日本节点
+      - 韩国节点
       - 手动切换
       - 全球直连
-      - REJECT
   - name: 全球直连
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png
     type: select
@@ -333,8 +338,8 @@ proxy-groups:
       - 节点选择
       - 手动切换
       - 自动选择
-      - 电报消息
       - 人工智能
+      - Telegram
       - Youtube
       - Netflix
       - TikTok
@@ -656,7 +661,7 @@ rules:
   - "RULE-SET,Bing,微软Bing"
   - "RULE-SET,OneDrive,OneDrive"
   - "RULE-SET,Microsoft,微软服务"
-  - "RULE-SET,Telegram,电报消息"
+  - "RULE-SET,Telegram,Telegram"
   - "RULE-SET,ai_non_ip,人工智能"
   - "RULE-SET,NetEaseMusic,网易音乐"
   - "RULE-SET,Epic,游戏平台"
