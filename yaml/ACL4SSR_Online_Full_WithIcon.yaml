@@ -91,7 +91,7 @@ proxy-groups:
       - 手动切换
       - 全球直连
   - name: E-Hentai
-    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/EHentai.png
+    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Ehentai.png
     type: select
     proxies:
       - 美国节点
