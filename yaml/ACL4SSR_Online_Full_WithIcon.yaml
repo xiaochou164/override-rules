@@ -77,6 +77,19 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: TikTok
+    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+    type: select
+    proxies:
+      - 节点选择
+      - 自动选择
+      - 狮城节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+      - 全球直连
   - name: 巴哈姆特
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png
     type: select
@@ -302,6 +315,7 @@ proxy-groups:
       - 人工智能
       - 油管视频
       - 奈飞视频
+      - TikTok
       - 巴哈姆特
       - 哔哩哔哩
       - 懂王社媒
@@ -585,6 +599,13 @@ rule-providers:
     format: text
     interval: 86400
     url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Academic.list
+  TikTok:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TikTok.list
+  
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -617,6 +638,7 @@ rules:
   - "RULE-SET,YouTube,油管视频"
   - "RULE-SET,Netflix,奈飞视频"
   - "RULE-SET,Bahamut,巴哈姆特"
+  - "RULE-SET,TikTok,TikTok"
   - "RULE-SET,BilibiliHMT,哔哩哔哩"
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,ChinaMedia,国内媒体"
