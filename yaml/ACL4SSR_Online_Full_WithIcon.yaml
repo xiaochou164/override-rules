@@ -49,7 +49,7 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
-  - name: Youtube
+  - name: YouTube
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     type: select
     proxies:
@@ -340,7 +340,7 @@ proxy-groups:
       - 自动选择
       - 人工智能
       - Telegram
-      - Youtube
+      - YouTube
       - Netflix
       - TikTok
       - E-Hentai
@@ -669,7 +669,7 @@ rules:
   - "RULE-SET,Sony,游戏平台"
   - "RULE-SET,Steam,游戏平台"
   - "RULE-SET,Nintendo,游戏平台"
-  - "RULE-SET,YouTube,Youtube"
+  - "RULE-SET,YouTube,YouTube"
   - "RULE-SET,Netflix,Netflix"
   - "RULE-SET,EHentai,E-Hentai"
   - "RULE-SET,Bahamut,巴哈姆特"
