@@ -49,7 +49,7 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
-  - name: 油管视频
+  - name: Youtube
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     type: select
     proxies:
@@ -63,7 +63,7 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
-  - name: 奈飞视频
+  - name: Netflix
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
     type: select
     proxies:
@@ -87,6 +87,20 @@ proxy-groups:
       - 台湾节点
       - 日本节点
       - 美国节点
+      - 韩国节点
+      - 手动切换
+      - 全球直连
+  - name: E-Hentai
+    icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/EHentai.png
+    type: select
+    proxies:
+      - 美国节点
+      - 节点选择
+      - 自动选择
+      - 狮城节点
+      - 香港节点
+      - 台湾节点
+      - 日本节点
       - 韩国节点
       - 手动切换
       - 全球直连
@@ -175,7 +189,7 @@ proxy-groups:
       - 日本节点
       - 韩国节点
       - 手动切换
-  - name: 微软云盘
+  - name: OneDrive
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/OneDrive.png
     type: select
     proxies:
@@ -205,8 +219,8 @@ proxy-groups:
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png
     type: select
     proxies:
-      - 全球直连
       - 节点选择
+      - 全球直连
       - 美国节点
       - 香港节点
       - 台湾节点
@@ -240,6 +254,14 @@ proxy-groups:
     icon: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png
     type: select
     proxies:
+      - 全球直连
+      - REJECT
+  - name: 静态资源
+    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
+    type: select
+    proxies:
+      - 节点选择
+      - 手动切换
       - 全球直连
       - REJECT
   - name: 全球直连
@@ -313,9 +335,10 @@ proxy-groups:
       - 自动选择
       - 电报消息
       - 人工智能
-      - 油管视频
-      - 奈飞视频
+      - Youtube
+      - Netflix
       - TikTok
+      - E-Hentai
       - 巴哈姆特
       - 哔哩哔哩
       - 懂王社媒
@@ -324,12 +347,13 @@ proxy-groups:
       - 学术资源
       - 谷歌FCM
       - 微软Bing
-      - 微软云盘
+      - OneDrive
       - 微软服务
       - 苹果服务
       - 游戏平台
       - 网易音乐
       - 搜狗输入
+      - 静态资源
       - 全球直连
       - 广告拦截
       - 漏网之鱼
@@ -605,7 +629,12 @@ rule-providers:
     format: text
     interval: 86400
     url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TikTok.list
-  
+  EHentai:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -615,8 +644,8 @@ rules:
   - "RULE-SET,sogouinput,搜狗输入"
   - "RULE-SET,Academic,学术资源"
   - "RULE-SET,apple_cdn,全球直连"
-  - "RULE-SET,cdn_domainset,节点选择"
-  - "RULE-SET,cdn_non_ip,节点选择"
+  - "RULE-SET,cdn_domainset,静态资源"
+  - "RULE-SET,cdn_non_ip,静态资源"
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,GoogleFCM,谷歌FCM"
   - "RULE-SET,GoogleCN,全球直连"
@@ -625,7 +654,7 @@ rules:
   - "RULE-SET,Apple,苹果服务"
   - "RULE-SET,apple_cdn,全球直连"
   - "RULE-SET,Bing,微软Bing"
-  - "RULE-SET,OneDrive,微软云盘"
+  - "RULE-SET,OneDrive,OneDrive"
   - "RULE-SET,Microsoft,微软服务"
   - "RULE-SET,Telegram,电报消息"
   - "RULE-SET,ai_non_ip,人工智能"
@@ -635,8 +664,9 @@ rules:
   - "RULE-SET,Sony,游戏平台"
   - "RULE-SET,Steam,游戏平台"
   - "RULE-SET,Nintendo,游戏平台"
-  - "RULE-SET,YouTube,油管视频"
-  - "RULE-SET,Netflix,奈飞视频"
+  - "RULE-SET,YouTube,Youtube"
+  - "RULE-SET,Netflix,Netflix"
+  - "RULE-SET,EHentai,E-Hentai"
   - "RULE-SET,Bahamut,巴哈姆特"
   - "RULE-SET,TikTok,TikTok"
   - "RULE-SET,BilibiliHMT,哔哩哔哩"
