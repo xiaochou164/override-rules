@@ -351,20 +351,6 @@ rule-providers:
     interval: 86400
     url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt
     path: ./sukkaw_ruleset/microsoft_non_ip.txt
-  AppleCN:
-    type: http
-    behavior: classical
-    format: text
-    interval: 86400
-    url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt
-    path: ./sukkaw_ruleset/apple_cn_non_ip.txt
-  Telegram:
-    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Telegram.list
-    path: ./ruleset/Telegram.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   NetEaseMusic:
     url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/NetEaseMusic.list
     path: ./ruleset/NetEaseMusic.list
@@ -557,13 +543,11 @@ rules:
   - "RULE-SET,GoogleFCM,谷歌FCM"
   - "RULE-SET,GoogleCN,全球直连"
   - "RULE-SET,SteamCN,全球直连"
-  - "RULE-SET,AppleCN,全球直连"
   - "RULE-SET,apple_cdn,全球直连"
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,ai_non_ip,人工智能"
   - "RULE-SET,Bing,微软Bing"
   - "RULE-SET,Microsoft,微软服务"
-  - "RULE-SET,Telegram,Telegram"
   - "RULE-SET,NetEaseMusic,网易音乐"
   - "RULE-SET,Epic,游戏平台"
   - "RULE-SET,Origin,游戏平台"
@@ -579,10 +563,14 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,Download,全球直连"
+  - "GEOSITE,APPLE-CN,全球直连"
+  - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GFW,节点选择"
   - "GEOSITE,CN,全球直连"
-  - "GEOIP,LAN,DIRECT,no-resolve"
-  - "GEOIP,CN,DIRECT,no-resolve"
+  - "GEOSITE,LAN,全球直连"
+  - "GEOIP,TELEGRAM,Telegram"
+  - "GEOIP,CN,全球直连,no-resolve"
+  - "GEOIP,LAN,全球直连,no-resolve"
   - "MATCH,漏网之鱼"
 
 sniffer:
