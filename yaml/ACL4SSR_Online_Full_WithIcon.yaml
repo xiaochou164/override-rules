@@ -567,7 +567,6 @@ rules:
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GFW,节点选择"
   - "GEOSITE,CN,全球直连"
-  - "GEOSITE,LAN,全球直连"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
   - "GEOIP,LAN,全球直连,no-resolve"
