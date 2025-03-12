@@ -581,6 +581,7 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,Download,全球直连"
+  - "GEOSITE,GOOGLE-PLAY@CN,Play商店修复"
   - "RULE-SET,GooglePlayFix,Play商店修复"
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GFW,节点选择"
