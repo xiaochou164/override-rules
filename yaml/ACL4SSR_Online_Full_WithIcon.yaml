@@ -35,6 +35,20 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: 加密货币
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png
+    type: select
+    proxies:
+      - 节点选择
+      - 自动选择
+      - 狮城节点
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+      - 全球直连
   - name: Telegram
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
@@ -282,6 +296,7 @@ proxy-groups:
       - 手动切换
       - 自动选择
       - 人工智能
+      - 加密货币
       - Telegram
       - YouTube
       - Netflix
@@ -504,24 +519,35 @@ rule-providers:
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Academic.list
+    path: ./ruleset/Academic.list
   TikTok:
     type: http
     behavior: classical
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TikTok.list
+    path: ./ruleset/TikTok.list
   EHentai:
     type: http
     behavior: classical
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
+    path: ./ruleset/EHentai.list
   GooglePlayFix:
     type: http
     behavior: classical
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/GooglePlayFix.list
+    path: ./ruleset/GooglePlayFix.list
+  Crypto:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Crypto.list
+    path: ./ruleset/Crypto.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -535,6 +561,7 @@ rules:
   - "RULE-SET,apple_cdn,全球直连"
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,ai_non_ip,人工智能"
+  - "RULE-SET,Crypto,加密货币"
   - "RULE-SET,Bing,微软Bing"
   - "RULE-SET,GoogleCN,全球直连"
   - "RULE-SET,Microsoft,微软服务"
