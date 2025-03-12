@@ -139,19 +139,6 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-  - name: 谷歌FCM
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
-    type: select
-    proxies:
-      - 全球直连
-      - 节点选择
-      - 美国节点
-      - 香港节点
-      - 台湾节点
-      - 狮城节点
-      - 日本节点
-      - 韩国节点
-      - 手动切换
   - name: 微软Bing
     icon: https://cdn.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/bing.png
     type: select
@@ -226,12 +213,6 @@ proxy-groups:
       - DIRECT
       - 节点选择
       - 自动选择
-  - name: 误杀修复
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdWhite.png
-    type: select
-    proxies:
-      - 节点选择
-      - 全球直连
   - name: 广告拦截
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png
     type: select
@@ -313,7 +294,6 @@ proxy-groups:
       - 静态资源
       - 全球直连
       - 广告拦截
-      - 误杀修复
       - 漏网之鱼
       - 香港节点
       - 日本节点
@@ -323,20 +303,6 @@ proxy-groups:
       - 韩国节点
 
 rule-providers:
-  GoogleFCM:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/GoogleFCM.list
-    path: ./ruleset/GoogleFCM.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  GoogleCN:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/GoogleCN.list
-    path: ./ruleset/GoogleCN.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   SteamCN:
     url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/SteamCN.list
     path: ./ruleset/SteamCN.list
@@ -537,15 +503,8 @@ rule-providers:
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
-  FalsePositive:
-    type: http
-    behavior: classical
-    format: text
-    interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/FalsePositive.list
 
 rules:
-  - "RULE-SET,FalsePositive,误杀修复"
   - "RULE-SET,reject_non_ip,广告拦截"
   - "RULE-SET,reject_domainset,广告拦截"
   - "RULE-SET,reject_non_ip_drop,REJECT-DROP"
@@ -554,9 +513,6 @@ rules:
   - "RULE-SET,Academic,学术资源"
   - "RULE-SET,cdn_domainset,静态资源"
   - "RULE-SET,cdn_non_ip,静态资源"
-  - "RULE-SET,GoogleFCM,谷歌FCM"
-  - "RULE-SET,GoogleCN,全球直连"
-  - "RULE-SET,SteamCN,全球直连"
   - "RULE-SET,apple_cdn,全球直连"
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,ai_non_ip,人工智能"
@@ -566,6 +522,7 @@ rules:
   - "RULE-SET,Epic,游戏平台"
   - "RULE-SET,Origin,游戏平台"
   - "RULE-SET,Sony,游戏平台"
+  - "RULE-SET,SteamCN,全球直连"
   - "RULE-SET,Steam,游戏平台"
   - "RULE-SET,Nintendo,游戏平台"
   - "RULE-SET,YouTube,YouTube"
@@ -577,7 +534,6 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,Download,全球直连"
-  - "GEOSITE,APPLE-CN,全球直连"
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GFW,节点选择"
   - "GEOSITE,CN,全球直连"
