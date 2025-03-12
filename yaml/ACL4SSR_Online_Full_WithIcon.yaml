@@ -540,7 +540,7 @@ rule-providers:
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/PlayStoreFix.list
-    path: ./ruleset/GooglePlayFix.list
+    path: ./ruleset/PlayStoreFix.list
   Crypto:
     type: http
     behavior: classical
