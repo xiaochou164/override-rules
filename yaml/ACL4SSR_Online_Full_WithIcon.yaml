@@ -206,6 +206,12 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: Play商店修复
+    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png
+    type: select
+    proxies:
+      - 全球直连
+      - 节点选择
   - name: 全球直连
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png
     type: select
@@ -291,6 +297,7 @@ proxy-groups:
       - 网易音乐
       - 搜狗输入
       - 静态资源
+      - Play商店修复
       - 全球直连
       - 广告拦截
       - 漏网之鱼
@@ -509,6 +516,12 @@ rule-providers:
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
+  GooglePlayFix:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/GooglePlayFix.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -523,7 +536,7 @@ rules:
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,ai_non_ip,人工智能"
   - "RULE-SET,Bing,微软Bing"
-  - "RULE-SET,GoogleCN,节点选择"
+  - "RULE-SET,GoogleCN,全球直连"
   - "RULE-SET,Microsoft,微软服务"
   - "RULE-SET,NetEaseMusic,网易音乐"
   - "RULE-SET,Epic,游戏平台"
@@ -541,6 +554,7 @@ rules:
   - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,Download,全球直连"
+  - "RULE-SET,GooglePlayFix,Play商店修复"
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GFW,节点选择"
   - "GEOSITE,CN,全球直连"
