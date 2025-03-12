@@ -226,6 +226,12 @@ proxy-groups:
       - DIRECT
       - 节点选择
       - 自动选择
+  - name: 误杀修复
+    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdWhite.png
+    type: select
+    proxies:
+      - 节点选择
+      - 全球直连
   - name: 广告拦截
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png
     type: select
@@ -530,8 +536,15 @@ rule-providers:
     format: text
     interval: 86400
     url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
+  FalsePositive:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    url: https://testingcf.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/FalsePositive.list
 
 rules:
+  - "RULE-SET,FalsePositive,误杀修复"
   - "RULE-SET,reject_non_ip,广告拦截"
   - "RULE-SET,reject_domainset,广告拦截"
   - "RULE-SET,reject_non_ip_drop,REJECT-DROP"
