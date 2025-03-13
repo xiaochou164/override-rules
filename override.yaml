@@ -20,7 +20,7 @@ proxy-groups:
     type: url-test
     include-all: true
     interval: 300
-    tolerance: 50  
+    tolerance: 50
   - name: 人工智能
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
@@ -530,15 +530,15 @@ rules:
 
 sniffer:
   sniff:
-    TLS: {ports: [1-65535], override-destination: true}
-    HTTP: {ports: [1-65535], override-destination: true}
-    QUIC: {ports: [1-65535], override-destination: true}
+    TLS: { ports: [1-65535], override-destination: true }
+    HTTP: { ports: [1-65535], override-destination: true }
+    QUIC: { ports: [1-65535], override-destination: true }
   enable: true
   parse-pure-ip: true
   force-dns-mapping: true
   skip-domain:
-    - Mijia Cloud
-    - dlg.io.mi.com
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
 
 dns:
   enable: true
@@ -547,18 +547,18 @@ dns:
   enhanced-mode: fake-ip
   use-system-hosts: true
   default-nameserver:
-    - 119.28.28.28
-    - 119.29.29.29
-    - 223.5.5.5
-    - 223.6.6.6
+    - "119.28.28.28"
+    - "119.29.29.29"
+    - "223.5.5.5"
+    - "223.6.6.6"
   nameserver:
-    - system
-    - tls://dot.pub:853
-    - tls://dns.alidns.com:853
-    - tls://dns.cloudflare.com:853
-    - tls://dns.google:853
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+    - "system"
+    - "tls://dot.pub:853"
+    - "tls://dns.alidns.com:853"
+    - "tls://dns.cloudflare.com:853"
+    - "tls://dns.google:853"
+    - "https://doh.pub/dns-query"
+    - "https://dns.alidns.com/dns-query"
   fallback:
     - "https://dns.cloudflare.com/dns-query"
     - "https://dns.sb/dns-query"
@@ -572,7 +572,7 @@ dns:
 
 geodata-mode: true
 geox-url:
-  geoip: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
-  geosite: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat
-  mmdb: https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb
-  asn: https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb
+  geoip: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb"
+  asn: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
