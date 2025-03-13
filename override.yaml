@@ -179,19 +179,6 @@ proxy-groups:
       - 日本节点
       - 韩国节点
       - 手动切换
-  - name: 游戏平台
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Game.png
-    type: select
-    proxies:
-      - 全球直连
-      - 节点选择
-      - 美国节点
-      - 香港节点
-      - 台湾节点
-      - 狮城节点
-      - 日本节点
-      - 韩国节点
-      - 手动切换
   - name: 搜狗输入
     icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png
     type: select
@@ -299,7 +286,6 @@ proxy-groups:
       - 学术资源
       - 微软Bing
       - 微软服务
-      - 游戏平台
       - 搜狗输入
       - 静态资源
       - Play商店修复
@@ -317,13 +303,6 @@ rule-providers:
   GoogleCN:
     url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/GoogleCN.list
     path: ./ruleset/GoogleCN.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  SteamCN:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/SteamCN.list
-    path: ./ruleset/SteamCN.list
     behavior: classical
     interval: 86400
     format: text
@@ -509,12 +488,11 @@ rules:
   - "RULE-SET,PlayStoreFix,Play商店修复"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
   - "GEOSITE,CATEGORY-GAMES@CN,全球直连"
-  - "GEOSITE,CATEGORY-GAMES,游戏平台"
   - "GEOSITE,CATEGORY-SCHOLAR-!CN,学术资源"
   - "GEOSITE,CATEGORY-SCHOLAR-CN,全球直连"
   - "GEOSITE,CATEGORY-CRYPTOCURRENCY,加密货币"
   - "GEOSITE,TELEGRAM,Telegram"
-  - "GEOSITE,GFW,节点选择"
+  - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
