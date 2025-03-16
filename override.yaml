@@ -166,19 +166,6 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-  - name: 微软Bing
-    icon: https://cdn.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/bing.png
-    type: select
-    proxies:
-      - 节点选择
-      - 全球直连
-      - 美国节点
-      - 香港节点
-      - 台湾节点
-      - 狮城节点
-      - 日本节点
-      - 韩国节点
-      - 手动切换
   - name: 微软服务
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png
     type: select
@@ -304,7 +291,6 @@ proxy-groups:
       - 懂王社媒
       - 学术资源
       - 游戏平台
-      - 微软Bing
       - 微软服务
       - 搜狗输入
       - 静态资源
@@ -321,20 +307,6 @@ proxy-groups:
       - 韩国节点
 
 rule-providers:
-  GoogleCN:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/GoogleCN.list
-    path: ./ruleset/GoogleCN.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  Bing:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Bing.list
-    path: ./ruleset/Bing.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   Microsoft:
     type: http
     behavior: classical
@@ -342,41 +314,6 @@ rule-providers:
     interval: 86400
     url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt
     path: ./sukkaw_ruleset/microsoft_non_ip.txt
-  YouTube:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/YouTube.list
-    path: ./ruleset/YouTube.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  Netflix:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/Netflix.list
-    path: ./ruleset/Netflix.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  Bahamut:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/Bahamut.list
-    path: ./ruleset/Bahamut.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  BilibiliHMT:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/BilibiliHMT.list
-    path: ./ruleset/BilibiliHMT.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-  Bilibili:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Ruleset/Bilibili.list
-    path: ./ruleset/Bilibili.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   TruthSocial:
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list
     path: ./ruleset/TruthSocial.list
@@ -500,21 +437,19 @@ rules:
   - "RULE-SET,apple_cdn,全球直连"
   - "RULE-SET,microsoft_cdn_non_ip,全球直连"
   - "RULE-SET,ai_non_ip,人工智能"
-  - "RULE-SET,Bing,微软Bing"
-  - "RULE-SET,GoogleCN,全球直连"
   - "RULE-SET,Microsoft,微软服务"
-  - "RULE-SET,YouTube,YouTube"
-  - "RULE-SET,Netflix,Netflix"
   - "RULE-SET,EHentai,E-Hentai"
-  - "RULE-SET,Bahamut,巴哈姆特"
   - "RULE-SET,TikTok,TikTok"
-  - "RULE-SET,BilibiliHMT,哔哩哔哩"
-  - "RULE-SET,Bilibili,哔哩哔哩"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,Download,全球直连"
   - "RULE-SET,SteamFix,Steam修复"
   - "RULE-SET,PlayStoreFix,Play商店修复"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
+  - "GEOSITE,YOUTUBE@CN,全球直连"
+  - "GEOSITE,YOUTUBE,YouTube"
+  - "GEOSITE,NETFLIX,Netflix"
+  - "GEOSITE,BAHAMUT,巴哈姆特"  
+  - "GEOSITE,BILIBILI,哔哩哔哩"
   - "GEOSITE,CATEGORY-GAMES@CN,全球直连"
   - "GEOSITE,CATEGORY-GAMES,游戏平台"
   - "GEOSITE,CATEGORY-SCHOLAR-!CN,学术资源"
@@ -523,6 +458,8 @@ rules:
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
+  - "GEOSITE,PRIVATE,全球直连"
+  - "GEOIP,NETFLIX,Netflix,no-resolve"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
   - "GEOIP,LAN,全球直连,no-resolve"
