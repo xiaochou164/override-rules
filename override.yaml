@@ -467,15 +467,23 @@ rules:
 
 sniffer:
   sniff:
-    TLS: { ports: [1-65535], override-destination: true }
-    HTTP: { ports: [1-65535], override-destination: true }
-    QUIC: { ports: [1-65535], override-destination: true }
+    TLS:
+      ports: [443, 8443]
+      override-destination: true
+    HTTP:
+      ports: [80, 8080, 8880]
+      override-destination: false
+    QUIC:
+      ports: [443, 8443]
+      override-destination: true
   enable: true
   parse-pure-ip: true
   force-dns-mapping: true
   skip-domain:
     - "Mijia Cloud"
     - "dlg.io.mi.com"
+    - "+.push.apple.com"
+
 
 dns:
   enable: true
@@ -483,6 +491,11 @@ dns:
   prefer-h3: true
   enhanced-mode: fake-ip
   use-system-hosts: true
+  fake-ip-filter:
+    - "*"
+    - "+.lan"
+    - "+.local"
+    - "+.market.xiaomi.com"
   default-nameserver:
     - "119.28.28.28"
     - "119.29.29.29"
