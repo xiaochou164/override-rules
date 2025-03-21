@@ -321,13 +321,6 @@ rule-providers:
     interval: 86400
     format: text
     type: http
-  Download:
-    url: https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Download.list
-    path: ./ruleset/Download.list
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
   reject_non_ip_no_drop:
     type: http
     behavior: classical
@@ -441,7 +434,6 @@ rules:
   - "RULE-SET,EHentai,E-Hentai"
   - "RULE-SET,TikTok,TikTok"
   - "RULE-SET,TruthSocial,懂王社媒"
-  - "RULE-SET,Download,全球直连"
   - "RULE-SET,SteamFix,Steam修复"
   - "RULE-SET,PlayStoreFix,Play商店修复"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
