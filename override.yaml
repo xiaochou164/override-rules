@@ -119,6 +119,17 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: PikPak
+    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/PikPak.png
+    type: select
+    proxies:
+      - 香港节点
+      - 狮城节点
+      - 美国节点
+      - 台湾节点
+      - 日本节点
+      - 韩国节点
+      - 全球直连
   - name: 巴哈姆特
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png
     type: select
@@ -305,6 +316,7 @@ proxy-groups:
       - Netflix
       - TikTok
       - E-Hentai
+      - PikPak
       - 巴哈姆特
       - 哔哩哔哩
       - 懂王社媒
@@ -468,6 +480,7 @@ rules:
   - "GEOSITE,CATEGORY-SCHOLAR-CN,全球直连"
   - "GEOSITE,CATEGORY-CRYPTOCURRENCY,加密货币"
   - "GEOSITE,TELEGRAM,Telegram"
+  - "GEOSITE,PIKPAK,PikPak"
   - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
   - "GEOSITE,PRIVATE,全球直连"
