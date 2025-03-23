@@ -514,13 +514,8 @@ dns:
   enable: true
   ipv6: true
   prefer-h3: true
-  enhanced-mode: fake-ip
+  enhanced-mode: redir-host
   use-system-hosts: true
-  fake-ip-filter:
-    - "*"
-    - "+.lan"
-    - "+.local"
-    - "+.market.xiaomi.com"
   default-nameserver:
     - "119.28.28.28"
     - "119.29.29.29"
@@ -528,10 +523,9 @@ dns:
     - "223.6.6.6"
   nameserver:
     - "system"
+    - "quic://223.5.5.5"
     - "tls://dot.pub:853"
     - "tls://dns.alidns.com:853"
-    - "tls://dns.cloudflare.com:853"
-    - "tls://dns.google:853"
     - "https://doh.pub/dns-query"
     - "https://dns.alidns.com/dns-query"
   fallback:
@@ -542,6 +536,7 @@ dns:
     - "https://jp.tiar.app/dns-query"
     - "https://jp.tiarap.org/dns-query"
   proxy-server-nameserver:
+    - "quic://223.5.5.5"
     - "tls://dot.pub"
     - "https://223.5.5.5/dns-query"
 
