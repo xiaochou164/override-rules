@@ -20,7 +20,7 @@ proxy-groups:
     type: url-test
     include-all: true
     interval: 300
-
+    tolerance: 20
     lazy: false
   - name: 人工智能
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
