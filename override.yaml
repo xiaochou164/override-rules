@@ -210,6 +210,12 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: FCM 推送
+    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
+    type: select
+    proxies:
+      - 全球直连
+      - 节点选择
   - name: Steam修复
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Steam.png
     type: select
@@ -325,6 +331,7 @@ proxy-groups:
       - 微软服务
       - 搜狗输入
       - 静态资源
+      - FCM 推送
       - Steam修复
       - Play商店修复
       - 全球直连
@@ -468,6 +475,7 @@ rules:
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,SteamFix,Steam修复"
   - "RULE-SET,PlayStoreFix,Play商店修复"
+  - "GEOSITE,GOOGLEFCM,FCM 推送"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
   - "GEOSITE,YOUTUBE@CN,全球直连"
   - "GEOSITE,YOUTUBE,YouTube"
