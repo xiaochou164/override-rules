@@ -457,6 +457,14 @@ rule-providers:
     format: text
     interval: 86400
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/SteamFix.list
+    path: ./ruleset/SteamFix.list
+  GoogleFCM:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: text
+    path: ./ruleset/GoogleFCM.list
+    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/GoogleFCM.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -475,6 +483,7 @@ rules:
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,SteamFix,Steam修复"
   - "RULE-SET,PlayStoreFix,Play商店修复"
+  - "RULE-SET,GoogleFCM,FCM 推送"
   - "GEOSITE,GOOGLEFCM,FCM 推送"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
   - "GEOSITE,YOUTUBE@CN,全球直连"
