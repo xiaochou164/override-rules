@@ -463,8 +463,8 @@ rule-providers:
     behavior: classical
     interval: 86400
     format: text
-    path: ./ruleset/GoogleFCM.list
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/GoogleFCM.list
+    path: ./ruleset/FirebaseCloudMessaging.list
+    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/FirebaseCloudMessaging.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
@@ -526,7 +526,6 @@ sniffer:
     - "dlg.io.mi.com"
     - "+.push.apple.com"
 
-
 dns:
   enable: true
   ipv6: true
@@ -556,18 +555,6 @@ dns:
     - "quic://223.5.5.5"
     - "tls://dot.pub"
     - "https://223.5.5.5/dns-query"
-
-
-tun:
-  enable: true
-  stack: system
-  auto-route: true
-  auto-redirect: true
-  auto-detect-interface: true
-  dns-hijack:
-    - any:53
-    - tcp://any:53
-  strict-route: true
 
 geodata-mode: true
 geox-url:
