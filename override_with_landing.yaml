@@ -10,6 +10,7 @@ proxy-groups:
       - 日本节点
       - 美国节点
       - 韩国节点
+      - 落地节点
       - 手动切换
   - name: 手动切换
     icon: https://cdn.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
@@ -260,11 +261,16 @@ proxy-groups:
       - 韩国节点
       - 节点选择
   - name: 前置代理
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Magic.png
     type: select
     include-all: true
     proxies:
       - DIRECT
+  - name: 落地节点
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png
+    include-all: true
+    filter: (?i)落地|家宽|商宽
+    type: select
   - name: 香港节点
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
@@ -278,6 +284,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
     filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
@@ -286,6 +293,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
     filter: (?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
@@ -294,6 +302,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     filter: (?i)台|新北|彰化|TW|Taiwan
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
@@ -302,6 +311,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
     filter: (?i)新加坡|坡|狮城|SG|Singapore
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
@@ -310,6 +320,7 @@ proxy-groups:
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png
     include-all: true
     filter: (?i)KR|Korea|KOR|首尔|韩|韓
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
@@ -346,6 +357,7 @@ proxy-groups:
       - 漏网之鱼
       - 故障转移
       - 前置代理
+      - 落地节点
       - 香港节点
       - 日本节点
       - 美国节点
