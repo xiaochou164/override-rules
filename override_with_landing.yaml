@@ -260,7 +260,7 @@ proxy-groups:
       - 韩国节点
       - 节点选择
   - name: 前置代理
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png
     type: select
     include-all: true
     proxies:
