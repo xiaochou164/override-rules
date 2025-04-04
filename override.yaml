@@ -64,6 +64,20 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
+  - name: Google
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 狮城节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 落地节点
+      - 手动切换
+      - 全球直连
   - name: YouTube
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     type: select
@@ -318,6 +332,7 @@ proxy-groups:
       - 人工智能
       - 加密货币
       - Telegram
+      - Google
       - YouTube
       - Netflix
       - TikTok
@@ -485,6 +500,7 @@ rules:
   - "RULE-SET,GoogleFCM,FCM 推送"
   - "GEOSITE,GOOGLEFCM,FCM 推送"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
+  - "GEOSITE,GOOGLE,Google"
   - "GEOSITE,YOUTUBE@CN,全球直连"
   - "GEOSITE,YOUTUBE,YouTube"
   - "GEOSITE,NETFLIX,Netflix"
