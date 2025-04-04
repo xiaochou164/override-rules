@@ -259,17 +259,17 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 节点选择
-  - name: 落地资源
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png
+  - name: 前置代理
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     include-all: true
-    filter: (?i)落地|家宽|商宽|DIRECT
     proxies:
       - DIRECT
   - name: 香港节点
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
     filter: (?i)港|HK|hk|Hong Kong|HongKong|hongkong
+    exclude-filter: (?i)家宽|商宽|落地
     type: url-test
     interval: 300
     tolerance: 20
