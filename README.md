@@ -47,3 +47,18 @@
 **Play 商店修复**：这代理组用于修复 Google Play 下载应用时的「等待中…」问题，如果使用默认的「全球直连」问题依旧，则将其切换到「节点选择」即可。
 
 **Steam 修复**： 这代理组用于让 Steam 客户端调用国内 CDN 及 P2P 网络下载，节省大量流量。如果需要代理 Steam 所有的下载请求，将其设置为「节点选择」即可。
+
+### 关于链式代理的说明
+
+若有链式代理需求，可以使用`override_with_landing.yaml`和`override_loadbalance_landing.yaml`。这两个配置文件新增了「落地资源」和「前置代理」两个代理组，其中「落地资源」代理组会自动匹配名称包含「家宽」、「商宽」和「落地」的节点，并且其他诸如「香港节点」的代理组会自动剔除落地节点。需要被链式代理的落地节点配置需要将`dialer-proxy`字段设置为「前置代理」，以下是一个例子：
+
+```yaml
+proxies:
+  - name: '香港 HGC NAT 商宽落地'
+    type: ss
+    server: example.com
+    port: 6666
+    cipher: aes-256-gcm
+    password: goodpassword
+    dialer-proxy: "前置代理"
+```
