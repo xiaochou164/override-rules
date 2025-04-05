@@ -75,7 +75,6 @@ proxy-groups:
       - 日本节点
       - 美国节点
       - 韩国节点
-      - 落地节点
       - 手动切换
       - 全球直连
   - name: YouTube
