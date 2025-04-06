@@ -547,6 +547,7 @@ rules:
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
   - "GEOIP,LAN,全球直连,no-resolve"
+  - "GEOIP,PRIVATE,全球直连,no-resolve"
   - "MATCH,漏网之鱼"
 
 sniffer:
