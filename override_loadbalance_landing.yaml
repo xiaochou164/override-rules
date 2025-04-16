@@ -1,7 +1,3 @@
-port: 7890
-socks-port: 7891
-redir-port: 7892
-tproxy-port: 7893
 proxy-groups:
   - name: 节点选择
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
@@ -547,6 +543,7 @@ rules:
   - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
   - "GEOSITE,PRIVATE,全球直连"
+  - "GEOIP,GOOGLE,Google,no-resolve"
   - "GEOIP,NETFLIX,Netflix,no-resolve"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"

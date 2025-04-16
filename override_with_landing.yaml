@@ -543,6 +543,7 @@ rules:
   - "GEOSITE,CN,全球直连"
   - "GEOSITE,PRIVATE,全球直连"
   - "GEOIP,NETFLIX,Netflix,no-resolve"
+  - "GEOIP,GOOGLE,Google,no-resolve"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
   - "GEOIP,LAN,全球直连,no-resolve"

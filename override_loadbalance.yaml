@@ -515,6 +515,7 @@ rules:
   - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
   - "GEOSITE,PRIVATE,全球直连"
+  - "GEOIP,GOOGLE,Google,no-resolve"
   - "GEOIP,NETFLIX,Netflix,no-resolve"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
   - "GEOIP,CN,全球直连,no-resolve"
