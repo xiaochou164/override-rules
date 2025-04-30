@@ -225,7 +225,7 @@ proxy-groups:
       - 韩国节点
       - 手动切换
       - 全球直连
-  - name: FCM 推送
+  - name: FCM推送
     icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
@@ -370,7 +370,7 @@ proxy-groups:
       - 微软服务
       - 搜狗输入
       - 静态资源
-      - FCM 推送
+      - FCM推送
       - Steam修复
       - Play商店修复
       - 全球直连
@@ -523,8 +523,8 @@ rules:
   - "RULE-SET,TikTok,TikTok"
   - "RULE-SET,SteamFix,Steam修复"
   - "RULE-SET,PlayStoreFix,Play商店修复"
-  - "RULE-SET,GoogleFCM,FCM 推送"
-  - "GEOSITE,GOOGLEFCM,FCM 推送"
+  - "RULE-SET,GoogleFCM,FCM推送"
+  - "GEOSITE,GOOGLEFCM,FCM推送"
   - "GEOSITE,GOOGLE-PLAY@CN,全球直连"
   - "GEOSITE,GOOGLE,Google"
   - "GEOSITE,YOUTUBE@CN,全球直连"
