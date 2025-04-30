@@ -505,12 +505,20 @@ rule-providers:
     format: text
     path: ./ruleset/FirebaseCloudMessaging.list
     url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/FirebaseCloudMessaging.list
+  AdditionalFilter:
+    type: http
+    behavior: classical
+    format: text
+    interval: 86400
+    path: ./ruleset/AdditionalFilter.list
+    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list
 
 rules:
   - "RULE-SET,reject_non_ip,广告拦截"
   - "RULE-SET,reject_domainset,广告拦截"
   - "RULE-SET,reject_non_ip_drop,REJECT-DROP"
   - "RULE-SET,reject_non_ip_no_drop,广告拦截"
+  - "RULE-SET,AdditionalFilter,广告拦截"
   - "RULE-SET,sogouinput,搜狗输入"
   - "RULE-SET,TruthSocial,懂王社媒"
   - "RULE-SET,cdn_domainset,静态资源"
