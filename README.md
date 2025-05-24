@@ -1,6 +1,6 @@
 ## powerfullz 的覆写规则仓库
 
-此处存放我用于 Mihomo 内核的覆写规则，基于 [mihomo-party-org/override-hub](https://github.com/mihomo-party-org/override-hub) 内的 ACL4SSR 规则修改而来，相较于原规则做出如下改进：
+此处存放我用于 Mihomo 内核的覆写规则，以 [mihomo-party-org/override-hub](https://github.com/mihomo-party-org/override-hub) 内的 ACL4SSR 规则为灵感，几乎完全重新编写，具有以下优点：
 
 - 集成 [SukkaW/Surge](https://github.com/SukkaW/Surge) 规则集，优化广告拦截、隐私保护及流量分流精度
 - 新增 Truth Social、E-Hentai、TikTok、加密货币等实用分流规则
