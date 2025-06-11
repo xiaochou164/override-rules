@@ -306,6 +306,7 @@ proxy-groups:
     type: select
     proxies:
       - 全球直连
+      - 游戏平台
       - 节点选择
   - name: Play商店修复
     icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png
