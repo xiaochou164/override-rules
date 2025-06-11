@@ -6,7 +6,7 @@
 - 新增 Truth Social、E-Hentai、TikTok、加密货币等实用分流规则
 - 移除冗余规则集
 - 引入 [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat) 完整版 GeoSite/GeoIP 数据库
-- 针对 IP 规则添加 `no-resolve` 参数，尽可能减少不必要的 DNS 解析，避免 DNS 泄露。
+- 针对 IP 规则添加 `no-resolve` 参数，避免本地 DNS 解析，提升上网速度，无 DNS 泄露
 
 谨此声明：本覆写规则为本人自用，现特此公开分享于公共平台。在未有回馈意见的情况下，自然优先满足个人需求及修正自己发现的问题。如有高见，欢迎提 Issue/PR。
 
