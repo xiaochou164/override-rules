@@ -669,14 +669,15 @@ rules:
   - "GEOSITE,CATEGORY-CRYPTOCURRENCY,加密货币"
   - "GEOSITE,TELEGRAM,Telegram"
   - "GEOSITE,PIKPAK,PikPak"
+  - "GEOSITE,GEOLOCATION-!CN,节点选择"
   - "GEOSITE,CN,全球直连"
   - "GEOSITE,PRIVATE,全球直连"
   - "GEOIP,NETFLIX,Netflix,no-resolve"
   - "GEOIP,GOOGLE,Google,no-resolve"
   - "GEOIP,TELEGRAM,Telegram,no-resolve"
-  - "GEOIP,CN,全球直连,no-resolve"
   - "GEOIP,LAN,全球直连,no-resolve"
   - "GEOIP,PRIVATE,全球直连,no-resolve"
+  - "GEOIP,CN,全球直连"
   - "MATCH,漏网之鱼"
 
 sniffer:
