@@ -375,7 +375,7 @@ function handleLanding(group) {
             "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
             "type": "select",
             "include-all": true,
-            "filter": "(?i)家宽|家庭|商宽|落地",
+            "exclude-filter": "(?i)家宽|家庭|商宽|落地",
             "proxies": defaultSelector
         }
     ];
