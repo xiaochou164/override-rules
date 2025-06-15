@@ -545,6 +545,16 @@ function main(config) {
         ]
     };
 
+    //geox-url
+    if (!config["geox-url"]) config["geox-url"] = {};
+    config["geodata-mode"] = true;
+    config["geox-url"] = {
+        "geoip": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat",
+        "geosite": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat",
+        "mmdb": "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb",
+        "asn": "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
+    };
+
     return config;
 }
   
