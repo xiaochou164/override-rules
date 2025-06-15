@@ -12,16 +12,17 @@ const defaultProxies = [
     "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
     "澳洲节点", "欧盟节点", "非洲节点", "自动选择", "手动切换", "全球直连"
 ];
+const defaultSelector = [
+    "自动选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
+    "澳洲节点", "欧盟节点", "非洲节点", "手动切换"
+];
 
 const proxyGroups = [
     {
         "name": "节点选择",
         "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
         "type": "select",
-        "proxies": [
-            "自动选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
-            "澳洲节点", "欧盟节点", "非洲节点", "手动切换"
-        ]
+        "proxies": defaultSelector
     },
     {
         "name": "手动切换",
@@ -375,10 +376,15 @@ function handleLanding(group) {
             "proxies": defaultProxies,
         }
     ];
-    const groupNames = ["落地节点", "前置代理"];
 
     group.splice(2, 0, ...landingGroups);
-    defaultProxies.splice(2, 0, ...groupNames);
+    
+    idx = defaultProxies.indexOf("自动选择");
+    defaultProxies.splice(idx, 0, "落地节点");
+
+    idx = defaultSelector.indexOf("手动切换");
+    defaultSelector.splice(idx - 1, 0, "落地节点");
+
     return group;
 }
 
