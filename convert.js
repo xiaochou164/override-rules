@@ -343,15 +343,18 @@ function handleLoadBalance(group){
     const targetNames = ["香港节点", "台湾节点","狮城节点", "日本节点", 
         "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点"];
     for (names of targetNames) {
-        if (group.name === names) {
-            group.type = "load-balance";
-            group["strategy"] = "consistent-hashing";
-            delete group["tolerance"];
-            delete group["lazy"];
-            delete group["interval"];
-            break;
+        for (groups of group) {
+            if (groups.name === names) {
+                groups.type = "load-balance";
+                groups["strategy"] = "consistent-hashing";
+                delete groups["tolerance"];
+                delete groups["lazy"];
+                delete groups["interval"];
+                break;
+            }
         }
     }
+    return group;
 }
 
 function handleLanding(group) {
