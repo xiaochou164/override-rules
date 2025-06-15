@@ -389,7 +389,7 @@ function handleLanding(group) {
     defaultSelector.splice(idx, 0, "落地节点");
 
     idx = globalProxies.indexOf("自动选择");
-    globalProxies.splice(idx, 0, "落地节点");
+    globalProxies.splice(idx, 0, ["落地节点", "前置代理"]);
 
     return group;
 }
