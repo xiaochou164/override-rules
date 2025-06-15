@@ -357,15 +357,29 @@ function handleLoadBalance(group){
     return group;
 }
 
-function handleLanding(group) {
-    // still implementing...
-    const landingGroup = {
-        "name": "落地节点",
-        "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
-        "type": "select",
-        "include-all": true,
-        "filter": "(?i)家宽|家庭|商宽|落地",
-    }
+function handleLanding(group, proxies) {
+    const landingGroups = [
+        {
+            "name": "落地节点",
+            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
+            "type": "select",
+            "include-all": true,
+            "filter": "(?i)家宽|家庭|商宽|落地",
+        },
+        {
+            "name": "前置代理",
+            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
+            "type": "select",
+            "include-all": true,
+            "filter": "(?i)家宽|家庭|商宽|落地",
+            "proxies": defaultProxies,
+        }
+    ];
+    const groupNames = ["落地节点", "前置代理"];
+
+    group.splice(2, 0, ...landingGroups);
+    proxies.splice(2, 0, ...groupNames);
+    return {group, proxies};
 }
 
 function main(config) {
@@ -375,7 +389,7 @@ function main(config) {
     }
     else {
         if (loadbalance) {
-            config["proxy-groups"] = handleLoadBalance(proxyGroups);
+            config["proxy-groups"], defaultProxies = handleLoadBalance(proxyGroups, defaultProxies);
         }
         else if (landing) {
             config["proxy-groups"] = handleLanding(proxyGroups);
@@ -391,7 +405,7 @@ function main(config) {
         "ADBlock": {
             "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
             "url": "https://adrules.top/adrules_domainset.txt",
-            "path": "./ADBlock.txt"
+            "path": "./ruleset/ADBlock.txt"
         },
         "Microsoft": {
             "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
