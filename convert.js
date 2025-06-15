@@ -357,7 +357,7 @@ function handleLoadBalance(group){
     return group;
 }
 
-function handleLanding(group, proxies) {
+function handleLanding(group) {
     const landingGroups = [
         {
             "name": "落地节点",
@@ -378,8 +378,8 @@ function handleLanding(group, proxies) {
     const groupNames = ["落地节点", "前置代理"];
 
     group.splice(2, 0, ...landingGroups);
-    proxies.splice(2, 0, ...groupNames);
-    return {group, proxies};
+    defaultProxies.splice(2, 0, ...groupNames);
+    return group;
 }
 
 function main(config) {
@@ -389,7 +389,7 @@ function main(config) {
     }
     else {
         if (loadbalance) {
-            config["proxy-groups"], defaultProxies = handleLoadBalance(proxyGroups, defaultProxies);
+            config["proxy-groups"] = handleLoadBalance(proxyGroups);
         }
         else if (landing) {
             config["proxy-groups"] = handleLanding(proxyGroups);
