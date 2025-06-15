@@ -12,9 +12,17 @@ const defaultProxies = [
     "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
     "澳洲节点", "欧盟节点", "非洲节点", "自动选择", "手动切换", "全球直连"
 ];
+
 const defaultSelector = [
     "自动选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
     "澳洲节点", "欧盟节点", "非洲节点", "手动切换"
+];
+
+const globalProxies = [
+    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
+    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
+    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "漏网之鱼", "故障转移", "香港节点", "台湾节点",
+    "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
 ];
 
 const proxyGroups = [
@@ -331,12 +339,7 @@ const proxyGroups = [
         "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
         "include-all": true,
         "type": "select",
-        "proxies": [
-            "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
-            "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-            "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "漏网之鱼", "故障转移", "香港节点", "台湾节点",
-            "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
-        ]
+        "proxies": globalProxies
     }
 ];
 
@@ -384,6 +387,9 @@ function handleLanding(group) {
 
     idx = defaultSelector.indexOf("手动切换");
     defaultSelector.splice(idx, 0, "落地节点");
+
+    idx = globalProxies.indexOf("自动选择");
+    globalProxies.splice(idx, 0, "落地节点");
 
     return group;
 }
