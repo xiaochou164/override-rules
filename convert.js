@@ -373,7 +373,7 @@ function handleLanding(group) {
             "type": "select",
             "include-all": true,
             "filter": "(?i)家宽|家庭|商宽|落地",
-            "proxies": defaultProxies,
+            "proxies": defaultSelector
         }
     ];
 
@@ -383,7 +383,7 @@ function handleLanding(group) {
     defaultProxies.splice(idx, 0, "落地节点");
 
     idx = defaultSelector.indexOf("手动切换");
-    defaultSelector.splice(idx - 1, 0, "落地节点");
+    defaultSelector.splice(idx, 0, "落地节点");
 
     return group;
 }
