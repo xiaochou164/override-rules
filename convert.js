@@ -535,9 +535,3 @@ function main(config) {
         return config || {};
     }
 }
-
-// 执行主函数
-let config = $configuration;
-if (!config) config = { "proxies": [] };
-const result = main(config);
-$done(result);
