@@ -492,7 +492,6 @@ const dnsConfig = {
     "ipv6": true,
     "prefer-h3": true,
     "enhanced-mode": "redir-host",
-    "use-system-hosts": true,
     "default-nameserver": [
         "119.29.29.29",
         "223.5.5.5",
