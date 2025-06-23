@@ -9,7 +9,7 @@ https://github.com/powerfullz/override-rules
 
 const inArg = $arguments; // console.log(inArg)
 const loadbalance = inArg.loadbalance || false,
-    landing = inArg.landing || false;
+    landing = inArg.landing || false,
     ipv6Enabled = inArg.ipv6 || false;
 
 const defaultProxies = [
