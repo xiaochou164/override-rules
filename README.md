@@ -14,7 +14,7 @@
 
 **Mihomo Party**
 
-1. 复制对应文件 raw 链接 `https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/override.yaml`。
+1. 复制对应文件 raw 链接，例如： `https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/override.yaml`。
 2. 打开 Mihomo Party，左侧导航栏打开「覆写」页面，粘贴链接后导入，即可看到对应的覆写脚本/配置。
 3. 左侧导航栏打开「订阅管理」，点击需要覆写的订阅右上角的三个点，选择「编辑信息」。
 4. 在打开的对话框中最后一项「覆写」，选择刚刚导入的覆写脚本/配置，保存即可。
@@ -30,6 +30,14 @@
 ```
 https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js#landing=true
 ```
+
+传入多个参数时，用`&`分隔，例如`landing=true&loadbalance=true`。
+
+目前支持的参数：
+
+- `loadbalance`: 启用负载均衡 (默认false)
+- `landing`: 启用落地节点功能 (默认false)
+- `ipv6`: 启用 DNS 配置的 IPv6 支持 (默认false)
 
 **Clash Verge 系**
 
