@@ -29,7 +29,7 @@ const globalProxies = [
     "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
 ];
 
-const proxyGroups = [
+let proxyGroups = [
     {
         "name": "节点选择",
         "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
