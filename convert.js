@@ -29,7 +29,7 @@ const globalProxies = [
     "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
 ];
 
-let proxyGroups = [
+const proxyGroups = [
     {
         "name": "节点选择",
         "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
@@ -524,11 +524,11 @@ const geoxURL = {
     "asn": "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 };
 
-function handleLoadBalance(group) {
+function handleLoadBalance() {
     const targetNames = ["香港节点", "台湾节点", "狮城节点", "日本节点",
         "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点"];
     for (names of targetNames) {
-        for (groups of group) {
+        for (groups of proxyGroups) {
             if (groups.name === names) {
                 groups.type = "load-balance";
                 groups["strategy"] = "consistent-hashing";
@@ -539,10 +539,9 @@ function handleLoadBalance(group) {
             }
         }
     }
-    return group;
 }
 
-function handleLanding(group) {
+function handleLanding() {
     const landingGroups = [
         {
             "name": "落地节点",
@@ -561,7 +560,7 @@ function handleLanding(group) {
         }
     ];
 
-    group.splice(2, 0, ...landingGroups);
+    proxyGroups.splice(2, 0, ...landingGroups);
 
     idx = defaultProxies.indexOf("自动选择");
     defaultProxies.splice(idx, 0, "落地节点");
@@ -571,14 +570,14 @@ function handleLanding(group) {
 
     idx = globalProxies.indexOf("自动选择");
     globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
-
-    return group;
 }
 
 function main(config) {
+    // 传入参数处理
+    if(landing) handleLanding();
+    if(loadbalance) handleLoadBalance();
+    
     // proxy-groups
-    if(landing) proxyGroups = handleLanding(proxyGroups);
-    if(loadbalance) proxyGroups = handleLoadBalance(proxyGroups);
     config["proxy-groups"] = proxyGroups;
 
     // rule-providers
