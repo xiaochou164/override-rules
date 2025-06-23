@@ -25,7 +25,7 @@ const defaultSelector = [
 const globalProxies = [
     "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
     "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "漏网之鱼", "故障转移", "香港节点", "台湾节点",
+    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "故障转移", "香港节点", "台湾节点",
     "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
 ];
 
@@ -203,14 +203,6 @@ const proxyGroups = [
         "type": "select",
         "proxies": [
             "REJECT", "全球直连"
-        ]
-    },
-    {
-        "name": "漏网之鱼",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png",
-        "type": "select",
-        "proxies": [
-            "节点选择", "全球直连"
         ]
     },
     {
@@ -462,7 +454,7 @@ const rules = [
     "GEOIP,CN,全球直连,no-resolve",
     "GEOIP,LAN,全球直连,no-resolve",
     "GEOIP,PRIVATE,全球直连,no-resolve",
-    "MATCH,漏网之鱼"
+    "MATCH,节点选择"
 ];
 
 const snifferConfig = {
