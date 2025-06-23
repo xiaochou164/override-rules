@@ -577,20 +577,9 @@ function handleLanding(group) {
 
 function main(config) {
     // proxy-groups
-    if (landing && loadbalance) {
-        config["proxy-groups"] = handleLanding(handleLoadBalance(proxyGroups));
-    }
-    else {
-        if (loadbalance) {
-            config["proxy-groups"] = handleLoadBalance(proxyGroups);
-        }
-        else if (landing) {
-            config["proxy-groups"] = handleLanding(proxyGroups);
-        }
-        else {
-            config["proxy-groups"] = proxyGroups;
-        }
-    }
+    if(landing) proxyGroups = handleLanding(proxyGroups);
+    if(loadbalance) proxyGroups = handleLoadBalance(proxyGroups);
+    config["proxy-groups"] = proxyGroups;
 
     // rule-providers
     config["rule-providers"] = ruleProviders;
