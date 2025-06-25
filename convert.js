@@ -10,7 +10,7 @@ https://github.com/powerfullz/override-rules
 const inArg = $arguments; // console.log(inArg)
 const loadbalance = inArg.loadbalance || false,
     landing = inArg.landing || false,
-    ipv6Enabled = inArg.ipv6 || false;
+    ipv6Enabled = String(inArg.ipv6).toLowerCase() === "true";
 
 const defaultProxies = [
     "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
