@@ -8,9 +8,9 @@ https://github.com/powerfullz/override-rules
 */
 
 const inArg = $arguments; // console.log(inArg)
-const loadbalance = inArg.loadbalance || false,
-    landing = inArg.landing || false,
-    ipv6Enabled = String(inArg.ipv6).toLowerCase() === "true";
+const loadbalance = parseBool(inArg.loadbalance) || false,
+    landing = parseBool(inArg.landing) || false,
+    ipv6Enabled = parseBool(inArg.ipv6) || false;
 
 const defaultProxies = [
     "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
@@ -515,6 +515,14 @@ const geoxURL = {
     "mmdb": "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb",
     "asn": "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 };
+
+function parseBool(value) {
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") {
+        return value.toLowerCase() === "true" || value === "1";
+    }
+    return false;
+}
 
 function handleLoadBalance() {
     const targetNames = ["香港节点", "台湾节点", "狮城节点", "日本节点",
