@@ -19,7 +19,7 @@ const defaultProxies = [
 
 const defaultSelector = [
     "自动选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
-    "澳洲节点", "欧盟节点", "非洲节点", "手动切换"
+    "澳洲节点", "欧盟节点", "非洲节点", "手动切换", "DIRECT"
 ];
 
 const globalProxies = [
@@ -186,7 +186,7 @@ const proxyGroups = [
         "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png",
         "type": "select",
         "proxies": [
-            "全球直连", "节点选择"
+            "全球直连", "Google", "节点选择"
         ]
     },
     {
