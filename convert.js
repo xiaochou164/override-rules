@@ -504,11 +504,11 @@ function main(config) {
     // 查看当前有哪些国家的节点
     const countryList = parseCountries(config);
     // 修改默认代理组
+    globalProxies.push(...countryList.reverse.map(c => `${c}节点`));
     for (const country of countryList) {
         const groupName = `${country}节点`;
         defaultProxies.splice(1, 0, groupName);
         defaultSelector.splice(1, 0, groupName);
-        globalProxies.push(groupName);
     }
     // 处理落地
     if (landing) {
