@@ -208,6 +208,7 @@ const geoxURL = {
 
 const countryRegex = {
     "香港": "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
+    "澳门": "(?i)澳门|MO|Macau",
     "台湾": "(?i)台|新北|彰化|TW|Taiwan",
     "狮城": "(?i)新加坡|坡|狮城|SG|Singapore",
     "日本": "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
@@ -216,6 +217,12 @@ const countryRegex = {
     "加拿大": "(?i)加拿大|Canada|CA",
     "英国": "(?i)英国|UK|伦敦|London",
     "澳大利亚": "(?i)澳洲|澳大利亚|AU|Australia",
+    "德国": "(?i)德国|德|DE|Germany",
+    "法国": "(?i)法国|法|FR|France",
+    "俄罗斯": "(?i)俄罗斯|俄|RU|Russia",
+    "泰国": "(?i)泰国|泰|TH|Thailand",
+    "印度": "(?i)印度|IN|India",
+    "马来西亚": "(?i)马来西亚|马来|MY|Malaysia",
 }
 
 function parseBool(value) {
@@ -253,16 +260,23 @@ function parseCountries(config) {
 }
 
 function buildCountryProxyGroups(countryList) {
-    const countryIcons = {
-        "香港": "Hong_Kong",
-        "台湾": "Taiwan",
-        "狮城": "Singapore",
-        "日本": "Japan",
-        "韩国": "Korea",
-        "美国": "United_States",
-        "英国": "United_Kingdom",
-        "加拿大": "Canada",
-        "澳洲": "Australia",
+    const countryIconURLs = {
+        "香港": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
+        "台湾": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png",
+        "狮城": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
+        "日本": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png",
+        "韩国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png",
+        "美国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
+        "英国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png",
+        "加拿大": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Canada.png",
+        "澳大利亚": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Australia.png",
+        "德国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Germany.png",
+        "俄罗斯": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Russia.png",
+        "泰国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Thailand.png",
+        "印度": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/India.png",
+        "马来西亚": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Malaysia.png",
+        "澳门": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Macao.png",
+        "法国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/France.png",
     };
     // 获取实际存在的国家列表
 
@@ -277,7 +291,7 @@ function buildCountryProxyGroups(countryList) {
 
             const groupConfig = {
                 "name": groupName,
-                "icon": `https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/${countryIcons[country]}.png`,
+                "icon": countryIconURLs[country],
                 "include-all": true,
                 "filter": pattern,
                 "exclude-filter": "(?i)家宽|家庭|商宽|落地",
