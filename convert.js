@@ -226,38 +226,6 @@ function parseBool(value) {
     return false;
 }
 
-function handleLanding() {
-    const landingGroups = [
-        {
-            "name": "落地节点",
-            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
-            "type": "select",
-            "include-all": true,
-            "filter": "(?i)家宽|家庭|商宽|落地",
-        },
-        {
-            "name": "前置代理",
-            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
-            "type": "select",
-            "include-all": true,
-            "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-            "proxies": defaultSelector
-        }
-    ];
-
-    proxyGroups.splice(2, 0, ...landingGroups);
-
-    idx = defaultProxies.indexOf("自动选择");
-    defaultProxies.splice(idx, 0, "落地节点");
-
-    idx = defaultSelector.indexOf("手动切换");
-    defaultSelector.splice(idx, 0, "落地节点");
-
-    idx = globalProxies.indexOf("自动选择");
-    globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
-}
-
-
 function parseCountries(config) {
     const proxies = config["proxies"];
     const result = [];
@@ -344,6 +312,21 @@ function buildProxyGroups (countryList, countryProxyGroups) {
             "type": "select",
             "proxies": defaultSelector
         },
+        (landing)? {
+            "name": "落地节点",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
+            "type": "select",
+            "include-all": true,
+            "filter": "(?i)家宽|家庭|商宽|落地",
+        }: null,
+        (landing)? {
+            "name": "前置代理",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
+            "type": "select",
+            "include-all": true,
+            "exclude-filter": "(?i)家宽|家庭|商宽|落地",
+            "proxies": defaultSelector
+        }: null,
         {
             "name": "手动切换",
             "icon": "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
@@ -515,27 +498,35 @@ function buildProxyGroups (countryList, countryProxyGroups) {
             "type": "select",
             "proxies": globalProxies
         }
-    ];
+    ].filter(Boolean); // 过滤掉 null 值
 }
 
 function main(config) {
-    // 传入参数处理
-    if (landing) handleLanding();
-
     // 查看当前有哪些国家的节点
     const countryList = parseCountries(config);
-    //修改默认代理组
+    // 修改默认代理组
     for (const country of countryList) {
         const groupName = `${country}节点`;
         defaultProxies.splice(1, 0, groupName);
         defaultSelector.splice(1, 0, groupName);
         globalProxies.push(groupName);
     }
-    //生成国家节点组
+    // 处理落地
+    if (landing) {
+        idx = defaultProxies.indexOf("自动选择");
+        defaultProxies.splice(idx, 0, "落地节点");
+
+        idx = defaultSelector.indexOf("手动切换");
+        defaultSelector.splice(idx, 0, "落地节点");
+
+        idx = globalProxies.indexOf("自动选择");
+        globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
+    }
+    // 生成国家节点组
     const countryProxyGroups = buildCountryProxyGroups(countryList);
-    //生成代理组
+    // 生成代理组
     const proxyGroups = buildProxyGroups(countryList, countryProxyGroups);
-    
+
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
@@ -558,6 +549,5 @@ function main(config) {
         "geodata-mode": true,
         "geox-url": geoxURL,
     });
-
     return config;
 }
