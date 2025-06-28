@@ -14,21 +14,19 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false;
 
+const countryProxies = [];
 const defaultProxies = [
-    "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
-    "澳洲节点", "欧盟节点", "非洲节点", "自动选择", "手动切换", "全球直连"
+    "节点选择", ...countryProxies, "自动选择", "手动切换", "全球直连"
 ];
 
 const defaultSelector = [
-    "自动选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
-    "澳洲节点", "欧盟节点", "非洲节点", "手动切换", "DIRECT"
+    "自动选择", ...countryProxies, "手动切换", "DIRECT"
 ];
 
 const globalProxies = [
     "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
     "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "故障转移", "香港节点", "台湾节点",
-    "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点", "欧盟节点", "非洲节点"
+    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "故障转移", ...countryProxies
 ];
 
 const proxyGroups = [
@@ -423,23 +421,6 @@ function parseBool(value) {
     return false;
 }
 
-function handleloadBalance() {
-    const targetNames = ["香港节点", "台湾节点", "狮城节点", "日本节点",
-        "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点"];
-    for (names of targetNames) {
-        for (groups of proxyGroups) {
-            if (groups.name === names) {
-                groups.type = "load-balance";
-                groups["strategy"] = "consistent-hashing";
-                delete groups["tolerance"];
-                delete groups["lazy"];
-                delete groups["interval"];
-                break;
-            }
-        }
-    }
-}
-
 function handleLanding() {
     const landingGroups = [
         {
@@ -477,15 +458,15 @@ function parseCountries(config) {
     const result = [];
     const seen = new Set(); // 用于去重
 
-    for (const proxy of proxies) {
-        const name = proxy.name;
-        // 遍历预设国家的正则表达式
-        for (const [country, pattern] of Object.entries(countryRegex)) {
-            // 创建正则表达式（去掉 (?i) 前缀并添加 'i' 标志）
-            const regex = new RegExp(
-                pattern.replace(/^\(\?i\)/, ''),
-                'i'
-            );
+    for (const [country, pattern] of Object.entries(countryRegex)) {
+        // 创建正则表达式（去掉 (?i) 前缀并添加 'i' 标志）
+        const regex = new RegExp(
+            pattern.replace(/^\(\?i\)/, ''),
+            'i'
+        );
+
+        for (const proxy of proxies) {
+            const name = proxy.name;
             if (regex.test(name)) {
                 // 防止重复添加国家名称
                 if (!seen.has(country)) {
@@ -495,11 +476,10 @@ function parseCountries(config) {
             }
         }
     }
-
     return result;
 }
 
-function buildcountryProxyGroups(config) {
+function buildCountryProxyGroups(countryList) {
     const countryIcons = {
         "香港": "Hong_Kong",
         "台湾": "Taiwan",
@@ -512,7 +492,7 @@ function buildcountryProxyGroups(config) {
         "澳洲": "Australia",
     };
     // 获取实际存在的国家列表
-    const countryList = parseCountries(config);
+    
     const countryProxyGroups = [];
 
     // 为实际存在的国家创建节点组
@@ -531,7 +511,7 @@ function buildcountryProxyGroups(config) {
                 "type": (loadBalance) ? "load-balance" : "url-test",
             };
 
-            if (loadBalance) {
+            if (!loadBalance) {
                 Object.assign(groupConfig, {
                     "interval": 300,
                     "tolerance": 20,
@@ -551,12 +531,33 @@ function buildcountryProxyGroups(config) {
 function main(config) {
     // 传入参数处理
     if (landing) handleLanding();
-    if (loadBalance) handleloadBalance();
 
     // 生成國家節點組
-    const countryProxyGroups = buildcountryProxyGroups(config);
+    const countryList = parseCountries(config);
+    const countryProxyGroups = buildCountryProxyGroups(countryList);
     const globalIndex = proxyGroups.findIndex(g => g.name === "GLOBAL");
     proxyGroups.splice(globalIndex, 0, ...countryProxyGroups);
+
+    for (const country of countryList) {
+        const groupName = `${country}节点`;
+        countryProxies.push(groupName);
+/*
+        // 添加国家节点到默认代理组
+        if (!defaultProxies.includes(groupName)) {
+            defaultProxies.splice(defaultProxies.indexOf("节点选择") + 1, 0, groupName);
+        }
+
+        // 添加国家节点到默认选择器组
+        if (!defaultSelector.includes(groupName)) {
+            defaultSelector.splice(defaultSelector.indexOf("自动选择") + 1, 0, groupName);
+        }
+
+        // 添加国家节点到全球代理组
+        if (!globalProxies.includes(groupName)) {
+            globalProxies.splice(globalProxies.indexOf("全球直连") + 1, 0, groupName);
+        }
+*/
+    }
 
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
