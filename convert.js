@@ -28,9 +28,9 @@ const defaultSelector = [
 ];
 
 const globalProxies = [
-    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
-    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截"
+    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "Spotify", "TikTok",
+    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "新浪微博", "懂王社媒", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "Speedtest", "静态资源",
+    "FCM推送", "Steam修复", "Play商店修复", "搜狗输入", "全球直连", "广告拦截"
 ];
 
 const ruleProviders = {
