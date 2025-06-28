@@ -14,216 +14,6 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false;
 
-const countryProxies = [];
-const defaultProxies = [
-    "节点选择", ...countryProxies, "自动选择", "手动切换", "全球直连"
-];
-
-const defaultSelector = [
-    "自动选择", ...countryProxies, "手动切换", "DIRECT"
-];
-
-const globalProxies = [
-    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
-    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", "故障转移", ...countryProxies
-];
-
-const proxyGroups = [
-    {
-        "name": "节点选择",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
-        "type": "select",
-        "proxies": defaultSelector
-    },
-    {
-        "name": "手动切换",
-        "icon": "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
-        "include-all": true,
-        "type": "select"
-    },
-    {
-        "name": "自动选择",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
-        "type": "url-test",
-        "include-all": true,
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "人工智能",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "加密货币",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "Telegram",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "Google",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "YouTube",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "Netflix",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "TikTok",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "E-Hentai",
-        "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Ehentai.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "PikPak",
-        "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/PikPak.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "巴哈姆特",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png",
-        "type": "select",
-        "proxies": [
-            "台湾节点", "节点选择", "手动切换", "全球直连"
-        ]
-    },
-    {
-        "name": "哔哩哔哩",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
-        "type": "select",
-        "proxies": [
-            "全球直连", "台湾节点", "香港节点"
-        ]
-    },
-    {
-        "name": "懂王社媒",
-        "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
-        "type": "select",
-        "proxies": [
-            "美国节点", "加拿大节点", "节点选择", "手动切换"
-        ]
-    },
-    {
-        "name": "学术资源",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Scholar.png",
-        "type": "select",
-        "proxies": [
-            "节点选择", "手动切换", "全球直连"
-        ]
-    },
-    {
-        "name": "游戏平台",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Game.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "微软服务",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png",
-        "type": "select",
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "搜狗输入",
-        "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png",
-        "type": "select",
-        "proxies": [
-            "全球直连", "REJECT"
-        ]
-    },
-    {
-        "name": "静态资源",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png",
-        "type": "select",
-        "include-all": true,
-        "proxies": defaultProxies,
-    },
-    {
-        "name": "FCM推送",
-        "icon": "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
-        "type": "select",
-        "proxies": [
-            "全球直连", "节点选择"
-        ]
-    },
-    {
-        "name": "Steam修复",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Steam.png",
-        "type": "select",
-        "proxies": [
-            "全球直连", "游戏平台", "节点选择"
-        ]
-    },
-    {
-        "name": "Play商店修复",
-        "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png",
-        "type": "select",
-        "proxies": [
-            "全球直连", "Google", "节点选择"
-        ]
-    },
-    {
-        "name": "全球直连",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png",
-        "type": "select",
-        "proxies": [
-            "DIRECT", "节点选择"
-        ]
-    },
-    {
-        "name": "广告拦截",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png",
-        "type": "select",
-        "proxies": [
-            "REJECT", "全球直连"
-        ]
-    },
-    {
-        "name": "故障转移",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Available_1.png",
-        "type": "fallback",
-        "lazy": false,
-        "proxies": [
-            "台湾节点", "香港节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
-            "澳洲节点", "欧盟节点", "非洲节点", "手动切换", "全球直连"
-        ]
-    },
-    {
-        "name": "GLOBAL",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
-        "include-all": true,
-        "type": "select",
-        "proxies": globalProxies
-    }
-];
-
 const ruleProviders = {
     "ADBlock": {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
@@ -473,6 +263,7 @@ function parseCountries(config) {
                     seen.add(country);
                     result.push(country);
                 }
+
             }
         }
     }
@@ -532,32 +323,217 @@ function main(config) {
     // 传入参数处理
     if (landing) handleLanding();
 
-    // 生成國家節點組
+    // 查看当前有哪些国家的节点
     const countryList = parseCountries(config);
+    // 查看是否有特定国家的节点
+    const hasTW = countryList.includes("台湾");
+    const hasHK = countryList.includes("香港");
+    const hasUS = countryList.includes("美国");
+    //生成国家节点组
     const countryProxyGroups = buildCountryProxyGroups(countryList);
     const globalIndex = proxyGroups.findIndex(g => g.name === "GLOBAL");
     proxyGroups.splice(globalIndex, 0, ...countryProxyGroups);
 
+    //修改默认代理组
+    const countryProxies = [];
     for (const country of countryList) {
         const groupName = `${country}节点`;
         countryProxies.push(groupName);
-/*
-        // 添加国家节点到默认代理组
-        if (!defaultProxies.includes(groupName)) {
-            defaultProxies.splice(defaultProxies.indexOf("节点选择") + 1, 0, groupName);
-        }
-
-        // 添加国家节点到默认选择器组
-        if (!defaultSelector.includes(groupName)) {
-            defaultSelector.splice(defaultSelector.indexOf("自动选择") + 1, 0, groupName);
-        }
-
-        // 添加国家节点到全球代理组
-        if (!globalProxies.includes(groupName)) {
-            globalProxies.splice(globalProxies.indexOf("全球直连") + 1, 0, groupName);
-        }
-*/
     }
+
+    // 生成默认代理组
+    const defaultProxies = [
+        "节点选择", ...countryProxies, "自动选择", "手动切换", "全球直连"
+    ];
+
+    const defaultSelector = [
+        "自动选择", ...countryProxies, "手动切换", "DIRECT"
+    ];
+
+    const globalProxies = [
+        "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
+        "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
+        "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", ...countryProxies
+    ];
+
+    const proxyGroups = [
+        {
+            "name": "节点选择",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
+            "type": "select",
+            "proxies": defaultSelector
+        },
+        {
+            "name": "手动切换",
+            "icon": "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
+            "include-all": true,
+            "type": "select"
+        },
+        {
+            "name": "自动选择",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
+            "type": "url-test",
+            "include-all": true,
+            "exclude-filter": "(?i)家宽|家庭|商宽|落地",
+            "interval": 300,
+            "tolerance": 20,
+            "lazy": false
+        },
+        {
+            "name": "人工智能",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "加密货币",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "Telegram",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "Google",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "YouTube",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "Netflix",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "TikTok",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "E-Hentai",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Ehentai.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "PikPak",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/PikPak.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "巴哈姆特",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png",
+            "type": "select",
+            "proxies": (hasTW) ? ["台湾节点", "节点选择", "手动切换", "全球直连"] : defaultProxies
+        },
+        {
+            "name": "哔哩哔哩",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
+            "type": "select",
+            "proxies": (hasTW && hasHK) ? ["全球直连", "台湾节点", "香港节点"] : defaultProxies
+        },
+        {
+            "name": "懂王社媒",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
+            "type": "select",
+            "proxies": (hasUS) ? ["美国节点", "节点选择", "手动切换"] : defaultProxies
+        },
+        {
+            "name": "学术资源",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Scholar.png",
+            "type": "select",
+            "proxies": [
+                "节点选择", "手动切换", "全球直连"
+            ]
+        },
+        {
+            "name": "游戏平台",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Game.png",
+            "type": "select",
+            "proxies": defaultProxies,
+        },
+        {
+            "name": "微软服务",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png",
+            "type": "select",
+            "proxies": defaultProxies,
+        },
+        {
+            "name": "搜狗输入",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png",
+            "type": "select",
+            "proxies": [
+                "全球直连", "REJECT"
+            ]
+        },
+        {
+            "name": "静态资源",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png",
+            "type": "select",
+            "include-all": true,
+            "proxies": defaultProxies,
+        },
+        {
+            "name": "FCM推送",
+            "icon": "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
+            "type": "select",
+            "proxies": [
+                "全球直连", "节点选择"
+            ]
+        },
+        {
+            "name": "Steam修复",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Steam.png",
+            "type": "select",
+            "proxies": [
+                "全球直连", "游戏平台", "节点选择"
+            ]
+        },
+        {
+            "name": "Play商店修复",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png",
+            "type": "select",
+            "proxies": [
+                "全球直连", "Google", "节点选择"
+            ]
+        },
+        {
+            "name": "全球直连",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png",
+            "type": "select",
+            "proxies": [
+                "DIRECT", "节点选择"
+            ]
+        },
+        {
+            "name": "广告拦截",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png",
+            "type": "select",
+            "proxies": [
+                "REJECT", "全球直连"
+            ]
+        },
+        {
+            "name": "GLOBAL",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
+            "include-all": true,
+            "type": "select",
+            "proxies": globalProxies
+        }
+    ];
 
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
