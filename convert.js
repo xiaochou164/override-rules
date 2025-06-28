@@ -226,108 +226,6 @@ const proxyGroups = [
     }
 ];
 
-const countryProxies = [
-    {
-        "name": "香港节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
-        "include-all": true,
-        "filter": "(?i)港|HK|hk|Hong Kong|HongKong|hongkong",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "台湾节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png",
-        "include-all": true,
-        "filter": "(?i)台|新北|彰化|TW|Taiwan",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "狮城节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
-        "include-all": true,
-        "filter": "(?i)新加坡|坡|狮城|SG|Singapore",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "日本节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png",
-        "include-all": true,
-        "filter": "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "韩国节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png",
-        "include-all": true,
-        "filter": "(?i)KR|Korea|KOR|首尔|韩|韓",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "美国节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
-        "include-all": true,
-        "filter": "(?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "加拿大节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Canada.png",
-        "include-all": true,
-        "filter": "(?i)加拿大|多伦多|Toronto|温哥华|Vancouver|蒙特利尔|Montreal|卡尔加里|Calgary|渥太华|Ottawa",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "英国节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png",
-        "include-all": true,
-        "filter": "(?i)英国|UK|GB|伦敦|London|曼彻斯特|Manchester|伯明翰|Birmingham|利物浦|Liverpool|谢菲联|Sheffield",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-    {
-        "name": "澳洲节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Australia.png",
-        "include-all": true,
-        "filter": "(?i)澳洲|悉尼|墨尔本|布里斯班|堪培拉|黄金海岸|珀斯|阿德莱德|澳大利亚|AU|Australia",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "url-test",
-        "interval": 300,
-        "tolerance": 20,
-        "lazy": false
-    },
-];
-
 const ruleProviders = {
     "ADBlock": {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
@@ -601,7 +499,7 @@ function parseCountries(config) {
     return result;
 }
 
-function buildCountryProxies(config) {
+function buildcountryProxyGroups(config) {
     const countryIcons = {
         "香港": "Hong_Kong",
         "台湾": "Taiwan",
@@ -615,7 +513,7 @@ function buildCountryProxies(config) {
     };
     // 获取实际存在的国家列表
     const countryList = parseCountries(config);
-    const countryProxies = [];
+    const countryProxyGroups = [];
 
     // 为实际存在的国家创建节点组
     for (const country of countryList) {
@@ -641,11 +539,11 @@ function buildCountryProxies(config) {
                 });
             }
 
-            countryProxies.push(groupConfig);
+            countryProxyGroups.push(groupConfig);
         }
     }
 
-    return countryProxies;
+    return countryProxyGroups;
 }
 
 
@@ -656,9 +554,9 @@ function main(config) {
     if (loadBalance) handleloadBalance();
 
     // 生成國家節點組
-    const countryProxies = buildCountryProxies(config);
+    const countryProxyGroups = buildcountryProxyGroups(config);
     const globalIndex = proxyGroups.findIndex(g => g.name === "GLOBAL");
-    proxyGroups.splice(globalIndex, 0, ...countryGroups);
+    proxyGroups.splice(globalIndex, 0, ...countryProxyGroups);
 
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
