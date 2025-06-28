@@ -574,7 +574,7 @@ function handleLanding() {
     globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
 }
 
-function addFullConfig() {
+function addFullConfig(config) {
     Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
