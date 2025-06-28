@@ -589,6 +589,8 @@ function main(config) {
         "tcp-concurrent": true,
         "find-process-mode": "off",
         "log-level": "info",
+        "geodata-loader:": "standard",
+        "external-controller": ":9999",
         "external-ui-name": "zashboard",
         "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip",
         "profile": {
