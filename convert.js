@@ -19,13 +19,17 @@ const defaultProxies = [
     "节点选择", "自动选择", "手动切换", "全球直连"
 ];
 
+const defaultProxiesDirect = [
+    "全球直连", "节点选择", "手动切换"
+]
+
 const defaultSelector = [
     "自动选择", "手动切换", "DIRECT"
 ];
 
 const globalProxies = [
     "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
-    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
+    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "搜狗输入", "静态资源",
     "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截"
 ];
 
@@ -103,6 +107,11 @@ const ruleProviders = {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
         "path": "./ruleset/AdditionalFilter.list",
         "url": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list"
+    },
+    "Weibo": {
+        "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
+        "url": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Weibo.list",
+        "path": "./ruleset/Weibo.list"
     }
 }
 
@@ -122,13 +131,17 @@ const rules = [
     "RULE-SET,SteamFix,Steam修复",
     "RULE-SET,PlayStoreFix,Play商店修复",
     "RULE-SET,GoogleFCM,FCM推送",
+    "RULE-SET,Weibo,新浪微博",
     "GEOSITE,GOOGLE-PLAY@CN,全球直连",
     "GEOSITE,YOUTUBE@CN,全球直连",
     "GEOSITE,YOUTUBE,YouTube",
     "GEOSITE,GOOGLE,Google",
     "GEOSITE,NETFLIX,Netflix",
+    "GEOSITE,SPOTIFY,Spotify",
     "GEOSITE,BAHAMUT,巴哈姆特",
     "GEOSITE,BILIBILI,哔哩哔哩",
+    "GEOSITE,OOKLA-SPEEDTEST,Speedtest",
+    "GEOSITE,CATEGORY-PORN,瑟琴网站",
     "GEOSITE,CATEGORY-GAMES@CN,全球直连",
     "GEOSITE,CATEGORY-GAMES,游戏平台",
     "GEOSITE,CATEGORY-SCHOLAR-!CN,学术资源",
@@ -393,6 +406,12 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "proxies": defaultProxies
         },
         {
+            "name": "Spotify",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
             "name": "TikTok",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png",
             "type": "select",
@@ -423,6 +442,12 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "proxies": (hasTW && hasHK) ? ["全球直连", "台湾节点", "香港节点"] : defaultProxies
         },
         {
+            "name": "新浪微博",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Weibo.png",
+            "type": "select",
+            "proxies": defaultProxiesDirect
+        },
+        {
             "name": "懂王社媒",
             "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
             "type": "select",
@@ -437,6 +462,12 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             ]
         },
         {
+            "name": "瑟琴网站",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Pornhub.png",
+            "type": "select",
+            "proxies": defaultProxies,
+        },
+        {
             "name": "游戏平台",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Game.png",
             "type": "select",
@@ -449,12 +480,10 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "proxies": defaultProxies,
         },
         {
-            "name": "搜狗输入",
-            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png",
+            "name": "Speedtest",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png",
             "type": "select",
-            "proxies": [
-                "全球直连", "REJECT"
-            ]
+            "proxies": defaultProxies,
         },
         {
             "name": "静态资源",
@@ -485,6 +514,14 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "type": "select",
             "proxies": [
                 "全球直连", "Google", "节点选择"
+            ]
+        },
+        {
+            "name": "搜狗输入",
+            "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png",
+            "type": "select",
+            "proxies": [
+                "全球直连", "REJECT"
             ]
         },
         {
@@ -523,6 +560,7 @@ function main(config) {
         const groupName = `${country}节点`;
         defaultProxies.splice(1, 0, groupName);
         defaultSelector.splice(1, 0, groupName);
+        defaultProxiesDirect.splice(2, 0, groupName);
     }
     // 处理落地
     if (landing) {
