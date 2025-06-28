@@ -244,9 +244,8 @@ function parseCountries(config) {
                 // 防止重复添加国家名称
                 if (!seen.has(country)) {
                     seen.add(country);
-                    result.push(country);
+                    result.unshift(country);
                 }
-
             }
         }
     }
