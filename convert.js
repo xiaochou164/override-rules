@@ -332,33 +332,12 @@ function buildCountryProxyGroups(countryList) {
     return countryProxyGroups;
 }
 
-
-
-function main(config) {
-    // 传入参数处理
-    if (landing) handleLanding();
-
-    // 查看当前有哪些国家的节点
-    const countryList = parseCountries(config);
+function buildProxyGroups (countryList, countryProxyGroups) {
     // 查看是否有特定国家的节点
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
     const hasUS = countryList.includes("美国");
-    //生成国家节点组
-    const countryProxyGroups = buildCountryProxyGroups(countryList);
-    const globalIndex = proxyGroups.findIndex(g => g.name === "GLOBAL");
-    proxyGroups.splice(globalIndex, 0, ...countryProxyGroups);
-
-    //修改默认代理组
-    for (const country of countryList) {
-        const groupName = `${country}节点`;
-        defaultProxies.splice(1, 0, groupName);
-        defaultSelector.splice(1, 0, groupName);
-        globalProxies.push(groupName);
-    }
-
-    // 构建代理组
-    const proxyGroups = [
+    return [
         {
             "name": "节点选择",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
@@ -528,6 +507,7 @@ function main(config) {
                 "REJECT", "全球直连"
             ]
         },
+        ...countryProxyGroups,
         {
             "name": "GLOBAL",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
@@ -536,7 +516,26 @@ function main(config) {
             "proxies": globalProxies
         }
     ];
+}
 
+function main(config) {
+    // 传入参数处理
+    if (landing) handleLanding();
+
+    // 查看当前有哪些国家的节点
+    const countryList = parseCountries(config);
+    //修改默认代理组
+    for (const country of countryList) {
+        const groupName = `${country}节点`;
+        defaultProxies.splice(1, 0, groupName);
+        defaultSelector.splice(1, 0, groupName);
+        globalProxies.push(groupName);
+    }
+    //生成国家节点组
+    const countryProxyGroups = buildCountryProxyGroups(countryList);
+    //生成代理组
+    const proxyGroups = buildProxyGroups(countryList, countryProxyGroups);
+    
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
