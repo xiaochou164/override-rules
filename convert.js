@@ -505,7 +505,7 @@ function main(config) {
     const countryList = parseCountries(config);
     // 修改默认代理组
     globalProxies.push(...countryList.reverse().map(c => `${c}节点`));
-    for (const country of countryList) {
+    for (const country of countryList.reverse()) {
         const groupName = `${country}节点`;
         defaultProxies.splice(1, 0, groupName);
         defaultSelector.splice(1, 0, groupName);
