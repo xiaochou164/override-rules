@@ -581,6 +581,7 @@ function main(config) {
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
+        "tproxy-port": 7893,
         "routing-mark": 7894,
         "allow-lan": true,
         "ipv6": ipv6Enabled,
@@ -589,9 +590,8 @@ function main(config) {
         "tcp-concurrent": true,
         "find-process-mode": "off",
         "log-level": "info",
-        "geodata-loader:": "standard",
+        "geodata-loader": "standard",
         "external-controller": ":9999",
-        "external-ui-name": "zashboard",
         "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip",
         "profile": {
             "store-selected": true,
