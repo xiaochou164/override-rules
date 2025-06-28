@@ -574,8 +574,17 @@ function handleLanding() {
     globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
 }
 
-function addFullConfig(config) {
-    Object.assign(config, {
+
+function parseCountries(config) {
+    const proxies = config["proxies"];
+    
+}
+
+function main(config) {
+    // 传入参数处理
+    if(landing) handleLanding();
+    if(loadbalance) handleLoadBalance();
+    if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
         "allow-lan": true,
@@ -587,20 +596,7 @@ function addFullConfig(config) {
         "external-ui-name": "zashboard",
         "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip"
     });
-}
-
-
-function parseCountries(config) {
-    const proxies = config["proxies"];
     
-}
-
-function main(config) {
-    // 传入参数处理
-    if(landing) handleLanding();
-    if(loadbalance) handleLoadBalance();
-    if(fullConfig) addFullConfig();
-
     Object.assign(config, {
         "proxy-groups": proxyGroups,
         "rule-providers": ruleProviders,
