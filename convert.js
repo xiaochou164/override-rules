@@ -265,7 +265,7 @@ function buildCountryProxyGroups(countryList) {
         "澳洲": "Australia",
     };
     // 获取实际存在的国家列表
-    
+
     const countryProxyGroups = [];
 
     // 为实际存在的国家创建节点组
@@ -299,7 +299,7 @@ function buildCountryProxyGroups(countryList) {
     return countryProxyGroups;
 }
 
-function buildProxyGroups (countryList, countryProxyGroups) {
+function buildProxyGroups(countryList, countryProxyGroups) {
     // 查看是否有特定国家的节点
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
@@ -311,21 +311,21 @@ function buildProxyGroups (countryList, countryProxyGroups) {
             "type": "select",
             "proxies": defaultSelector
         },
-        (landing)? {
+        (landing) ? {
             "name": "落地节点",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
             "type": "select",
             "include-all": true,
             "filter": "(?i)家宽|家庭|商宽|落地",
-        }: null,
-        (landing)? {
+        } : null,
+        (landing) ? {
             "name": "前置代理",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
             "type": "select",
             "include-all": true,
             "exclude-filter": "(?i)家宽|家庭|商宽|落地",
             "proxies": defaultSelector
-        }: null,
+        } : null,
         {
             "name": "手动切换",
             "icon": "https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
@@ -529,6 +529,7 @@ function main(config) {
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
+        "routing-mark": 7894,
         "allow-lan": true,
         "ipv6": ipv6Enabled,
         "mode": "Rule",
@@ -536,7 +537,10 @@ function main(config) {
         "tcp-concurrent": true,
         "log-level": "info",
         "external-ui-name": "zashboard",
-        "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip"
+        "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip",
+        "profile": {
+            "store-selected": true,
+        }
     });
 
     Object.assign(config, {
@@ -548,5 +552,6 @@ function main(config) {
         "geodata-mode": true,
         "geox-url": geoxURL,
     });
+
     return config;
 }
