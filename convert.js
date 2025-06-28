@@ -14,6 +14,21 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false;
 
+// 生成默认代理组
+const defaultProxies = [
+    "节点选择", "自动选择", "手动切换", "全球直连"
+];
+
+const defaultSelector = [
+    "自动选择", "手动切换", "DIRECT"
+];
+
+const globalProxies = [
+    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
+    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
+    "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截"
+];
+
 const ruleProviders = {
     "ADBlock": {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
@@ -335,27 +350,14 @@ function main(config) {
     proxyGroups.splice(globalIndex, 0, ...countryProxyGroups);
 
     //修改默认代理组
-    const countryProxies = [];
     for (const country of countryList) {
         const groupName = `${country}节点`;
-        countryProxies.push(groupName);
+        defaultProxies.splice(1, 0, groupName);
+        defaultSelector.splice(1, 0, groupName);
+        globalProxies.push(groupName);
     }
 
-    // 生成默认代理组
-    const defaultProxies = [
-        "节点选择", ...countryProxies, "自动选择", "手动切换", "全球直连"
-    ];
-
-    const defaultSelector = [
-        "自动选择", ...countryProxies, "手动切换", "DIRECT"
-    ];
-
-    const globalProxies = [
-        "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "TikTok",
-        "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "懂王社媒", "学术资源", "游戏平台", "微软服务", "搜狗输入", "静态资源",
-        "FCM推送", "Steam修复", "Play商店修复", "全球直连", "广告拦截", ...countryProxies
-    ];
-
+    // 构建代理组
     const proxyGroups = [
         {
             "name": "节点选择",
