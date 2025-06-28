@@ -5,12 +5,14 @@ https://github.com/powerfullz/override-rules
 - loadbalance: 启用负载均衡 (默认false)
 - landing: 启用落地节点功能 (默认false)
 - ipv6: 启用 DNS 配置的 IPv6 支持 (默认false)
+- full: 启用完整配置，用于纯内核启动 (默认false)
 */
 
 const inArg = $arguments; // console.log(inArg)
 const loadbalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
-    ipv6Enabled = parseBool(inArg.ipv6) || false;
+    ipv6Enabled = parseBool(inArg.ipv6) || false,
+    fullConfig = parseBool(inArg.full) || false;
 
 const defaultProxies = [
     "节点选择", "香港节点", "台湾节点", "狮城节点", "日本节点", "韩国节点", "美国节点", "英国节点", "加拿大节点",
@@ -572,30 +574,42 @@ function handleLanding() {
     globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
 }
 
+function addFullConfig() {
+    Object.assign(config, {
+        "mixed-port": 7890,
+        "redir-port": 7892,
+        "allow-lan": true,
+        "ipv6": ipv6Enabled,
+        "mode": "Rule",
+        "unified-delay": true,
+        "tcp-concurrent": true,
+        "log-level": "info",
+        "external-ui-name": "zashboard",
+        "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip"
+    });
+}
+
+
+function parseCountries(config) {
+    const proxies = config["proxies"];
+    
+}
+
 function main(config) {
     // 传入参数处理
     if(landing) handleLanding();
     if(loadbalance) handleLoadBalance();
-    
-    // proxy-groups
-    config["proxy-groups"] = proxyGroups;
+    if(fullConfig) addFullConfig();
 
-    // rule-providers
-    config["rule-providers"] = ruleProviders;
-
-    // rules
-    config["rules"] = rules;
-
-    // sniffer
-    config["sniffer"] = snifferConfig;
-
-    // dns
-    config["dns"] = dnsConfig;
-
-    //geox-url
-    if (!config["geox-url"]) config["geox-url"] = {};
-    config["geodata-mode"] = true;
-    config["geox-url"] = geoxURL;
+    Object.assign(config, {
+        "proxy-groups": proxyGroups,
+        "rule-providers": ruleProviders,
+        "rules": rules,
+        "sniffer": snifferConfig,
+        "dns": dnsConfig,
+        "geodata-mode": true,
+        "geox-url": geoxURL,
+    });
 
     return config;
 }
