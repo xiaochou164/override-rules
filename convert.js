@@ -9,7 +9,7 @@ https://github.com/powerfullz/override-rules
 */
 
 const inArg = $arguments; // console.log(inArg)
-const loadbalance = parseBool(inArg.loadbalance) || false,
+const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false;
@@ -218,6 +218,16 @@ const proxyGroups = [
         ]
     },
     {
+        "name": "GLOBAL",
+        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
+        "include-all": true,
+        "type": "select",
+        "proxies": globalProxies
+    }
+];
+
+const countryProxies = [
+    {
         "name": "香港节点",
         "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
         "include-all": true,
@@ -316,29 +326,6 @@ const proxyGroups = [
         "tolerance": 20,
         "lazy": false
     },
-    {
-        "name": "欧盟节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/European_Union.png",
-        "include-all": true,
-        "filter": "(奥地利|Austria|AUT|AT|维也纳|Vienna|比利时|Belgium|BEL|BE|布鲁塞尔|Brussels|根特|Ghent|安特卫普|Antwerp|保加利亚|Bulgaria|BGR|BG|索菲亚|Sofia|克罗地亚|Croatia|HRV|HR|萨格勒布|Zagreb|塞浦路斯|Cyprus|CYP|CY|尼科西亚|Nicosia|捷克|Czechia|Czech|CZE|CZ|布拉格|Prague|丹麦|Denmark|DNK|DK|哥本哈根|Copenhagen|欧登塞|Odense|爱沙尼亚|Estonia|EST|EE|塔林|Tallinn|芬兰|Finland|FIN|FI|赫尔辛基|Helsinki|法国|France|FRA|FR|巴黎|Paris|马赛|Marseille|里昂|Lyon|德国|Germany|DEU|DE|法兰克福|Frankfurt|柏林|Berlin|慕尼黑|Munich|杜塞尔多夫|Dusseldorf|汉堡|Hamburg|希腊|Greece|GRC|EL|GR|雅典|Athens|匈牙利|Hungary|HUN|HU|布达佩斯|Budapest|爱尔兰|Ireland|IRL|IE|都柏林|Dublin|意大利|Italy|ITA|IT|米兰|Milan|罗马|Rome|拉脱维亚|Latvia|LVA|LV|里加|Riga|立陶宛|Lithuania|LTU|LT|维尔纽斯|Vilnius|卢森堡|Luxembourg|LUX|LU|卢森堡市|卢森堡|马耳他|Malta|MLT|MT|瓦莱塔|Valletta|荷兰|Netherlands|NLD|NL|阿姆斯特丹|Amsterdam|鹿特丹|Rotterdam|波兰|Poland|POL|PL|华沙|Warsaw|克拉科夫|Krakow|葡萄牙|Portugal|PRT|PT|里斯本|Lisbon|波尔图|Porto|罗马尼亚|Romania|ROU|RO|布加勒斯特|Bucharest|斯洛伐克|Slovakia|SVK|SK|布拉迪斯拉发|Bratislava|斯洛文尼亚|Slovenia|SVN|SI|卢布尔雅那|Ljubljana|西班牙|Spain|ESP|ES|马德里|Madrid|巴塞罗那|Barcelona|瑞典|Sweden|SWE|SE|斯德哥尔摩|Stockholm|马尔默|Malmö|Malmo)",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "select"
-    },
-    {
-        "name": "非洲节点",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Africa_Map.png",
-        "include-all": true,
-        "filter": "(?i)非洲|Africa|南非|South Africa|埃及|Egypt|开罗|Cairo|尼日利亚|Nigeria|拉各斯|Lagos",
-        "exclude-filter": "(?i)家宽|家庭|商宽|落地",
-        "type": "select"
-    },
-    {
-        "name": "GLOBAL",
-        "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png",
-        "include-all": true,
-        "type": "select",
-        "proxies": globalProxies
-    }
 ];
 
 const ruleProviders = {
@@ -518,6 +505,18 @@ const geoxURL = {
     "asn": "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 };
 
+const countryRegex = {
+    "香港": "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
+    "台湾": "(?i)台|新北|彰化|TW|Taiwan",
+    "狮城": "(?i)新加坡|坡|狮城|SG|Singapore",
+    "日本": "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
+    "韩国": "(?i)KR|Korea|KOR|首尔|韩|韓",
+    "美国": "(?i)美国|美|US|United States",
+    "加拿大": "(?i)加拿大|Canada|CA",
+    "英国": "(?i)英国|UK|伦敦|London",
+    "澳大利亚": "(?i)澳洲|澳大利亚|AU|Australia",
+}
+
 function parseBool(value) {
     if (typeof value === "boolean") return value;
     if (typeof value === "string") {
@@ -526,7 +525,7 @@ function parseBool(value) {
     return false;
 }
 
-function handleLoadBalance() {
+function handleloadBalance() {
     const targetNames = ["香港节点", "台湾节点", "狮城节点", "日本节点",
         "韩国节点", "美国节点", "英国节点", "加拿大节点", "澳洲节点"];
     for (names of targetNames) {
@@ -577,13 +576,90 @@ function handleLanding() {
 
 function parseCountries(config) {
     const proxies = config["proxies"];
-    
+    const result = [];
+    const seen = new Set(); // 用于去重
+
+    for (const proxy of proxies) {
+        const name = proxy.name;
+        // 遍历预设国家的正则表达式
+        for (const [country, pattern] of Object.entries(countryRegex)) {
+            // 创建正则表达式（去掉 (?i) 前缀并添加 'i' 标志）
+            const regex = new RegExp(
+                pattern.replace(/^\(\?i\)/, ''),
+                'i'
+            );
+            if (regex.test(name)) {
+                // 防止重复添加国家名称
+                if (!seen.has(country)) {
+                    seen.add(country);
+                    result.push(country);
+                }
+            }
+        }
+    }
+
+    return result;
 }
+
+function buildCountryProxies(config) {
+    const countryIcons = {
+        "香港": "Hong_Kong",
+        "台湾": "Taiwan",
+        "狮城": "Singapore",
+        "日本": "Japan",
+        "韩国": "Korea",
+        "美国": "United_States",
+        "英国": "United_Kingdom",
+        "加拿大": "Canada",
+        "澳洲": "Australia",
+    };
+    // 获取实际存在的国家列表
+    const countryList = parseCountries(config);
+    const countryProxies = [];
+
+    // 为实际存在的国家创建节点组
+    for (const country of countryList) {
+        // 确保国家名称在预设的国家配置中存在
+        if (countryRegex[country]) {
+            const groupName = `${country}节点`;
+            const pattern = countryRegex[country];
+
+            const groupConfig = {
+                "name": groupName,
+                "icon": `https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/${countryIcons[country]}.png`,
+                "include-all": true,
+                "filter": pattern,
+                "exclude-filter": "(?i)家宽|家庭|商宽|落地",
+                "type": (loadBalance) ? "load-balance" : "url-test",
+            };
+
+            if (loadBalance) {
+                Object.assign(groupConfig, {
+                    "interval": 300,
+                    "tolerance": 20,
+                    "lazy": false
+                });
+            }
+
+            countryProxies.push(groupConfig);
+        }
+    }
+
+    return countryProxies;
+}
+
+
 
 function main(config) {
     // 传入参数处理
-    if(landing) handleLanding();
-    if(loadbalance) handleLoadBalance();
+    if (landing) handleLanding();
+    if (loadBalance) handleloadBalance();
+
+    // 生成國家節點組
+    const countryProxies = buildCountryProxies(config);
+    const globalIndex = proxyGroups.findIndex(g => g.name === "GLOBAL");
+    proxyGroups.splice(globalIndex, 0, ...countryGroups);
+
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
         "redir-port": 7892,
@@ -596,7 +672,7 @@ function main(config) {
         "external-ui-name": "zashboard",
         "external-ui-url": "https://ghfast.top/?q=https%3A%2F%2Fgithub.com%2FZephyruso%2Fzashboard%2Farchive%2Frefs%2Fheads%2Fgh-pages.zip"
     });
-    
+
     Object.assign(config, {
         "proxy-groups": proxyGroups,
         "rule-providers": ruleProviders,
