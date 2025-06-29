@@ -607,7 +607,7 @@ function main(config) {
         "routing-mark": 7894,
         "allow-lan": true,
         "ipv6": ipv6Enabled,
-        "mode": "Rule",
+        "mode": "rule",
         "unified-delay": true,
         "tcp-concurrent": true,
         "find-process-mode": "off",
