@@ -4,7 +4,7 @@ https://github.com/powerfullz/override-rules
 传入参数：
 - loadbalance: 启用负载均衡 (默认false)
 - landing: 启用落地节点功能 (默认false)
-- ipv6: 启用 DNS 配置的 IPv6 支持 (默认false)
+- ipv6: 启用 IPv6 支持 (默认false)
 - full: 启用完整配置，用于纯内核启动 (默认false)
 */
 
@@ -28,8 +28,8 @@ const defaultSelector = [
 ];
 
 const globalProxies = [
-    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "Spotify", "TikTok",
-    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "新浪微博", "懂王社媒", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "Speedtest", "静态资源",
+    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "Disney", "HBO Max", "Spotify", "TikTok",
+    "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "新浪微博", "Twitter(X)", "Truth Social", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "Speedtest", "静态资源",
     "FCM推送", "Steam修复", "Play商店修复", "搜狗输入", "全球直连", "广告拦截"
 ];
 
@@ -119,7 +119,7 @@ const rules = [
     "RULE-SET,ADBlock,广告拦截",
     "RULE-SET,AdditionalFilter,广告拦截",
     "RULE-SET,sogouinput,搜狗输入",
-    "RULE-SET,TruthSocial,懂王社媒",
+    "RULE-SET,TruthSocial,Truth Social",
     "RULE-SET,cdn_domainset,静态资源",
     "RULE-SET,cdn_non_ip,静态资源",
     "RULE-SET,apple_cdn,全球直连",
@@ -138,6 +138,9 @@ const rules = [
     "GEOSITE,GOOGLE,Google",
     "GEOSITE,NETFLIX,Netflix",
     "GEOSITE,SPOTIFY,Spotify",
+    "GEOSITE,TWITTER,Twitter(X)",
+    "GEOSITE,DISNEY,Disney",
+    "GEOSITE,HBO,HBO Max",
     "GEOSITE,BAHAMUT,巴哈姆特",
     "GEOSITE,BILIBILI,哔哩哔哩",
     "GEOSITE,OOKLA-SPEEDTEST,Speedtest",
@@ -223,7 +226,7 @@ const countryRegex = {
     "香港": "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
     "澳门": "(?i)澳门|MO|Macau",
     "台湾": "(?i)台|新北|彰化|TW|Taiwan",
-    "狮城": "(?i)新加坡|坡|狮城|SG|Singapore",
+    "新加坡": "(?i)新加坡|坡|狮城|SG|Singapore",
     "日本": "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
     "韩国": "(?i)KR|Korea|KOR|首尔|韩|韓",
     "美国": "(?i)美国|美|US|United States",
@@ -276,7 +279,7 @@ function buildCountryProxyGroups(countryList) {
     const countryIconURLs = {
         "香港": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
         "台湾": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png",
-        "狮城": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
+        "新加坡": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
         "日本": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png",
         "韩国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png",
         "美国": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
@@ -406,6 +409,18 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "proxies": defaultProxies
         },
         {
+            "name": "Disney",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Disney.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "HBO Max",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/HBO.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
             "name": "Spotify",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png",
             "type": "select",
@@ -442,13 +457,20 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "proxies": (hasTW && hasHK) ? ["全球直连", "台湾节点", "香港节点"] : defaultProxies
         },
         {
+            "name": "Twitter(X)",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
             "name": "新浪微博",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Weibo.png",
             "type": "select",
+            "include-all": true,
             "proxies": defaultProxiesDirect
         },
         {
-            "name": "懂王社媒",
+            "name": "Truth Social",
             "icon": "https://fastly.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
             "type": "select",
             "proxies": (hasUS) ? ["美国节点", "节点选择", "手动切换"] : defaultProxies
@@ -497,7 +519,7 @@ function buildProxyGroups(countryList, countryProxyGroups) {
             "icon": "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
             "type": "select",
             "proxies": [
-                "全球直连", "节点选择"
+                "全球直连", "Google", "节点选择"
             ]
         },
         {
