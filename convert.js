@@ -28,7 +28,7 @@ const defaultSelector = [
 ];
 
 const globalProxies = [
-    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Google", "YouTube", "Netflix", "Disney", "HBO Max", "Spotify", "TikTok",
+    "节点选择", "手动切换", "自动选择", "人工智能", "加密货币", "Telegram", "Apple", "Google", "YouTube", "Netflix", "Disney", "HBO Max", "Spotify", "TikTok",
     "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "新浪微博", "Twitter(X)", "Truth Social", "学术资源", "瑟琴网站", "游戏平台", "微软服务", "Speedtest", "静态资源",
     "FCM推送", "Steam修复", "Play商店修复", "搜狗输入", "全球直连", "广告拦截"
 ];
@@ -63,11 +63,6 @@ const ruleProviders = {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
         "url": "https://ruleset.skk.moe/Clash/non_ip/cdn.txt",
         "path": "./sukkaw_ruleset/cdn_non_ip.txt"
-    },
-    "apple_cdn": {
-        "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
-        "url": "https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt",
-        "path": "./sukkaw_ruleset/apple_cdn.txt"
     },
     "microsoft_cdn_non_ip": {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
@@ -122,7 +117,6 @@ const rules = [
     "RULE-SET,TruthSocial,Truth Social",
     "RULE-SET,cdn_domainset,静态资源",
     "RULE-SET,cdn_non_ip,静态资源",
-    "RULE-SET,apple_cdn,全球直连",
     "RULE-SET,microsoft_cdn_non_ip,全球直连",
     "RULE-SET,ai_non_ip,人工智能",
     "RULE-SET,Microsoft,微软服务",
@@ -133,6 +127,8 @@ const rules = [
     "RULE-SET,GoogleFCM,FCM推送",
     "RULE-SET,Weibo,新浪微博",
     "GEOSITE,GOOGLE-PLAY@CN,全球直连",
+    "GEOSITE,APPLE@CN,全球直连",
+    "GEOSITE,APPLE,Apple",
     "GEOSITE,YOUTUBE@CN,全球直连",
     "GEOSITE,YOUTUBE,YouTube",
     "GEOSITE,GOOGLE,Google",
@@ -387,6 +383,12 @@ function buildProxyGroups(countryList, countryProxyGroups) {
         {
             "name": "Telegram",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
+            "type": "select",
+            "proxies": defaultProxies
+        },
+        {
+            "name": "Apple",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple_2.png",
             "type": "select",
             "proxies": defaultProxies
         },
