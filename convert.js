@@ -6,13 +6,15 @@ https://github.com/powerfullz/override-rules
 - landing: 启用落地节点功能 (默认false)
 - ipv6: 启用 IPv6 支持 (默认false)
 - full: 启用完整配置，用于纯内核启动 (默认false)
+- keepalive: 启用 tcp-keep-alive (默认false)
 */
 
 const inArg = $arguments; // console.log(inArg)
 const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
-    fullConfig = parseBool(inArg.full) || false;
+    fullConfig = parseBool(inArg.full) || false,
+    enableKeepAlive = parseBool(inArg.keepalive) || false;
 
 // 生成默认代理组
 const defaultProxies = [
@@ -616,6 +618,7 @@ function main(config) {
         "log-level": "info",
         "geodata-loader": "standard",
         "external-controller": ":9999",
+        "disable-keep-alive": !enableKeepAlive,
         "profile": {
             "store-selected": true,
         }
