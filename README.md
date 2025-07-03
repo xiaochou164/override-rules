@@ -1,6 +1,6 @@
 ## powerfullz 的覆写规则仓库
 
-此处存放我用于 Mihomo 内核/Substore 的覆写规则/脚本，以 [mihomo-party-org/override-hub](https://github.com/mihomo-party-org/override-hub) 内的 ACL4SSR 规则为灵感，几乎完全重新编写，具有以下优点：
+此处存放我用于 Mihomo/Substore 的覆写规则，以 [mihomo-party-org/override-hub](https://github.com/mihomo-party-org/override-hub) 内的 ACL4SSR 规则为灵感，几乎完全重新编写，具有以下优点：
 
 - 集成 [SukkaW/Surge](https://github.com/SukkaW/Surge) 和 [Cats-Team/AdRules](https://github.com/Cats-Team/AdRules) 规则集，优化广告拦截、隐私保护及流量分流精度
 - 新增 Truth Social、E-Hentai、TikTok、加密货币等实用分流规则
@@ -70,7 +70,7 @@ https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/conv
 
 ### 关于链式代理的说明
 
-若有链式代理需求，可以使用`override_with_landing.yaml`和`override_loadbalance_landing.yaml`。这两个配置文件新增了「落地资源」和「前置代理」两个代理组，其中「落地资源」代理组会自动匹配名称包含「家宽」、「商宽」和「落地」的节点，并且其他诸如「香港节点」的代理组会自动剔除落地节点。需要被链式代理的落地节点配置需要将`dialer-proxy`字段设置为「前置代理」，以下是一个例子：
+若有链式代理需求，可以使用`landing=true`参数，或者使用`override_with_landing.yaml`和`override_loadbalance_landing.yaml`。会新增「落地资源」和「前置代理」两个代理组，其中「落地资源」代理组会自动匹配名称包含「家宽」、「商宽」和「落地」的节点，并且其他诸如「香港节点」的代理组会自动剔除落地节点。需要被链式代理的落地节点配置需要将`dialer-proxy`字段设置为「前置代理」，以下是一个例子：
 
 ```yaml
 proxies:
