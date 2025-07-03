@@ -578,14 +578,18 @@ function buildProxyGroups(countryList, countryProxyGroups) {
 function main(config) {
     // 查看当前有哪些国家的节点
     const countryList = parseCountries(config);
+    const countryProxies = [];
+    
     // 修改默认代理组
     for (const country of countryList) {
         const groupName = `${country}节点`;
         globalProxies.push(groupName);
-        defaultProxies.splice(1, 0, groupName);
-        defaultSelector.splice(1, 0, groupName);
-        defaultProxiesDirect.splice(2, 0, groupName);
+        countryProxies.push(groupName);
     }
+    defaultProxies.splice(1, 0, ...countryProxies);
+    defaultSelector.splice(1, 0, ...countryProxies);
+    defaultProxiesDirect.splice(2, 0, ...countryProxies);
+
     // 处理落地
     if (landing) {
         idx = defaultProxies.indexOf("自动选择");
