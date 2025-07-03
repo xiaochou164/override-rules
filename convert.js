@@ -257,7 +257,7 @@ function parseCountries(config) {
                 // 防止重复添加国家名称
                 if (!seen.has(country)) {
                     seen.add(country);
-                    result.unshift(country);
+                    result.push(country);
                 }
             }
         }
@@ -579,9 +579,9 @@ function main(config) {
     // 查看当前有哪些国家的节点
     const countryList = parseCountries(config);
     // 修改默认代理组
-    globalProxies.push(...countryList.reverse().map(c => `${c}节点`));
-    for (const country of countryList.reverse()) {
+    for (const country of countryList) {
         const groupName = `${country}节点`;
+        globalProxies.push(groupName);
         defaultProxies.splice(1, 0, groupName);
         defaultSelector.splice(1, 0, groupName);
         defaultProxiesDirect.splice(2, 0, groupName);
