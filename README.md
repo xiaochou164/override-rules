@@ -40,6 +40,9 @@ https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/conv
 - `landing`: 启用落地节点功能 (默认false)
 - `ipv6`: 启用 IPv6 支持 (默认false)
 - `full`：生成完整配置（默认false，用于纯内核启动）
+- `keepalive`: 启用 TCP Keep Alive（默认 false）[^fn2]
+
+[^fn2]: 无特殊需求不要启用，否则会造成[移动设备异常耗电问题](https://github.com/vernesong/OpenClash/issues/2614)。
 
 **Clash Verge 系**
 
