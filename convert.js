@@ -604,6 +604,7 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
             "name": "低倍率节点",
             "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Lab.png",
             "type": "select",
+            "include-all": true,
             "filter": "(?i)0\.[0-5]|低倍率|省流|大流量|实验性"
         } : null,
         {
@@ -633,7 +634,7 @@ function main(config) {
         countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
         globalProxies.push("低倍率节点");
     }
-    
+
     defaultProxies.splice(1, 0, ...countryProxies);
     defaultSelector.splice(1, 0, ...countryProxies);
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
