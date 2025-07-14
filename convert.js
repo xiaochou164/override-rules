@@ -602,7 +602,7 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
         ...countryProxyGroups,
         lowCost ? {
             "name": "低倍率节点",
-            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Low.png",
+            "icon": "https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Lab.png",
             "type": "select",
             "filter": "(?i)0\.[0-5]|低倍率|省流|大流量|实验性"
         } : null,
