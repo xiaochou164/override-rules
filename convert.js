@@ -629,7 +629,11 @@ function main(config) {
         countryProxies.push(groupName);
     }
 
-    if (lowCost) countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
+    if (lowCost) {
+        countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
+        globalProxies.push("低倍率节点");
+    }
+    
     defaultProxies.splice(1, 0, ...countryProxies);
     defaultSelector.splice(1, 0, ...countryProxies);
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
