@@ -3,3 +3,4 @@ DOMAIN,dl.flathub.org
 DOMAIN-SUFFIX,gvt1.com
 DOMAIN,assets.ppy.sh
 DOMAIN,autoupdate.termius.com
+DOMAIN-REGEX,downloads[1-9].broadcom.com
