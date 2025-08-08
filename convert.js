@@ -26,7 +26,11 @@ const defaultProxiesDirect = [
 ]
 
 const defaultSelector = [
-    "手动切换", "DIRECT"
+    "手动切换", "故障转移", "DIRECT"
+];
+
+const defaultFallback = [
+    "全球直连"
 ];
 
 const globalProxies = [
@@ -404,10 +408,10 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
         },
         {
             "name": "故障转移",
-            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
+            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bypass.png",
             "type": "fallback",
             "url": "https://cp.cloudflare.com/generate_204",
-            "proxies": defaultProxies,
+            "proxies": defaultFallback,
             "exclude-type": "DIRECT",
             "interval": 180,
             "tolerance": 20,
@@ -650,6 +654,7 @@ function main(config) {
         countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
     }
 
+    defaultFallback = [...countryProxies, ...defaultFallback];
     defaultProxies.splice(1, 0, ...countryProxies);
     defaultSelector.splice(1, 0, ...countryProxies);
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
@@ -660,6 +665,7 @@ function main(config) {
         defaultProxies.splice(idx, 0, "落地节点");
 
         defaultSelector.unshift("落地节点");
+        defaultFallback.unshift("落地节点");
 
         idx = globalProxies.indexOf("节点选择");
         globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
