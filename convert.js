@@ -266,31 +266,46 @@ function hasLowCost(config) {
 }
 
 function parseCountries(config) {
-    const proxies = config["proxies"];
-    const ispRegex = new RegExp(/家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地/, 'i');    // 排除落地节点
-    const result = [];
-    const seen = new Set(); // 用于去重
+    const proxies = config.proxies || [];
+    const ispRegex = /家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地/i;   // 需要排除的关键字
 
+    // 用来累计各国节点数
+    const countryCounts = Object.create(null);
+
+    // 构建国家正则表达式，去掉 (?i) 前缀
+    const compiledRegex = {};
     for (const [country, pattern] of Object.entries(countryRegex)) {
-        // 创建正则表达式（去掉 (?i) 前缀并添加 'i' 标志）
-        const regex = new RegExp(
-            pattern.replace(/^\(\?i\)/, ''),
+        compiledRegex[country] = new RegExp(
+            pattern.replace(/^\(\?i\)/, ''),   // 去掉 (?i)
             'i'
         );
+    }
 
-        for (const proxy of proxies) {
-            const name = proxy.name;
-            if (regex.test(name) && !ispRegex.test(name)) {
-                // 防止重复添加国家名称
-                if (!seen.has(country)) {
-                    seen.add(country);
-                    result.push(country);
-                }
+    // 逐个节点进行匹配与统计
+    for (const proxy of proxies) {
+        const name = proxy.name || '';
+
+        // 过滤掉不想统计的 ISP 节点
+        if (ispRegex.test(name)) continue;
+
+        // 找到第一个匹配到的国家就计数并终止本轮
+        for (const [country, regex] of Object.entries(compiledRegex)) {
+            if (regex.test(name)) {
+                countryCounts[country] = (countryCounts[country] || 0) + 1;
+                break;          // 避免一个节点同时累计到多个国家
             }
         }
     }
-    return result;
+
+    // 将结果对象转成数组形式
+    const result = [];
+    for (const [country, count] of Object.entries(countryCounts)) {
+        result.push({ country, count });
+    }
+
+    return result;   // 形如 [{ country: 'Japan', count: 12 }, ...]
 }
+
 
 function buildCountryProxyGroups(countryList) {
     const countryIconURLs = {
@@ -612,15 +627,20 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
 
 function main(config) {
     // 查看当前有哪些国家的节点
-    const countryList = parseCountries(config);
+    const countryInfo = parseCountries(config);
     const lowCost = hasLowCost(config);
     const countryProxies = [];
     
     // 修改默认代理组
-    for (const country of countryList) {
-        const groupName = `${country}节点`;
-        globalProxies.push(groupName);
-        countryProxies.push(groupName);
+    const targetCountryList = [];
+    for (const { country, count } of countryInfo) {
+        if (count > 2) {
+            // 仅为节点数大于 2 的国家创建节点组
+            const groupName = `${country}节点`;
+            globalProxies.push(groupName);
+            countryProxies.push(groupName);
+            targetCountryList.push(country);
+        }
     }
 
     if (lowCost) {
@@ -644,9 +664,9 @@ function main(config) {
         globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
     }
     // 生成国家节点组
-    const countryProxyGroups = buildCountryProxyGroups(countryList);
+    const countryProxyGroups = buildCountryProxyGroups(targetCountryList);
     // 生成代理组
-    const proxyGroups = buildProxyGroups(countryList, countryProxyGroups, lowCost);
+    const proxyGroups = buildProxyGroups(targetCountryList, countryProxyGroups, lowCost);
 
     if (fullConfig) Object.assign(config, {
         "mixed-port": 7890,
