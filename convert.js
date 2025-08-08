@@ -18,7 +18,7 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
 
 // 生成默认代理组
 const defaultProxies = [
-    "节点选择", "自动选择", "手动切换", "全球直连"
+    "节点选择", "手动切换", "全球直连"
 ];
 
 const defaultProxiesDirect = [
@@ -26,11 +26,11 @@ const defaultProxiesDirect = [
 ]
 
 const defaultSelector = [
-    "自动选择", "手动切换", "DIRECT"
+    "手动切换", "DIRECT"
 ];
 
 const globalProxies = [
-    "节点选择", "手动切换", "自动选择", "静态资源", "人工智能", "加密货币", "PayPal", "Telegram", "Microsoft", "Apple", "Google", "YouTube", "Netflix", "Spotify", "TikTok",
+    "节点选择", "手动切换", "故障转移", "静态资源", "人工智能", "加密货币", "PayPal", "Telegram", "Microsoft", "Apple", "Google", "YouTube", "Netflix", "Spotify", "TikTok",
     "E-Hentai", "PikPak", "巴哈姆特", "哔哩哔哩", "新浪微博", "Twitter(X)", "Truth Social", "学术资源", "开发者资源", "瑟琴网站", "游戏平台", "测速服务", 
     "FCM推送", "SSH(22端口)", "Steam修复", "Play商店修复", "搜狗输入", "全球直连", "广告拦截"
 ];
@@ -348,7 +348,7 @@ function buildCountryProxyGroups(countryList) {
 
             if (!loadBalance) {
                 Object.assign(groupConfig, {
-                    "url": "https://www.gstatic.com/generate_204",
+                    "url": "https://cp.cloudflare.com/generate_204",
                     "interval": 180,
                     "tolerance": 20,
                     "lazy": false
@@ -403,12 +403,13 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
             "type": "select"
         },
         {
-            "name": "自动选择",
+            "name": "故障转移",
             "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
-            "type": "url-test",
-            "include-all": true,
-            "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
-            "interval": 300,
+            "type": "fallback",
+            "url": "https://cp.cloudflare.com/generate_204",
+            "proxies": defaultProxies,
+            "exclude-type": "DIRECT",
+            "interval": 180,
             "tolerance": 20,
             "lazy": false
         },
@@ -644,7 +645,7 @@ function main(config) {
     }
 
     if (lowCost) {
-        idx = globalProxies.indexOf("自动选择");
+        idx = globalProxies.indexOf("节点选择");
         globalProxies.splice(idx, 0, "低倍率节点");
         countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
     }
@@ -655,12 +656,12 @@ function main(config) {
 
     // 处理落地
     if (landing) {
-        idx = defaultProxies.indexOf("自动选择");
+        idx = defaultProxies.indexOf("节点选择");
         defaultProxies.splice(idx, 0, "落地节点");
 
         defaultSelector.unshift("落地节点");
 
-        idx = globalProxies.indexOf("自动选择");
+        idx = globalProxies.indexOf("节点选择");
         globalProxies.splice(idx, 0, ...["落地节点", "前置代理"]);
     }
     // 生成国家节点组
