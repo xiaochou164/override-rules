@@ -654,7 +654,7 @@ function main(config) {
         countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
     }
 
-    defaultFallback = [...countryProxies, ...defaultFallback];
+    defaultFallback.splice(0, 0, ...countryProxies);
     defaultProxies.splice(1, 0, ...countryProxies);
     defaultSelector.splice(1, 0, ...countryProxies);
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
