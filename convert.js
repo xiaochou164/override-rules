@@ -29,9 +29,7 @@ const defaultSelector = [
     "手动切换", "故障转移", "DIRECT"
 ];
 
-const defaultFallback = [
-    "全球直连"
-];
+const defaultFallback = [];
 
 const globalProxies = [
     "节点选择", "手动切换", "故障转移", "静态资源", "人工智能", "加密货币", "PayPal", "Telegram", "Microsoft", "Apple", "Google", "YouTube", "Netflix", "Spotify", "TikTok",
@@ -412,7 +410,6 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
             "type": "fallback",
             "url": "https://cp.cloudflare.com/generate_204",
             "proxies": defaultFallback,
-            "exclude-type": "DIRECT",
             "interval": 180,
             "tolerance": 20,
             "lazy": false
@@ -655,8 +652,8 @@ function main(config) {
     }
 
     defaultFallback.splice(0, 0, ...countryProxies);
-    defaultProxies.splice(1, 0, ...countryProxies);
-    defaultSelector.splice(1, 0, ...countryProxies);
+    defaultProxies.splice(0, 0, ...countryProxies);
+    defaultSelector.splice(0, 0, ...countryProxies);
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
 
     // 处理落地
