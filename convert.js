@@ -16,6 +16,7 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     fullConfig = parseBool(inArg.full) || false,
     enableKeepAlive = parseBool(inArg.keepalive) || false;
 
+
 // 生成默认代理组
 const defaultProxies = [
     "节点选择", "手动切换", "全球直连"
@@ -632,6 +633,10 @@ function main(config) {
     const countryInfo = parseCountries(config);
     const lowCost = hasLowCost(config);
     const countryProxies = [];
+
+    if (lowCost) {
+        globalProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
+    }
     
     // 修改默认代理组
     const targetCountryList = [];
@@ -659,7 +664,7 @@ function main(config) {
     if (landing) {
         idx = defaultProxies.indexOf("节点选择");
         defaultProxies.splice(idx + 1, 0, "落地节点");  //插入到节点选择之后
-        
+
         defaultSelector.unshift("落地节点");
         defaultFallback.unshift("落地节点");
 
