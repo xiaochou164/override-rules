@@ -278,7 +278,7 @@ function parseCountries(config) {
     const compiledRegex = {};
     for (const [country, pattern] of Object.entries(countryRegex)) {
         compiledRegex[country] = new RegExp(
-            pattern.replace(/^\(\?i\)/, ''),   // 去掉 (?i)
+            pattern.replace(/^\(\?i\)/, ''),
             'i'
         );
     }
@@ -294,7 +294,7 @@ function parseCountries(config) {
         for (const [country, regex] of Object.entries(compiledRegex)) {
             if (regex.test(name)) {
                 countryCounts[country] = (countryCounts[country] || 0) + 1;
-                break;          // 避免一个节点同时累计到多个地区
+                break;    // 避免一个节点同时累计到多个地区
             }
         }
     }
@@ -305,7 +305,7 @@ function parseCountries(config) {
         result.push({ country, count });
     }
 
-    return result;   // 形如 [{ country: 'Japan', count: 12 }, ...]
+    return result;   // [{ country: 'Japan', count: 12 }, ...]
 }
 
 
@@ -646,13 +646,13 @@ function main(config) {
     }
 
     if (lowCost) {
-        countryProxies.unshift("低倍率节点");     // 懒得再搞一个低倍率节点组了
+        countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
     }
 
     // 将地区代理组插入默认代理组
     defaultFallback.splice(0, 0, ...countryProxies);
-    defaultProxies.splice(0, 0, ...countryProxies);
-    defaultSelector.splice(0, 0, ...countryProxies);
+    defaultProxies.splice(1, 0, ...countryProxies); // 插入节点选择的后面
+    defaultSelector.splice(1, 0, ...countryProxies); // 在第二个位置插入
     defaultProxiesDirect.splice(2, 0, ...countryProxies);
 
     // 处理落地
