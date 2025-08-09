@@ -110,7 +110,7 @@ const ruleProviders = {
     },
     "SpeedTest": {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
-        "url": " https://ruleset.skk.moe/Clash/domainset/speedtest.txt",
+        "url": "https://ruleset.skk.moe/Clash/domainset/speedtest.txt",
         "path": "./ruleset/SpeedTest.list"
     },
 
