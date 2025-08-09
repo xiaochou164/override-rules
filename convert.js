@@ -657,7 +657,9 @@ function main(config) {
 
     // 处理落地
     if (landing) {
-        defaultProxies.unshift("落地节点");  //插入到节点选择之前
+        idx = defaultProxies.indexOf("节点选择");
+        defaultProxies.splice(idx + 1, 0, "落地节点");  //插入到节点选择之后
+        
         defaultSelector.unshift("落地节点");
         defaultFallback.unshift("落地节点");
 
