@@ -165,7 +165,6 @@ const snifferConfig = {
         },
         "HTTP": {
             "ports": [80, 8080, 8880],
-            "override-destination": true
         },
         "QUIC": {
             "ports": [443, 8443],
