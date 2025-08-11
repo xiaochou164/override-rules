@@ -2,7 +2,7 @@
 node_modules/
 
 # Generated YAML outputs
-yaml_generator/output/*.yaml
+yamls/
 
 # Logs
 npm-debug.log*
