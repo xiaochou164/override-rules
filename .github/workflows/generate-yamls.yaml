@@ -3,8 +3,6 @@ name: Generate YAML Configs
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'yamls/**'
   workflow_dispatch: {}
 
 permissions:
