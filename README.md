@@ -15,10 +15,11 @@
 
 **Mihomo Party**
 
-1. 复制对应文件 raw 链接，例如： `https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/override.yaml`。
-2. 打开 Mihomo Party，左侧导航栏打开「覆写」页面，粘贴链接后导入，即可看到对应的覆写脚本/配置。
-3. 左侧导航栏打开「订阅管理」，点击需要覆写的订阅右上角的三个点，选择「编辑信息」。
-4. 在打开的对话框中最后一项「覆写」，选择刚刚导入的覆写脚本/配置，保存即可。
+1. 推荐直接使用 JS 动态覆写：`https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js`
+2. 若需要特定参数（例如链式 + 完整配置）：在链接后加 `#landing=true&full=true`。
+3. 打开 Mihomo Party → 左侧「覆写」→ 粘贴上述链接导入。
+4. 打开「订阅管理」→ 目标订阅右上角三个点 → 「编辑信息」→ 选择该覆写脚本 → 保存。
+5. 若客户端不支持 JS，可改用 `yamls/` 目录下对应静态完整配置。
 
 需要注意，Mihomo Party 在默认设置下还会接管 DNS 和 SNI（域名嗅探），需要手动在设置中关闭「控制 DNS 设置」和「控制域名嗅探」两个选项。
 
@@ -26,7 +27,7 @@
 
 参考[最速 Substore 订阅管理指南](https://blog.l3zc.com/2025/03/clash-subscription-convert/)。
 
-2025/06/17更新：新增 JavaScript 格式覆写，支持传入参数，更易于维护，推荐使用。例如，有链式代理需求，使用如下覆写脚本链接即可：
+2025/06/17 更新：新增 JavaScript 格式覆写，支持传入参数，更易于维护，已经成为首选方式。例如，有链式代理需求，使用如下覆写脚本链接即可：
 
 ```
 https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js#landing=true
@@ -73,7 +74,7 @@ https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/conv
 
 ### 关于链式代理的说明
 
-若有链式代理需求，可以使用`landing=true`参数，或者使用`override_with_landing.yaml`和`override_loadbalance_landing.yaml`。会新增「落地资源」和「前置代理」两个代理组，其中「落地资源」代理组会自动匹配名称包含「家宽」、「商宽」和「落地」的节点，并且其他诸如「香港节点」的代理组会自动剔除落地节点。需要被链式代理的落地节点配置需要将`dialer-proxy`字段设置为「前置代理」，以下是一个例子：
+若有链式代理需求，直接在 JS 链接后加 `landing=true` 参数即可（例如：`convert.js#landing=true`）。这样会新增「落地节点」和「前置代理」两个代理组，其中「落地节点」会自动匹配名称包含「家宽」「家庭」「商宽」「落地」「Starlink/星链」等关键词的节点，其他诸如「香港节点」等国家分组会自动剔除这些落地节点。需要被链式代理的落地节点请在你的订阅里为该节点配置 `dialer-proxy: "前置代理"`，示例：
 
 ```yaml
 proxies:
@@ -85,3 +86,52 @@ proxies:
     password: goodpassword
     dialer-proxy: "前置代理"
 ```
+
+### 关于自动生成的 YAML 格式覆写
+
+除了直接引用 `convert.js` 动态覆写，你也可以使用仓库中预先生成好的 32 份「参数组合产物」——它们都放在 `yamls/` 目录里，由 GitHub Actions 在每次推送后自动重新生成、覆盖。适用于：
+
+- 想直接拿一份静态完整配置（尤其是需要 `full=true` 纯内核启动）
+- 某些不支持 JS 覆写的客户端 / 转换服务
+- 只想快速对比不同参数组合输出差异
+
+文件命名规则：
+
+```
+config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}.yaml
+```
+
+对应含义（数字 1 表示开启，0 表示关闭）：
+
+- lb：`loadbalance` 负载均衡
+- landing：链式代理（落地节点/前置代理）
+- ipv6：启用 IPv6
+- full：输出完整内核配置字段（端口、dns、sniffer 等全部写出）
+- keepalive：启用 TCP Keep Alive
+
+示例（开启 full，其余关闭）：
+
+```
+https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0.yaml
+```
+
+如果你只是想要“动态识别国家 + 传参”的灵活性，还是推荐直接引用：
+
+```
+https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js#full=true&ipv6=true
+```
+
+注意事项：
+
+- `yamls/` 目录内容是自动产物，不要手动改；改了也会被下次 CI 覆盖。
+- CI 只是套用一份假的 `fake_proxies.json` 节点名来生成结构，你真实订阅的节点列表是由客户端再合并的；这些 YAML 里不会内置真实节点。
+- 想减少体积自己构建：本地运行 `npm install && npm run generate`，输出就在 `yamls/`。
+
+挑选策略：
+
+- 需要直接当主配置启动：选 `full=1`
+- 需要链式代理：选 `landing=1`
+- 你有大量多国节点、希望自动测试省心：`loadbalance=0`（仍然是 url-test），或根据需求打开
+- 想节省一点延迟（避免 keep-alive 争议）：保留 `keepalive=0`
+
+如果未来参数扩展，会同步更新命名规则并继续由 CI 覆盖生成。
