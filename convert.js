@@ -162,17 +162,16 @@ const snifferConfig = {
     "sniff": {
         "TLS": {
             "ports": [443, 8443],
-            "override-destination": true
         },
         "HTTP": {
             "ports": [80, 8080, 8880],
-            "override-destination": false
+            "override-destination": true
         },
         "QUIC": {
             "ports": [443, 8443],
-            "override-destination": true
         }
     },
+    "override-destination": false,
     "enable": true,
     "force-dns-mapping": true,
     "skip-domain": [
