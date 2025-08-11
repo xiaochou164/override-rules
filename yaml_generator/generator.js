@@ -26,7 +26,8 @@ const BASE_DIR = path.resolve(__dirname, '..');
 const GENERATOR_DIR = __dirname;
 const CONVERT_FILE = path.join(BASE_DIR, 'convert.js');
 const FAKE_PROXIES_FILE = path.join(GENERATOR_DIR, 'fake_proxies.json');
-const OUTPUT_DIR = path.join(BASE_DIR, 'yaml');
+// 统一使用 plural 目录名，便于与 README / CI 对齐
+const OUTPUT_DIR = path.join(BASE_DIR, 'yamls');
 
 // 读取 fake proxies
 function loadFakeConfig() {

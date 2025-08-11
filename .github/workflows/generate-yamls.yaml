@@ -31,7 +31,11 @@ jobs:
 
       - name: Commit and push YAML changes
         run: |
-          if git diff --quiet --exit-code -- yaml; then
+          if [ ! -d "yamls" ]; then
+            echo "yamls directory missing"
+            exit 1
+          fi
+          if git diff --quiet --exit-code -- yamls; then
             echo "No YAML changes"
             exit 0
           fi
