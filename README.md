@@ -89,11 +89,7 @@ proxies:
 
 ### 关于自动生成的 YAML 格式覆写
 
-除了直接引用 `convert.js` 动态覆写，你也可以使用仓库中预先生成好的 32 份「参数组合产物」——它们都放在 `yamls/` 目录里，由 GitHub Actions 在每次推送后自动重新生成、覆盖。适用于：
-
-- 想直接拿一份静态完整配置（尤其是需要 `full=true` 纯内核启动）
-- 某些不支持 JS 覆写的客户端 / 转换服务
-- 只想快速对比不同参数组合输出差异
+除了直接引用 convert.js 动态覆写，你也可以使用仓库中预先生成好的 32 份 YAML 格式覆写——它们都放在 yamls/ 目录里，由 GitHub Actions 在每次推送后自动重新生成、覆盖。适用于诸如 Clash Verge 等不支持 JS 覆写的客户端和转换服务。
 
 文件命名规则：
 
@@ -101,37 +97,11 @@ proxies:
 config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}.yaml
 ```
 
-对应含义（数字 1 表示开启，0 表示关闭）：
-
-- lb：`loadbalance` 负载均衡
-- landing：链式代理（落地节点/前置代理）
-- ipv6：启用 IPv6
-- full：输出完整内核配置字段（端口、dns、sniffer 等全部写出）
-- keepalive：启用 TCP Keep Alive
-
 示例（开启 full，其余关闭）：
 
 ```
 https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0.yaml
 ```
 
-如果你只是想要“动态识别国家 + 传参”的灵活性，还是推荐直接引用：
+CI 只是套用一份假的`fake_proxies.json`来生成覆写，所以不可能实现 JS 覆写自动根据节点匹配生成对应代理组的功能，只能把所有地区节点组都放进去。如果你已经搭建 Substore，并且想要「动态识别国家 + 传参」的灵活性，还是推荐使用 JS 覆写。
 
-```
-https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js#full=true&ipv6=true
-```
-
-注意事项：
-
-- `yamls/` 目录内容是自动产物，不要手动改；改了也会被下次 CI 覆盖。
-- CI 只是套用一份假的 `fake_proxies.json` 节点名来生成结构，你真实订阅的节点列表是由客户端再合并的；这些 YAML 里不会内置真实节点。
-- 想减少体积自己构建：本地运行 `npm install && npm run generate`，输出就在 `yamls/`。
-
-挑选策略：
-
-- 需要直接当主配置启动：选 `full=1`
-- 需要链式代理：选 `landing=1`
-- 你有大量多国节点、希望自动测试省心：`loadbalance=0`（仍然是 url-test），或根据需求打开
-- 想节省一点延迟（避免 keep-alive 争议）：保留 `keepalive=0`
-
-如果未来参数扩展，会同步更新命名规则并继续由 CI 覆盖生成。
