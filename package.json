@@ -1,0 +1,14 @@
+{
+  "name": "override-rules",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Override rules YAML generator",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "generate": "node yaml_generator/generator.js"
+  },
+  "dependencies": {
+    "yaml": "^2.5.0"
+  }
+}
