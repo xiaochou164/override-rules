@@ -16,7 +16,7 @@ profile:
   store-selected: true
 proxy-groups:
   - name: 节点选择
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies:
       - 手动切换
@@ -34,11 +34,11 @@ proxy-groups:
       - 故障转移
       - DIRECT
   - name: 手动切换
-    icon: https://cdn.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
+    icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     include-all: true
     type: select
   - name: 故障转移
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
     type: fallback
     url: https://cp.cloudflare.com/generate_204
     proxies:
@@ -57,7 +57,7 @@ proxy-groups:
     tolerance: 20
     lazy: false
   - name: 静态资源
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
     include-all: true
     proxies: &a1
@@ -76,59 +76,59 @@ proxy-groups:
       - 手动切换
       - 全球直连
   - name: 人工智能
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies: *a1
   - name: 加密货币
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png
     type: select
     proxies: *a1
   - name: PayPal
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/PayPal.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/PayPal.png
     type: select
     proxies: *a1
   - name: Telegram
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies: *a1
   - name: Microsoft
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png
     type: select
     proxies: *a1
   - name: Apple
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple_2.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Apple_2.png
     type: select
     proxies: *a1
   - name: Google
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies: *a1
   - name: YouTube
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     type: select
     proxies: *a1
   - name: Netflix
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
     type: select
     proxies: *a1
   - name: Spotify
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Spotify.png
     type: select
     proxies: *a1
   - name: TikTok
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/TikTok.png
     type: select
     proxies: *a1
   - name: E-Hentai
-    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Ehentai.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Ehentai.png
     type: select
     proxies: *a1
   - name: PikPak
-    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/PikPak.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/PikPak.png
     type: select
     proxies: *a1
   - name: 巴哈姆特
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png
     type: select
     proxies:
       - 台湾节点
@@ -136,18 +136,18 @@ proxy-groups:
       - 手动切换
       - 全球直连
   - name: 哔哩哔哩
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
     type: select
     proxies:
       - 全球直连
       - 台湾节点
       - 香港节点
   - name: Twitter(X)
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
     type: select
     proxies: *a1
   - name: 新浪微博
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Weibo.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Weibo.png
     type: select
     include-all: true
     proxies:
@@ -166,33 +166,33 @@ proxy-groups:
       - 加拿大节点
       - 手动切换
   - name: Truth Social
-    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png
     type: select
     proxies:
       - 美国节点
       - 节点选择
       - 手动切换
   - name: 学术资源
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Scholar.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Scholar.png
     type: select
     proxies:
       - 节点选择
       - 手动切换
       - 全球直连
   - name: 开发者资源
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/GitHub.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/GitHub.png
     type: select
     proxies: *a1
   - name: 瑟琴网站
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Pornhub.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Pornhub.png
     type: select
     proxies: *a1
   - name: 游戏平台
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Game.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Game.png
     type: select
     proxies: *a1
   - name: 测速服务
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png
     type: select
     proxies: *a1
   - name: FCM推送
@@ -203,109 +203,109 @@ proxy-groups:
       - Google
       - 节点选择
   - name: SSH(22端口)
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Server.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Server.png
     type: select
     proxies: *a1
   - name: Steam修复
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Steam.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Steam.png
     type: select
     proxies:
       - 全球直连
       - 游戏平台
       - 节点选择
   - name: Play商店修复
-    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/GooglePlay.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/GooglePlay.png
     type: select
     proxies:
       - 全球直连
       - Google
       - 节点选择
   - name: 搜狗输入
-    icon: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/Sougou.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Sougou.png
     type: select
     proxies:
       - 全球直连
       - REJECT
   - name: 全球直连
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Direct.png
     type: select
     proxies:
       - DIRECT
       - 节点选择
   - name: 广告拦截
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png
     type: select
     proxies:
       - REJECT
       - 全球直连
   - name: 香港节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
     filter: (?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 澳门节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Macao.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Macao.png
     include-all: true
     filter: (?i)澳门|MO|Macau
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 台湾节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     filter: (?i)台|新北|彰化|TW|Taiwan
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 美国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
     filter: (?i)美国|美|US|United States
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 英国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png
     include-all: true
     filter: (?i)英国|United Kingdom|UK|伦敦|London
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 日本节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
     filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 韩国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Korea.png
     include-all: true
     filter: (?i)KR|Korea|KOR|首尔|韩|韓
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 新加坡节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
     filter: (?i)新加坡|坡|狮城|SG|Singapore
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 德国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Germany.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Germany.png
     include-all: true
     filter: (?i)德国|德|DE|Germany
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 法国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/France.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/France.png
     include-all: true
     filter: (?i)法国|法|FR|France
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 加拿大节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Canada.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Canada.png
     include-all: true
     filter: (?i)加拿大|Canada|CA
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: GLOBAL
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Global.png
     include-all: true
     type: select
     proxies:
@@ -363,7 +363,7 @@ rule-providers:
     url: https://adrules.top/adrules_domainset.txt
     path: ./ruleset/ADBlock.txt
   TruthSocial:
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list
     path: ./ruleset/TruthSocial.list
     behavior: classical
     interval: 86400
@@ -402,28 +402,28 @@ rule-providers:
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TikTok.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/TikTok.list
     path: ./ruleset/TikTok.list
   EHentai:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/EHentai.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/EHentai.list
     path: ./ruleset/EHentai.list
   PlayStoreFix:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/GooglePlayStoreFix.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/GooglePlayStoreFix.list
     path: ./ruleset/GooglePlayStoreFix.list
   SteamFix:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/SteamFix.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/SteamFix.list
     path: ./ruleset/SteamFix.list
   GoogleFCM:
     type: http
@@ -431,27 +431,27 @@ rule-providers:
     interval: 86400
     format: text
     path: ./ruleset/FirebaseCloudMessaging.list
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/FirebaseCloudMessaging.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/FirebaseCloudMessaging.list
   AdditionalFilter:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list
     path: ./ruleset/AdditionalFilter.list
   Weibo:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Weibo.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/Weibo.list
     path: ./ruleset/Weibo.list
   AdditionalCDNResources:
     type: http
     behavior: classical
     format: text
     interval: 86400
-    url: https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/AdditionalCDNResources.list
+    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalCDNResources.list
     path: ./ruleset/AdditionalCDNResources.list
   SpeedTest:
     type: http
@@ -559,8 +559,8 @@ dns:
     - tls://dot.pub
 geodata-mode: true
 geox-url:
-  geoip: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
-  geosite: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat
-  mmdb: https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb
-  asn: https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb
+  geoip: https://cdn.jsdmirror.com/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
+  geosite: https://cdn.jsdmirror.com/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat
+  mmdb: https://cdn.jsdmirror.com/gh/Loyalsoldier/geoip@release/Country.mmdb
+  asn: https://cdn.jsdmirror.com/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb
 
