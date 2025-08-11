@@ -174,7 +174,6 @@ const snifferConfig = {
         }
     },
     "enable": true,
-    "parse-pure-ip": true,
     "force-dns-mapping": true,
     "skip-domain": [
         "Mijia Cloud",
