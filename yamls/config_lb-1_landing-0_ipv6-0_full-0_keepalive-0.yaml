@@ -15,6 +15,7 @@ proxy-groups:
       - 德国节点
       - 法国节点
       - 加拿大节点
+      - 低倍率节点
       - 故障转移
       - DIRECT
   - name: 手动切换
@@ -37,6 +38,7 @@ proxy-groups:
       - 德国节点
       - 法国节点
       - 加拿大节点
+      - 低倍率节点
     interval: 180
     tolerance: 20
     lazy: false
@@ -57,6 +59,7 @@ proxy-groups:
       - 德国节点
       - 法国节点
       - 加拿大节点
+      - 低倍率节点
       - 手动切换
       - 全球直连
   - name: 人工智能
@@ -148,6 +151,7 @@ proxy-groups:
       - 德国节点
       - 法国节点
       - 加拿大节点
+      - 低倍率节点
       - 手动切换
   - name: Truth Social
     icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png
@@ -222,6 +226,12 @@ proxy-groups:
     proxies:
       - REJECT
       - 全球直连
+  - name: 低倍率节点
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Lab.png
+    type: url-test
+    url: https://cp.cloudflare.com/generate_204
+    include-all: true
+    filter: (?i)0.[0-5]|低倍率|省流|大流量|实验性
   - name: 香港节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
@@ -327,6 +337,7 @@ proxy-groups:
       - 搜狗输入
       - 全球直连
       - 广告拦截
+      - 低倍率节点
       - 香港节点
       - 澳门节点
       - 台湾节点
