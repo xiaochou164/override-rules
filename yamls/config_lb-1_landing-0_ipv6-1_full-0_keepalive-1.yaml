@@ -395,13 +395,6 @@ rule-providers:
     interval: 86400
     url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/EHentai.list
     path: ./ruleset/EHentai.list
-  PlayStoreFix:
-    type: http
-    behavior: classical
-    format: text
-    interval: 86400
-    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/GooglePlayStoreFix.list
-    path: ./ruleset/GooglePlayStoreFix.list
   SteamFix:
     type: http
     behavior: classical
@@ -456,10 +449,10 @@ rules:
   - RULE-SET,EHentai,E-Hentai
   - RULE-SET,TikTok,TikTok
   - RULE-SET,SteamFix,Steam修复
-  - RULE-SET,PlayStoreFix,Play商店修复
   - RULE-SET,GoogleFCM,FCM推送
   - RULE-SET,Weibo,新浪微博
   - RULE-SET,SpeedTest,测速服务
+  - DOMAIN,services.googleapis.cn,Play商店修复
   - GEOSITE,PAYPAL@CN,全球直连
   - GEOSITE,PAYPAL,PayPal
   - GEOSITE,GOOGLE-PLAY@CN,全球直连
