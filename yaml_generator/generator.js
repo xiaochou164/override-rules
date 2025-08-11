@@ -87,6 +87,12 @@ function ensureDir(dir) {
 function main() {
     const baseConfig = loadFakeConfig();
     ensureDir(OUTPUT_DIR);
+    // 清理旧文件，避免残留无效组合
+    for (const f of fs.readdirSync(OUTPUT_DIR)) {
+        if (/^config_lb-\d_landing-\d_ipv6-\d_full-\d_keepalive-\d\.yaml$/.test(f)) {
+            try { fs.unlinkSync(path.join(OUTPUT_DIR, f)); } catch (_) {}
+        }
+    }
     const combos = generateArgCombos();
     const limit = process.env.LIMIT_COMBOS ? parseInt(process.env.LIMIT_COMBOS, 10) : combos.length;
     let count = 0;
