@@ -19,6 +19,7 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies: &a1
+      - 故障转移
       - 落地节点
       - 香港节点
       - 澳门节点
@@ -32,6 +33,31 @@ proxy-groups:
       - 法国节点
       - 加拿大节点
       - 低倍率节点
+      - 手动切换
+      - DIRECT
+  - name: 故障转移
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
+    type: fallback
+    url: https://cp.cloudflare.com/generate_204
+    proxies:
+      - 落地节点
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 美国节点
+      - 英国节点
+      - 日本节点
+      - 韩国节点
+      - 新加坡节点
+      - 德国节点
+      - 法国节点
+      - 加拿大节点
+      - 低倍率节点
+      - 手动切换
+      - DIRECT
+    interval: 180
+    tolerance: 20
+    lazy: false
   - name: 落地节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png
     type: select
@@ -45,20 +71,23 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     include-all: true
     type: select
-  - name: 故障转移
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    proxies:
-      - 落地节点
-    interval: 180
-    tolerance: 20
-    lazy: false
   - name: 静态资源
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
     proxies: &a2
       - 节点选择
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 美国节点
+      - 英国节点
+      - 日本节点
+      - 韩国节点
+      - 新加坡节点
+      - 德国节点
+      - 法国节点
+      - 加拿大节点
+      - 低倍率节点
       - 手动切换
       - 全球直连
   - name: 人工智能
@@ -138,6 +167,18 @@ proxy-groups:
     include-all: true
     proxies:
       - 全球直连
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 美国节点
+      - 英国节点
+      - 日本节点
+      - 韩国节点
+      - 新加坡节点
+      - 德国节点
+      - 法国节点
+      - 加拿大节点
+      - 低倍率节点
       - 节点选择
       - 手动切换
   - name: Truth Social
@@ -335,10 +376,10 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
+      - 故障转移
       - 落地节点
       - 前置代理
       - 手动切换
-      - 故障转移
       - 静态资源
       - 人工智能
       - 加密货币
