@@ -19,7 +19,6 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies: &a1
-      - 落地节点
       - 手动切换
       - 香港节点
       - 澳门节点
