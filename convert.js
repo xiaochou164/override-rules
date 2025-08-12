@@ -374,8 +374,6 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
             "name": "前置代理",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png",
             "type": "select",
-            "include-all": true,
-            "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
             "proxies": defaultSelector
         } : null,
         {
@@ -398,7 +396,6 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
             "name": "静态资源",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png",
             "type": "select",
-            "include-all": true,
             "proxies": defaultProxies,
         },
         {
