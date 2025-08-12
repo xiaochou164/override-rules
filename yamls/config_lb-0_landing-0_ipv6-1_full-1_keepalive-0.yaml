@@ -61,7 +61,6 @@ proxy-groups:
   - name: 静态资源
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
-    include-all: true
     proxies: &a1
       - 节点选择
       - 香港节点

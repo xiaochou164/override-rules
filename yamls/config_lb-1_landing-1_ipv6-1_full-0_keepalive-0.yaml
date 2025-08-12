@@ -27,8 +27,6 @@ proxy-groups:
   - name: 前置代理
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png
     type: select
-    include-all: true
-    exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地
     proxies: *a1
   - name: 手动切换
     icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
@@ -58,7 +56,6 @@ proxy-groups:
   - name: 静态资源
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
-    include-all: true
     proxies: &a2
       - 节点选择
       - 落地节点
