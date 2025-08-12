@@ -17,20 +17,33 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     keepAliveEnabled = parseBool(inArg.keepalive) || false;
 
 
-// 生成默认代理组
-const defaultProxies = [
-    "节点选择", "手动切换", "全球直连"
-];
+// ================== 基础构建逻辑重构 ==================
+// 不再使用后续到处 push / unshift 的可变全局数组；改为按条件一次性构建。
+// defaultProxies: 普通分类策略使用的候选列表
+// defaultProxiesDirect: 优先直连的分类策略候选列表
+// defaultSelector: 供 “节点选择” / “前置代理” 使用的节点组名集合（仅地区/特殊组）
+// defaultFallback: 供 “故障转移” 使用的节点组名集合（保持与历史行为一致：仅在 landing 时加入落地节点）
 
-const defaultProxiesDirect = [
-    "全球直连", "节点选择", "手动切换"
-]
+function buildBaseLists({ landing, lowCost, countryInfo }) {
+    // 生成符合条件 (count > 2) 的地区组名
+    const countryGroupNames = countryInfo
+        .filter(item => item.count > 2)
+        .map(item => `${item.country}节点`);
 
-const defaultSelector = [
-    "手动切换", "故障转移", "DIRECT"
-];
+    // 选择器使用的基础地区组
+    const selector = [...countryGroupNames];
+    if (lowCost) selector.push("低倍率节点");
+    if (landing) selector.unshift("落地节点");
 
-const defaultFallback = [];
+    // 故障转移组历史上仅在落地启用时包含落地节点，这里保持原逻辑
+    const fallback = landing ? ["落地节点"] : [];
+
+    // 静态通用候选数组（之前代码中实际想要的顺序）
+    const defaultProxies = ["节点选择", "手动切换", "全球直连"];
+    const defaultProxiesDirect = ["全球直连", "节点选择", "手动切换"];
+
+    return { defaultProxies, defaultProxiesDirect, defaultSelector: selector, defaultFallback: fallback, countryGroupNames };
+}
 
 const ruleProviders = {
     "ADBlock": {
@@ -351,7 +364,15 @@ function buildCountryProxyGroups(countryList) {
     return countryProxyGroups;
 }
 
-function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
+function buildProxyGroups({
+    countryList,
+    countryProxyGroups,
+    lowCost,
+    defaultProxies,
+    defaultProxiesDirect,
+    defaultSelector,
+    defaultFallback
+}) {
     // 查看是否有特定地区的节点
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
@@ -606,41 +627,32 @@ function buildProxyGroups(countryList, countryProxyGroups, lowCost) {
 }
 
 function main(config) {
-    // 查看当前有哪些地区的节点
-    const countryInfo = parseCountries(config);
+    // 解析地区与低倍率信息
+    const countryInfo = parseCountries(config); // [{ country, count }]
     const lowCost = hasLowCost(config);
-    const countryProxies = [];
-    
-    // 修改默认代理组
-    const targetCountryList = [];
-    for (const { country, count } of countryInfo) {
-        if (count > 2) {
-            // 仅为节点数大于 2 的地区创建节点组
-            const groupName = `${country}节点`;
-            countryProxies.push(groupName);
-            targetCountryList.push(country);
-        }
-    }
 
-    if (lowCost) {
-        countryProxies.push("低倍率节点");     // 懒得再搞一个低倍率节点组了
-    }
+    // 构建基础数组
+    const {
+        defaultProxies,
+        defaultProxiesDirect,
+        defaultSelector,
+        defaultFallback,
+        countryGroupNames: targetCountryList
+    } = buildBaseLists({ landing, lowCost, countryInfo });
 
-    // 将地区代理组插入默认代理组
-    defaultFallback.splice(0, 0, ...countryProxies);
-    defaultProxies.splice(1, 0, ...countryProxies); // 插入节点选择的后面
-    defaultSelector.splice(1, 0, ...countryProxies); // 在第二个位置插入
-    defaultProxiesDirect.splice(2, 0, ...countryProxies);
+    // 为地区构建对应的 url-test / load-balance 组
+    const countryProxyGroups = buildCountryProxyGroups(targetCountryList.map(n => n.replace(/节点$/, '')));
 
-    // 处理落地
-    if (landing) {
-        idx = defaultProxies.indexOf("节点选择");
-        defaultProxies.splice(idx + 1, 0, "落地节点");  //插入到节点选择之后
-        defaultFallback.unshift("落地节点");
-    }
-    const countryProxyGroups = buildCountryProxyGroups(targetCountryList);
     // 生成代理组
-    const proxyGroups = buildProxyGroups(targetCountryList, countryProxyGroups, lowCost);
+    const proxyGroups = buildProxyGroups({
+        countryList: targetCountryList.map(n => n.replace(/节点$/, '')),
+        countryProxyGroups,
+        lowCost,
+        defaultProxies,
+        defaultProxiesDirect,
+        defaultSelector,
+        defaultFallback
+    });
     const globalProxies = proxyGroups.map(item => item.name);
     
     proxyGroups.push(
