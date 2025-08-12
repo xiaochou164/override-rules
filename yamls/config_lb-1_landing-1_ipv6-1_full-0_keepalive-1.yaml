@@ -3,7 +3,7 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies: &a1
-      - 手动切换
+      - 落地节点
       - 香港节点
       - 澳门节点
       - 台湾节点
@@ -16,8 +16,6 @@ proxy-groups:
       - 法国节点
       - 加拿大节点
       - 低倍率节点
-      - 故障转移
-      - DIRECT
   - name: 落地节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png
     type: select
@@ -37,18 +35,6 @@ proxy-groups:
     url: https://cp.cloudflare.com/generate_204
     proxies:
       - 落地节点
-      - 香港节点
-      - 澳门节点
-      - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
-      - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
-      - 低倍率节点
     interval: 180
     tolerance: 20
     lazy: false
@@ -57,19 +43,6 @@ proxy-groups:
     type: select
     proxies: &a2
       - 节点选择
-      - 落地节点
-      - 香港节点
-      - 澳门节点
-      - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
-      - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
-      - 低倍率节点
       - 手动切换
       - 全球直连
   - name: 人工智能
@@ -150,18 +123,6 @@ proxy-groups:
     proxies:
       - 全球直连
       - 节点选择
-      - 香港节点
-      - 澳门节点
-      - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
-      - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
-      - 低倍率节点
       - 手动切换
   - name: Truth Social
     icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png
