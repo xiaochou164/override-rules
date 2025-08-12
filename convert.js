@@ -25,24 +25,42 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
 // defaultFallback: 供 “故障转移” 使用的节点组名集合（保持与历史行为一致：仅在 landing 时加入落地节点）
 
 function buildBaseLists({ landing, lowCost, countryInfo }) {
-    // 生成符合条件 (count > 2) 的地区组名
+    // 不再预设排序，直接使用 countryInfo 原始顺序 (出现顺序) 且 count>2
     const countryGroupNames = countryInfo
         .filter(item => item.count > 2)
-        .map(item => `${item.country}节点`);
+        .map(item => item.country + "节点");
 
-    // 选择器使用的基础地区组
-    const selector = [...countryGroupNames];
+    // defaultSelector (节点选择 组里展示的候选) 规定的新结构：
+    // 故障转移, 落地节点(可选), 各地区节点, 低倍率节点(可选), 手动切换, DIRECT
+    const selector = ["故障转移"]; // 把 fallback 放在最前
+    if (landing) selector.push("落地节点");
+    selector.push(...countryGroupNames);
     if (lowCost) selector.push("低倍率节点");
-    if (landing) selector.unshift("落地节点");
+    selector.push("手动切换", "DIRECT");
 
-    // 故障转移组历史上仅在落地启用时包含落地节点，这里保持原逻辑
-    const fallback = landing ? ["落地节点"] : [];
+    // defaultProxies (各分类策略引用) 规定的新结构：
+    // 节点选择, 各地区节点, 低倍率节点(可选), 手动切换, 全球直连
+    const defaultProxies = ["节点选择", ...countryGroupNames];
+    if (lowCost) defaultProxies.push("低倍率节点");
+    defaultProxies.push("手动切换", "全球直连");
 
-    // 静态通用候选数组（之前代码中实际想要的顺序）
-    const defaultProxies = ["节点选择", "手动切换", "全球直连"];
-    const defaultProxiesDirect = ["全球直连", "节点选择", "手动切换"];
+    // direct 优先的备用列表（沿用原项目语义，只微调为同样的地区顺序）
+    const defaultProxiesDirect = ["全球直连", ...countryGroupNames, "节点选择", "手动切换"]; // 直连优先
+    if (lowCost) {
+        // 在直连策略里低倍率次于地区、早于节点选择
+        defaultProxiesDirect.splice(1 + countryGroupNames.length, 0, "低倍率节点");
+    }
 
-    return { defaultProxies, defaultProxiesDirect, defaultSelector: selector, defaultFallback: fallback, countryGroupNames };
+    // 故障转移需要的候选：落地(可选) + 地区节点 + 低倍率(可选) + 手动切换 + DIRECT
+    // 手动切换/DIRECT 放在末尾，保证优先自动节点。
+    const defaultFallback = [];
+    if (landing) defaultFallback.push("落地节点");
+    defaultFallback.push(...countryGroupNames);
+    if (lowCost) defaultFallback.push("低倍率节点");
+    // 可选是否加入 手动切换 / DIRECT；按容灾语义加入。
+    defaultFallback.push("手动切换", "DIRECT");
+
+    return { defaultProxies, defaultProxiesDirect, defaultSelector: selector, defaultFallback, countryGroupNames };
 }
 
 const ruleProviders = {
@@ -384,6 +402,16 @@ function buildProxyGroups({
             "type": "select",
             "proxies": defaultSelector
         },
+        {
+            "name": "故障转移",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png",
+            "type": "fallback",
+            "url": "https://cp.cloudflare.com/generate_204",
+            "proxies": defaultFallback,
+            "interval": 180,
+            "tolerance": 20,
+            "lazy": false
+        },
         (landing) ? {
             "name": "落地节点",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
@@ -402,16 +430,6 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
             "include-all": true,
             "type": "select"
-        },
-        {
-            "name": "故障转移",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png",
-            "type": "fallback",
-            "url": "https://cp.cloudflare.com/generate_204",
-            "proxies": defaultFallback,
-            "interval": 180,
-            "tolerance": 20,
-            "lazy": false
         },
         {
             "name": "静态资源",
