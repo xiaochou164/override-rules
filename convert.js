@@ -636,8 +636,6 @@ function main(config) {
     if (landing) {
         idx = defaultProxies.indexOf("节点选择");
         defaultProxies.splice(idx + 1, 0, "落地节点");  //插入到节点选择之后
-
-        defaultSelector.unshift("落地节点");
         defaultFallback.unshift("落地节点");
     }
     const countryProxyGroups = buildCountryProxyGroups(targetCountryList);
