@@ -395,6 +395,12 @@ function buildProxyGroups({
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
     const hasUS = countryList.includes("美国");
+    // 排除落地节点以避免循环
+    const frontProxySelector = [
+        "节点选择",
+        ...defaultSelector.filter(name => name !== "落地节点")
+    ];
+
     return [
         {
             "name": "节点选择",
@@ -423,7 +429,7 @@ function buildProxyGroups({
             "name": "前置代理",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png",
             "type": "select",
-            "proxies": defaultSelector
+            "proxies": frontProxySelector
         } : null,
         {
             "name": "手动切换",
