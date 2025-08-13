@@ -409,6 +409,25 @@ function buildProxyGroups({
             "proxies": defaultSelector
         },
         {
+            "name": "手动切换",
+            "icon": "https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
+            "include-all": true,
+            "type": "select"
+        },
+        (landing) ? {
+            "name": "前置代理",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png",
+            "type": "select",
+            "proxies": frontProxySelector
+        } : null,
+        (landing) ? {
+            "name": "落地节点",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
+            "type": "select",
+            "include-all": true,
+            "filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
+        } : null,
+        {
             "name": "故障转移",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png",
             "type": "fallback",
@@ -417,25 +436,6 @@ function buildProxyGroups({
             "interval": 180,
             "tolerance": 20,
             "lazy": false
-        },
-        (landing) ? {
-            "name": "落地节点",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png",
-            "type": "select",
-            "include-all": true,
-            "filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
-        } : null,
-        (landing) ? {
-            "name": "前置代理",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png",
-            "type": "select",
-            "proxies": frontProxySelector
-        } : null,
-        {
-            "name": "手动切换",
-            "icon": "https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
-            "include-all": true,
-            "type": "select"
         },
         {
             "name": "静态资源",
