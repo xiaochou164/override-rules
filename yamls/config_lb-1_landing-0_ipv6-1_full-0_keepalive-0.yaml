@@ -18,6 +18,10 @@ proxy-groups:
       - 低倍率节点
       - 手动切换
       - DIRECT
+  - name: 手动切换
+    icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
+    include-all: true
+    type: select
   - name: 故障转移
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
     type: fallback
@@ -40,10 +44,6 @@ proxy-groups:
     interval: 180
     tolerance: 20
     lazy: false
-  - name: 手动切换
-    icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
-    include-all: true
-    type: select
   - name: 静态资源
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
@@ -305,8 +305,8 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 故障转移
       - 手动切换
+      - 故障转移
       - 静态资源
       - 人工智能
       - 加密货币

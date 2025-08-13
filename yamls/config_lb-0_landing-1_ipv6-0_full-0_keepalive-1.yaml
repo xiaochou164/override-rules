@@ -19,6 +19,35 @@ proxy-groups:
       - 低倍率节点
       - 手动切换
       - DIRECT
+  - name: 手动切换
+    icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
+    include-all: true
+    type: select
+  - name: 前置代理
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png
+    type: select
+    proxies:
+      - 节点选择
+      - 故障转移
+      - 香港节点
+      - 澳门节点
+      - 台湾节点
+      - 美国节点
+      - 英国节点
+      - 日本节点
+      - 韩国节点
+      - 新加坡节点
+      - 德国节点
+      - 法国节点
+      - 加拿大节点
+      - 低倍率节点
+      - 手动切换
+      - DIRECT
+  - name: 落地节点
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png
+    type: select
+    include-all: true
+    filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地
   - name: 故障转移
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bypass.png
     type: fallback
@@ -42,35 +71,6 @@ proxy-groups:
     interval: 180
     tolerance: 20
     lazy: false
-  - name: 落地节点
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Airport.png
-    type: select
-    include-all: true
-    filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地
-  - name: 前置代理
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png
-    type: select
-    proxies:
-      - 节点选择
-      - 故障转移
-      - 香港节点
-      - 澳门节点
-      - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
-      - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
-      - 低倍率节点
-      - 手动切换
-      - DIRECT
-  - name: 手动切换
-    icon: https://cdn.jsdmirror.com/gh/shindgewongxj/WHATSINStash@master/icon/select.png
-    include-all: true
-    type: select
   - name: 静态资源
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png
     type: select
@@ -376,10 +376,10 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 故障转移
-      - 落地节点
-      - 前置代理
       - 手动切换
+      - 前置代理
+      - 落地节点
+      - 故障转移
       - 静态资源
       - 人工智能
       - 加密货币
