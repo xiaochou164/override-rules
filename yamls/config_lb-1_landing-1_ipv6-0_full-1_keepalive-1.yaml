@@ -534,14 +534,14 @@ rules:
   - GEOSITE,MICROSOFT@CN,全球直连
   - GEOSITE,MICROSOFT,Microsoft
   - GEOSITE,PIKPAK,PikPak
+  - GEOSITE,GFW,节点选择
   - GEOSITE,CN,全球直连
   - GEOSITE,PRIVATE,全球直连
   - GEOIP,NETFLIX,Netflix,no-resolve
   - GEOIP,GOOGLE,Google,no-resolve
   - GEOIP,TELEGRAM,Telegram,no-resolve
-  - GEOIP,CN,全球直连,no-resolve
-  - GEOIP,LAN,全球直连,no-resolve
-  - GEOIP,PRIVATE,全球直连,no-resolve
+  - GEOIP,CN,全球直连
+  - GEOIP,PRIVATE,全球直连
   - DST-PORT,22,SSH(22端口)
   - MATCH,节点选择
 sniffer:
