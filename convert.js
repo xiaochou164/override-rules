@@ -16,21 +16,12 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     fullConfig = parseBool(inArg.full) || false,
     keepAliveEnabled = parseBool(inArg.keepalive) || false;
 
-
-// ================== 基础构建逻辑重构 ==================
-// 不再使用后续到处 push / unshift 的可变全局数组；改为按条件一次性构建。
-// defaultProxies: 普通分类策略使用的候选列表
-// defaultProxiesDirect: 优先直连的分类策略候选列表
-// defaultSelector: 供 “节点选择” / “前置代理” 使用的节点组名集合（仅地区/特殊组）
-// defaultFallback: 供 “故障转移” 使用的节点组名集合（保持与历史行为一致：仅在 landing 时加入落地节点）
-
 function buildBaseLists({ landing, lowCost, countryInfo }) {
-    // 不再预设排序，直接使用 countryInfo 原始顺序 (出现顺序) 且 count>2
     const countryGroupNames = countryInfo
         .filter(item => item.count > 2)
         .map(item => item.country + "节点");
 
-    // defaultSelector (节点选择 组里展示的候选) 规定的新结构：
+    // defaultSelector (节点选择 组里展示的候选) 
     // 故障转移, 落地节点(可选), 各地区节点, 低倍率节点(可选), 手动切换, DIRECT
     const selector = ["故障转移"]; // 把 fallback 放在最前
     if (landing) selector.push("落地节点");
@@ -38,21 +29,19 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
     if (lowCost) selector.push("低倍率节点");
     selector.push("手动切换", "DIRECT");
 
-    // defaultProxies (各分类策略引用) 规定的新结构：
+    // defaultProxies (各分类策略引用) 
     // 节点选择, 各地区节点, 低倍率节点(可选), 手动切换, 全球直连
     const defaultProxies = ["节点选择", ...countryGroupNames];
     if (lowCost) defaultProxies.push("低倍率节点");
     defaultProxies.push("手动切换", "全球直连");
 
-    // direct 优先的备用列表（沿用原项目语义，只微调为同样的地区顺序）
+    // direct 优先的列表
     const defaultProxiesDirect = ["全球直连", ...countryGroupNames, "节点选择", "手动切换"]; // 直连优先
     if (lowCost) {
         // 在直连策略里低倍率次于地区、早于节点选择
         defaultProxiesDirect.splice(1 + countryGroupNames.length, 0, "低倍率节点");
     }
 
-    // 故障转移需要的候选：落地(可选) + 地区节点 + 低倍率(可选) + 手动切换 + DIRECT
-    // 手动切换/DIRECT 放在末尾，保证优先自动节点。
     const defaultFallback = [];
     if (landing) defaultFallback.push("落地节点");
     defaultFallback.push(...countryGroupNames);
@@ -395,10 +384,9 @@ function buildProxyGroups({
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
     const hasUS = countryList.includes("美国");
-    // 排除落地节点以避免循环
+    // 排除落地节点、节点选择和故障转移以避免死循环
     const frontProxySelector = [
-        "节点选择",
-        ...defaultSelector.filter(name => name !== "落地节点")
+        ...defaultSelector.filter(name => name !== "落地节点" && name !== "故障转移")
     ];
 
     return [
@@ -418,6 +406,8 @@ function buildProxyGroups({
             "name": "前置代理",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Area.png",
             "type": "select",
+            "include-all": true,
+            "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
             "proxies": frontProxySelector
         } : null,
         (landing) ? {
