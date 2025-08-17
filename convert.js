@@ -238,67 +238,67 @@ const geoxURL = {
 // 地区元数据
 const countriesMeta = {
     "香港": {
-        pattern: "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
+    pattern: "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong|🇭🇰",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
     },
     "澳门": {
-        pattern: "(?i)澳门|MO|Macau",
+    pattern: "(?i)澳门|MO|Macau|🇲🇴",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Macao.png"
     },
     "台湾": {
-        pattern: "(?i)台|新北|彰化|TW|Taiwan",
+    pattern: "(?i)台|新北|彰化|TW|Taiwan|🇹🇼",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
     },
     "新加坡": {
-        pattern: "(?i)新加坡|坡|狮城|SG|Singapore",
+    pattern: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
     },
     "日本": {
-        pattern: "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
+    pattern: "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|🇯🇵",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
     },
     "韩国": {
-        pattern: "(?i)KR|Korea|KOR|首尔|韩|韓",
+    pattern: "(?i)KR|Korea|KOR|首尔|韩|韓|🇰🇷",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
     },
     "美国": {
-        pattern: "(?i)美国|美|US|United States",
+    pattern: "(?i)美国|美|US|United States|🇺🇸",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
     },
     "加拿大": {
-        pattern: "(?i)加拿大|Canada|CA",
+    pattern: "(?i)加拿大|Canada|CA|🇨🇦",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Canada.png"
     },
     "英国": {
-        pattern: "(?i)英国|United Kingdom|UK|伦敦|London",
+    pattern: "(?i)英国|United Kingdom|UK|伦敦|London|🇬🇧",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png"
     },
     "澳大利亚": {
-        pattern: "(?i)澳洲|澳大利亚|AU|Australia",
+    pattern: "(?i)澳洲|澳大利亚|AU|Australia|🇦🇺",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Australia.png"
     },
     "德国": {
-        pattern: "(?i)德国|德|DE|Germany",
+    pattern: "(?i)德国|德|DE|Germany|🇩🇪",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Germany.png"
     },
     "法国": {
-        pattern: "(?i)法国|法|FR|France",
+    pattern: "(?i)法国|法|FR|France|🇫🇷",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/France.png"
     },
     "俄罗斯": {
-        pattern: "(?i)俄罗斯|俄|RU|Russia",
+    pattern: "(?i)俄罗斯|俄|RU|Russia|🇷🇺",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Russia.png"
     },
     "泰国": {
-        pattern: "(?i)泰国|泰|TH|Thailand",
+    pattern: "(?i)泰国|泰|TH|Thailand|🇹🇭",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Thailand.png"
     },
     "印度": {
-        pattern: "(?i)印度|IN|India",
+    pattern: "(?i)印度|IN|India|🇮🇳",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/India.png"
     },
     "马来西亚": {
-        pattern: "(?i)马来西亚|马来|MY|Malaysia",
+    pattern: "(?i)马来西亚|马来|MY|Malaysia|🇲🇾",
         icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Malaysia.png"
     },
 };
