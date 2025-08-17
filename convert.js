@@ -235,24 +235,73 @@ const geoxURL = {
     "asn": "https://cdn.jsdmirror.com/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 };
 
-const countryRegex = {
-    "香港": "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
-    "澳门": "(?i)澳门|MO|Macau",
-    "台湾": "(?i)台|新北|彰化|TW|Taiwan",
-    "新加坡": "(?i)新加坡|坡|狮城|SG|Singapore",
-    "日本": "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
-    "韩国": "(?i)KR|Korea|KOR|首尔|韩|韓",
-    "美国": "(?i)美国|美|US|United States",
-    "加拿大": "(?i)加拿大|Canada|CA",
-    "英国": "(?i)英国|United Kingdom|UK|伦敦|London",
-    "澳大利亚": "(?i)澳洲|澳大利亚|AU|Australia",
-    "德国": "(?i)德国|德|DE|Germany",
-    "法国": "(?i)法国|法|FR|France",
-    "俄罗斯": "(?i)俄罗斯|俄|RU|Russia",
-    "泰国": "(?i)泰国|泰|TH|Thailand",
-    "印度": "(?i)印度|IN|India",
-    "马来西亚": "(?i)马来西亚|马来|MY|Malaysia",
-}
+// 地区元数据
+const countriesMeta = {
+    "香港": {
+        pattern: "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png"
+    },
+    "澳门": {
+        pattern: "(?i)澳门|MO|Macau",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Macao.png"
+    },
+    "台湾": {
+        pattern: "(?i)台|新北|彰化|TW|Taiwan",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png"
+    },
+    "新加坡": {
+        pattern: "(?i)新加坡|坡|狮城|SG|Singapore",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Singapore.png"
+    },
+    "日本": {
+        pattern: "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Japan.png"
+    },
+    "韩国": {
+        pattern: "(?i)KR|Korea|KOR|首尔|韩|韓",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Korea.png"
+    },
+    "美国": {
+        pattern: "(?i)美国|美|US|United States",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_States.png"
+    },
+    "加拿大": {
+        pattern: "(?i)加拿大|Canada|CA",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Canada.png"
+    },
+    "英国": {
+        pattern: "(?i)英国|United Kingdom|UK|伦敦|London",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png"
+    },
+    "澳大利亚": {
+        pattern: "(?i)澳洲|澳大利亚|AU|Australia",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Australia.png"
+    },
+    "德国": {
+        pattern: "(?i)德国|德|DE|Germany",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Germany.png"
+    },
+    "法国": {
+        pattern: "(?i)法国|法|FR|France",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/France.png"
+    },
+    "俄罗斯": {
+        pattern: "(?i)俄罗斯|俄|RU|Russia",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Russia.png"
+    },
+    "泰国": {
+        pattern: "(?i)泰国|泰|TH|Thailand",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Thailand.png"
+    },
+    "印度": {
+        pattern: "(?i)印度|IN|India",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/India.png"
+    },
+    "马来西亚": {
+        pattern: "(?i)马来西亚|马来|MY|Malaysia",
+        icon: "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Malaysia.png"
+    },
+};
 
 function parseBool(value) {
     if (typeof value === "boolean") return value;
@@ -283,9 +332,9 @@ function parseCountries(config) {
 
     // 构建地区正则表达式，去掉 (?i) 前缀
     const compiledRegex = {};
-    for (const [country, pattern] of Object.entries(countryRegex)) {
+    for (const [country, meta] of Object.entries(countriesMeta)) {
         compiledRegex[country] = new RegExp(
-            pattern.replace(/^\(\?i\)/, ''),
+            meta.pattern.replace(/^\(\?i\)/, ''),
             'i'
         );
     }
@@ -317,38 +366,19 @@ function parseCountries(config) {
 
 
 function buildCountryProxyGroups(countryList) {
-    const countryIconURLs = {
-        "香港": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
-        "台湾": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png",
-        "新加坡": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
-        "日本": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Japan.png",
-        "韩国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Korea.png",
-        "美国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
-        "英国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png",
-        "加拿大": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Canada.png",
-        "澳大利亚": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Australia.png",
-        "德国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Germany.png",
-        "俄罗斯": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Russia.png",
-        "泰国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Thailand.png",
-        "印度": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/India.png",
-        "马来西亚": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Malaysia.png",
-        "澳门": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Macao.png",
-        "法国": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/France.png",
-    };
     // 获取实际存在的地区列表
-
     const countryProxyGroups = [];
 
     // 为实际存在的地区创建节点组
     for (const country of countryList) {
         // 确保地区名称在预设的地区配置中存在
-        if (countryRegex[country]) {
+        if (countriesMeta[country]) {
             const groupName = `${country}节点`;
-            const pattern = countryRegex[country];
+            const pattern = countriesMeta[country].pattern;
 
             const groupConfig = {
                 "name": groupName,
-                "icon": countryIconURLs[country],
+                "icon": countriesMeta[country].icon,
                 "include-all": true,
                 "filter": pattern,
                 "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0\.[0-5]|低倍率|省流|大流量|实验性",
