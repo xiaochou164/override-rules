@@ -236,7 +236,7 @@ proxy-groups:
   - name: 香港节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
-    filter: (?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong
+    filter: (?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong|🇭🇰
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -246,7 +246,7 @@ proxy-groups:
   - name: 澳门节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Macao.png
     include-all: true
-    filter: (?i)澳门|MO|Macau
+    filter: (?i)澳门|MO|Macau|🇲🇴
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -256,7 +256,7 @@ proxy-groups:
   - name: 台湾节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
-    filter: (?i)台|新北|彰化|TW|Taiwan
+    filter: (?i)台|新北|彰化|TW|Taiwan|🇹🇼
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -266,7 +266,7 @@ proxy-groups:
   - name: 美国节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
-    filter: (?i)美国|美|US|United States
+    filter: (?i)美国|美|US|United States|🇺🇸
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -276,7 +276,7 @@ proxy-groups:
   - name: 英国节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png
     include-all: true
-    filter: (?i)英国|United Kingdom|UK|伦敦|London
+    filter: (?i)英国|United Kingdom|UK|伦敦|London|🇬🇧
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -286,7 +286,7 @@ proxy-groups:
   - name: 日本节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
-    filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan
+    filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|🇯🇵
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -296,7 +296,7 @@ proxy-groups:
   - name: 韩国节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Korea.png
     include-all: true
-    filter: (?i)KR|Korea|KOR|首尔|韩|韓
+    filter: (?i)KR|Korea|KOR|首尔|韩|韓|🇰🇷
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -306,7 +306,7 @@ proxy-groups:
   - name: 新加坡节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
-    filter: (?i)新加坡|坡|狮城|SG|Singapore
+    filter: (?i)新加坡|坡|狮城|SG|Singapore|🇸🇬
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -316,7 +316,7 @@ proxy-groups:
   - name: 德国节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Germany.png
     include-all: true
-    filter: (?i)德国|德|DE|Germany
+    filter: (?i)德国|德|DE|Germany|🇩🇪
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -326,7 +326,7 @@ proxy-groups:
   - name: 法国节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/France.png
     include-all: true
-    filter: (?i)法国|法|FR|France
+    filter: (?i)法国|法|FR|France|🇫🇷
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
@@ -336,7 +336,7 @@ proxy-groups:
   - name: 加拿大节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Canada.png
     include-all: true
-    filter: (?i)加拿大|Canada|CA
+    filter: (?i)加拿大|Canada|CA|🇨🇦
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
