@@ -471,7 +471,7 @@ function buildProxyGroups({
         },
         {
             "name": "Google",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
+            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Google.png",
             "type": "select",
             "proxies": defaultProxies
         },
