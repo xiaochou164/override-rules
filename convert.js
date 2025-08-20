@@ -381,7 +381,7 @@ function buildCountryProxyGroups(countryList) {
                 "icon": countriesMeta[country].icon,
                 "include-all": true,
                 "filter": pattern,
-                "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0\.[0-5]|低倍率|省流|大流量|实验性",
+                "exclude-filter": landing ? "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0\.[0-5]|低倍率|省流|大流量|实验性" : "0\.[0-5]|低倍率|省流|大流量|实验性",
                 "type": (loadBalance) ? "load-balance" : "url-test",
             };
 
