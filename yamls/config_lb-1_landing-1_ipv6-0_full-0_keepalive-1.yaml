@@ -89,33 +89,13 @@ proxy-groups:
       - 加拿大节点
       - 低倍率节点
       - 手动切换
-      - 全球直连
-  - name: 人工智能
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bot.png
-    type: select
-    proxies: *a1
-  - name: 加密货币
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png
-    type: select
-    proxies: *a1
-  - name: PayPal
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/PayPal.png
+      - 直连
+  - name: AI
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/OpenAI.png
     type: select
     proxies: *a1
   - name: Telegram
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
-    type: select
-    proxies: *a1
-  - name: Microsoft
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png
-    type: select
-    proxies: *a1
-  - name: Apple
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Apple_2.png
-    type: select
-    proxies: *a1
-  - name: Google
-    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Google.png
     type: select
     proxies: *a1
   - name: YouTube
@@ -142,45 +122,6 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/PikPak.png
     type: select
     proxies: *a1
-  - name: 巴哈姆特
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png
-    type: select
-    proxies:
-      - 台湾节点
-      - 节点选择
-      - 手动切换
-      - 全球直连
-  - name: 哔哩哔哩
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
-    type: select
-    proxies:
-      - 全球直连
-      - 台湾节点
-      - 香港节点
-  - name: Twitter(X)
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Twitter.png
-    type: select
-    proxies: *a1
-  - name: 新浪微博
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Weibo.png
-    type: select
-    include-all: true
-    proxies:
-      - 全球直连
-      - 香港节点
-      - 澳门节点
-      - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
-      - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
-      - 低倍率节点
-      - 节点选择
-      - 手动切换
   - name: Truth Social
     icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png
     type: select
@@ -188,61 +129,28 @@ proxy-groups:
       - 美国节点
       - 节点选择
       - 手动切换
-  - name: 学术资源
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Scholar.png
+  - name: 哔哩哔哩
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
     type: select
     proxies:
-      - 节点选择
-      - 手动切换
-      - 全球直连
-  - name: 开发者资源
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/GitHub.png
-    type: select
-    proxies: *a1
-  - name: 瑟琴网站
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Pornhub.png
-    type: select
-    proxies: *a1
-  - name: 游戏平台
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Game.png
-    type: select
-    proxies: *a1
-  - name: 测速服务
+      - 直连
+      - 台湾节点
+      - 香港节点
+  - name: 测速
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png
     type: select
     proxies: *a1
-  - name: FCM推送
-    icon: https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
-    type: select
-    proxies:
-      - 全球直连
-      - Google
-      - 节点选择
   - name: SSH(22端口)
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Server.png
     type: select
     proxies: *a1
-  - name: Steam修复
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Steam.png
-    type: select
-    proxies:
-      - 全球直连
-      - 游戏平台
-      - 节点选择
-  - name: Play商店修复
-    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/GooglePlay.png
-    type: select
-    proxies:
-      - 全球直连
-      - Google
-      - 节点选择
-  - name: 搜狗输入
+  - name: 搜狗输入法
     icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Sougou.png
     type: select
     proxies:
-      - 全球直连
+      - 直连
       - REJECT
-  - name: 全球直连
+  - name: 直连
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Direct.png
     type: select
     proxies:
@@ -253,7 +161,7 @@ proxy-groups:
     type: select
     proxies:
       - REJECT
-      - 全球直连
+      - 直连
   - name: 低倍率节点
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Lab.png
     type: url-test
@@ -337,35 +245,20 @@ proxy-groups:
       - 落地节点
       - 故障转移
       - 静态资源
-      - 人工智能
-      - 加密货币
-      - PayPal
+      - AI
       - Telegram
-      - Microsoft
-      - Apple
-      - Google
       - YouTube
       - Netflix
       - Spotify
       - TikTok
       - E-Hentai
       - PikPak
-      - 巴哈姆特
-      - 哔哩哔哩
-      - Twitter(X)
-      - 新浪微博
       - Truth Social
-      - 学术资源
-      - 开发者资源
-      - 瑟琴网站
-      - 游戏平台
-      - 测速服务
-      - FCM推送
+      - 哔哩哔哩
+      - 测速
       - SSH(22端口)
-      - Steam修复
-      - Play商店修复
-      - 搜狗输入
-      - 全球直连
+      - 搜狗输入法
+      - 直连
       - 广告拦截
       - 低倍率节点
       - 香港节点
@@ -457,13 +350,6 @@ rule-providers:
     interval: 86400
     url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list
     path: ./ruleset/AdditionalFilter.list
-  Weibo:
-    type: http
-    behavior: classical
-    format: text
-    interval: 86400
-    url: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/Weibo.list
-    path: ./ruleset/Weibo.list
   AdditionalCDNResources:
     type: http
     behavior: classical
@@ -481,51 +367,34 @@ rule-providers:
 rules:
   - RULE-SET,ADBlock,广告拦截
   - RULE-SET,AdditionalFilter,广告拦截
-  - RULE-SET,SogouInput,搜狗输入
+  - RULE-SET,SogouInput,搜狗输入法
   - RULE-SET,TruthSocial,Truth Social
   - RULE-SET,StaticResources,静态资源
   - RULE-SET,CDNResources,静态资源
   - RULE-SET,AdditionalCDNResources,静态资源
-  - RULE-SET,AI,人工智能
+  - RULE-SET,AI,AI
   - RULE-SET,EHentai,E-Hentai
   - RULE-SET,TikTok,TikTok
-  - RULE-SET,SteamFix,Steam修复
-  - RULE-SET,GoogleFCM,FCM推送
-  - RULE-SET,Weibo,新浪微博
+  - RULE-SET,SteamFix,直连
+  - RULE-SET,GoogleFCM,直连
   - RULE-SET,SpeedTest,测速服务
-  - DOMAIN,services.googleapis.cn,Play商店修复
-  - GEOSITE,PAYPAL@CN,全球直连
-  - GEOSITE,PAYPAL,PayPal
-  - GEOSITE,GOOGLE-PLAY@CN,全球直连
-  - GEOSITE,APPLE@CN,全球直连
-  - GEOSITE,APPLE,Apple
+  - GEOSITE,GOOGLE-PLAY@CN,直连
   - GEOSITE,TELEGRAM,Telegram
-  - GEOSITE,YOUTUBE@CN,全球直连
+  - GEOSITE,YOUTUBE@CN,直连
   - GEOSITE,YOUTUBE,YouTube
-  - GEOSITE,GOOGLE,Google
   - GEOSITE,NETFLIX,Netflix
   - GEOSITE,SPOTIFY,Spotify
-  - GEOSITE,TWITTER,Twitter(X)
-  - GEOSITE,BAHAMUT,巴哈姆特
   - GEOSITE,BILIBILI,哔哩哔哩
-  - GEOSITE,CATEGORY-DEV,开发者资源
-  - GEOSITE,CATEGORY-PORN,瑟琴网站
-  - GEOSITE,CATEGORY-GAMES@CN,全球直连
-  - GEOSITE,CATEGORY-GAMES,游戏平台
-  - GEOSITE,CATEGORY-SCHOLAR-!CN,学术资源
-  - GEOSITE,CATEGORY-SCHOLAR-CN,全球直连
-  - GEOSITE,CATEGORY-CRYPTOCURRENCY,加密货币
-  - GEOSITE,MICROSOFT@CN,全球直连
-  - GEOSITE,MICROSOFT,Microsoft
+  - GEOSITE,CATEGORY-SCHOLAR-CN,直连
+  - GEOSITE,MICROSOFT@CN,直连
   - GEOSITE,PIKPAK,PikPak
   - GEOSITE,GFW,节点选择
-  - GEOSITE,CN,全球直连
-  - GEOSITE,PRIVATE,全球直连
+  - GEOSITE,CN,直连
+  - GEOSITE,PRIVATE,直连
   - GEOIP,NETFLIX,Netflix,no-resolve
-  - GEOIP,GOOGLE,Google,no-resolve
   - GEOIP,TELEGRAM,Telegram,no-resolve
-  - GEOIP,CN,全球直连
-  - GEOIP,PRIVATE,全球直连
+  - GEOIP,CN,直连
+  - GEOIP,PRIVATE,直连
   - DST-PORT,22,SSH(22端口)
   - MATCH,节点选择
 sniffer:
