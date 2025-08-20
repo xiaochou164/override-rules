@@ -671,6 +671,7 @@ function buildProxyGroups({
 }
 
 function main(config) {
+    config = { proxies: config.proxies };
     // 解析地区与低倍率信息
     const countryInfo = parseCountries(config); // [{ country, count }]
     const lowCost = hasLowCost(config);
