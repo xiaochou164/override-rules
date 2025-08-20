@@ -80,7 +80,7 @@ proxy-groups:
       - 手动切换
       - 直连
   - name: AI
-    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/OpenAI.png
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.svg
     type: select
     proxies: *a1
   - name: Telegram
@@ -91,6 +91,13 @@ proxy-groups:
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/YouTube.png
     type: select
     proxies: *a1
+  - name: Bilibili
+    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
+    type: select
+    proxies:
+      - 直连
+      - 台湾节点
+      - 香港节点
   - name: Netflix
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Netflix.png
     type: select
@@ -118,13 +125,6 @@ proxy-groups:
       - 美国节点
       - 节点选择
       - 手动切换
-  - name: 哔哩哔哩
-    icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png
-    type: select
-    proxies:
-      - 直连
-      - 台湾节点
-      - 香港节点
   - name: SSH(22端口)
     icon: https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Server.png
     type: select
@@ -275,13 +275,13 @@ proxy-groups:
       - AI
       - Telegram
       - YouTube
+      - Bilibili
       - Netflix
       - Spotify
       - TikTok
       - E-Hentai
       - PikPak
       - Truth Social
-      - 哔哩哔哩
       - SSH(22端口)
       - 搜狗输入法
       - 直连
@@ -402,7 +402,7 @@ rules:
   - GEOSITE,YOUTUBE,YouTube
   - GEOSITE,NETFLIX,Netflix
   - GEOSITE,SPOTIFY,Spotify
-  - GEOSITE,BILIBILI,哔哩哔哩
+  - GEOSITE,BILIBILI,Bilibili
   - GEOSITE,CATEGORY-SCHOLAR-CN,直连
   - GEOSITE,MICROSOFT@CN,直连
   - GEOSITE,PIKPAK,PikPak
