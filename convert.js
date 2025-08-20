@@ -30,13 +30,13 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
     selector.push("手动切换", "DIRECT");
 
     // defaultProxies (各分类策略引用) 
-    // 节点选择, 各地区节点, 低倍率节点(可选), 手动切换, 全球直连
+    // 节点选择, 各地区节点, 低倍率节点(可选), 手动切换, 直连
     const defaultProxies = ["节点选择", ...countryGroupNames];
     if (lowCost) defaultProxies.push("低倍率节点");
-    defaultProxies.push("手动切换", "全球直连");
+    defaultProxies.push("手动切换", "直连");
 
     // direct 优先的列表
-    const defaultProxiesDirect = ["全球直连", ...countryGroupNames, "节点选择", "手动切换"]; // 直连优先
+    const defaultProxiesDirect = ["直连", ...countryGroupNames, "节点选择", "手动切换"]; // 直连优先
     if (lowCost) {
         // 在直连策略里低倍率次于地区、早于节点选择
         defaultProxiesDirect.splice(1 + countryGroupNames.length, 0, "低倍率节点");
@@ -108,11 +108,6 @@ const ruleProviders = {
         "url": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalFilter.list",
         "path": "./ruleset/AdditionalFilter.list"
     },
-    "Weibo": {
-        "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
-        "url": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/Weibo.list",
-        "path": "./ruleset/Weibo.list"
-    },
     "AdditionalCDNResources": {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
         "url": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalCDNResources.list",
@@ -129,51 +124,34 @@ const ruleProviders = {
 const rules = [
     "RULE-SET,ADBlock,广告拦截",
     "RULE-SET,AdditionalFilter,广告拦截",
-    "RULE-SET,SogouInput,搜狗输入",
+    "RULE-SET,SogouInput,搜狗输入法",
     "RULE-SET,TruthSocial,Truth Social",
     "RULE-SET,StaticResources,静态资源",
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
-    "RULE-SET,AI,人工智能",
+    "RULE-SET,AI,AI",
     "RULE-SET,EHentai,E-Hentai",
     "RULE-SET,TikTok,TikTok",
-    "RULE-SET,SteamFix,Steam修复",
-    "RULE-SET,GoogleFCM,FCM推送",
-    "RULE-SET,Weibo,新浪微博",
+    "RULE-SET,SteamFix,直连",
+    "RULE-SET,GoogleFCM,直连",
     "RULE-SET,SpeedTest,测速服务",
-    "DOMAIN,services.googleapis.cn,Play商店修复",
-    "GEOSITE,PAYPAL@CN,全球直连",
-    "GEOSITE,PAYPAL,PayPal",
-    "GEOSITE,GOOGLE-PLAY@CN,全球直连",
-    "GEOSITE,APPLE@CN,全球直连",
-    "GEOSITE,APPLE,Apple",
+    "GEOSITE,GOOGLE-PLAY@CN,直连",
     "GEOSITE,TELEGRAM,Telegram",
-    "GEOSITE,YOUTUBE@CN,全球直连",
+    "GEOSITE,YOUTUBE@CN,直连",
     "GEOSITE,YOUTUBE,YouTube",
-    "GEOSITE,GOOGLE,Google",
     "GEOSITE,NETFLIX,Netflix",
     "GEOSITE,SPOTIFY,Spotify",
-    "GEOSITE,TWITTER,Twitter(X)",
-    "GEOSITE,BAHAMUT,巴哈姆特",
     "GEOSITE,BILIBILI,哔哩哔哩",
-    "GEOSITE,CATEGORY-DEV,开发者资源",
-    "GEOSITE,CATEGORY-PORN,瑟琴网站",
-    "GEOSITE,CATEGORY-GAMES@CN,全球直连",
-    "GEOSITE,CATEGORY-GAMES,游戏平台",
-    "GEOSITE,CATEGORY-SCHOLAR-!CN,学术资源",
-    "GEOSITE,CATEGORY-SCHOLAR-CN,全球直连",
-    "GEOSITE,CATEGORY-CRYPTOCURRENCY,加密货币",
-    "GEOSITE,MICROSOFT@CN,全球直连",
-    "GEOSITE,MICROSOFT,Microsoft",
+    "GEOSITE,CATEGORY-SCHOLAR-CN,直连",
+    "GEOSITE,MICROSOFT@CN,直连",
     "GEOSITE,PIKPAK,PikPak",
     "GEOSITE,GFW,节点选择",
-    "GEOSITE,CN,全球直连",
-    "GEOSITE,PRIVATE,全球直连",
+    "GEOSITE,CN,直连",
+    "GEOSITE,PRIVATE,直连",
     "GEOIP,NETFLIX,Netflix,no-resolve",
-    "GEOIP,GOOGLE,Google,no-resolve",
     "GEOIP,TELEGRAM,Telegram,no-resolve",
-    "GEOIP,CN,全球直连",
-    "GEOIP,PRIVATE,全球直连",
+    "GEOIP,CN,直连",
+    "GEOIP,PRIVATE,直连",
     "DST-PORT,22,SSH(22端口)",
     "MATCH,节点选择"
 ];
@@ -464,44 +442,14 @@ function buildProxyGroups({
             "proxies": defaultProxies,
         },
         {
-            "name": "人工智能",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bot.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "加密货币",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "PayPal",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/PayPal.png",
+            "name": "AI",
+            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/OpenAI.png",
             "type": "select",
             "proxies": defaultProxies
         },
         {
             "name": "Telegram",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "Microsoft",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Microsoft.png",
-            "type": "select",
-            "proxies": defaultProxies,
-        },
-        {
-            "name": "Apple",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Apple_2.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "Google",
-            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Google.png",
             "type": "select",
             "proxies": defaultProxies
         },
@@ -542,75 +490,22 @@ function buildProxyGroups({
             "proxies": defaultProxies
         },
         {
-            "name": "巴哈姆特",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png",
-            "type": "select",
-            "proxies": (hasTW) ? ["台湾节点", "节点选择", "手动切换", "全球直连"] : defaultProxies
-        },
-        {
-            "name": "哔哩哔哩",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
-            "type": "select",
-            "proxies": (hasTW && hasHK) ? ["全球直连", "台湾节点", "香港节点"] : defaultProxiesDirect
-        },
-        {
-            "name": "Twitter(X)",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Twitter.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "新浪微博",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Weibo.png",
-            "type": "select",
-            "include-all": true,
-            "proxies": defaultProxiesDirect
-        },
-        {
             "name": "Truth Social",
             "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
             "type": "select",
             "proxies": (hasUS) ? ["美国节点", "节点选择", "手动切换"] : defaultProxies
         },
         {
-            "name": "学术资源",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Scholar.png",
+            "name": "哔哩哔哩",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
             "type": "select",
-            "proxies": [
-                "节点选择", "手动切换", "全球直连"
-            ]
+            "proxies": (hasTW && hasHK) ? ["直连", "台湾节点", "香港节点"] : defaultProxiesDirect
         },
         {
-            "name": "开发者资源",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/GitHub.png",
-            "type": "select",
-            "proxies": defaultProxies
-        },
-        {
-            "name": "瑟琴网站",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Pornhub.png",
-            "type": "select",
-            "proxies": defaultProxies,
-        },
-        {
-            "name": "游戏平台",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Game.png",
-            "type": "select",
-            "proxies": defaultProxies,
-        },
-        {
-            "name": "测速服务",
+            "name": "测速",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png",
             "type": "select",
             "proxies": defaultProxies,
-        },
-        {
-            "name": "FCM推送",
-            "icon": "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png",
-            "type": "select",
-            "proxies": [
-                "全球直连", "Google", "节点选择"
-            ]
         },
         {
             "name": "SSH(22端口)",
@@ -619,31 +514,15 @@ function buildProxyGroups({
             "proxies": defaultProxies
         },
         {
-            "name": "Steam修复",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Steam.png",
-            "type": "select",
-            "proxies": [
-                "全球直连", "游戏平台", "节点选择"
-            ]
-        },
-        {
-            "name": "Play商店修复",
-            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/GooglePlay.png",
-            "type": "select",
-            "proxies": [
-                "全球直连", "Google", "节点选择"
-            ]
-        },
-        {
-            "name": "搜狗输入",
+            "name": "搜狗输入法",
             "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/Sougou.png",
             "type": "select",
             "proxies": [
-                "全球直连", "REJECT"
+                "直连", "REJECT"
             ]
         },
         {
-            "name": "全球直连",
+            "name": "直连",
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Direct.png",
             "type": "select",
             "proxies": [
@@ -655,7 +534,7 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png",
             "type": "select",
             "proxies": [
-                "REJECT", "全球直连"
+                "REJECT", "直连"
             ]
         },
         (lowCost) ? {
