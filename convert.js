@@ -9,7 +9,7 @@ https://github.com/powerfullz/override-rules
 - keepalive: 启用 tcp-keep-alive (默认false)
 */
 
-const inArg = $arguments; // console.log(inArg)
+const inArg = $arguments || {}; // console.log(inArg)
 const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
