@@ -134,7 +134,7 @@ const rules = [
     "GEOSITE,YOUTUBE,YouTube",
     "GEOSITE,NETFLIX,Netflix",
     "GEOSITE,SPOTIFY,Spotify",
-    "GEOSITE,BILIBILI,哔哩哔哩",
+    "GEOSITE,BILIBILI,Bilibili",
     "GEOSITE,CATEGORY-SCHOLAR-CN,直连",
     "GEOSITE,MICROSOFT@CN,直连",
     "GEOSITE,PIKPAK,PikPak",
@@ -436,7 +436,7 @@ function buildProxyGroups({
         },
         {
             "name": "AI",
-            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/OpenAI.png",
+            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.svg",
             "type": "select",
             "proxies": defaultProxies
         },
@@ -451,6 +451,12 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/YouTube.png",
             "type": "select",
             "proxies": defaultProxies
+        },
+        {
+            "name": "Bilibili",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
+            "type": "select",
+            "proxies": (hasTW && hasHK) ? ["直连", "台湾节点", "香港节点"] : defaultProxiesDirect
         },
         {
             "name": "Netflix",
@@ -487,12 +493,6 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
             "type": "select",
             "proxies": (hasUS) ? ["美国节点", "节点选择", "手动切换"] : defaultProxies
-        },
-        {
-            "name": "哔哩哔哩",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
-            "type": "select",
-            "proxies": (hasTW && hasHK) ? ["直连", "台湾节点", "香港节点"] : defaultProxiesDirect
         },
         {
             "name": "SSH(22端口)",
