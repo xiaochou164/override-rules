@@ -113,12 +113,6 @@ const ruleProviders = {
         "url": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/ruleset/AdditionalCDNResources.list",
         "path": "./ruleset/AdditionalCDNResources.list"
     },
-    "SpeedTest": {
-        "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
-        "url": "https://ruleset.skk.moe/Clash/domainset/speedtest.txt",
-        "path": "./ruleset/SpeedTest.list"
-    },
-
 }
 
 const rules = [
@@ -134,7 +128,6 @@ const rules = [
     "RULE-SET,TikTok,TikTok",
     "RULE-SET,SteamFix,直连",
     "RULE-SET,GoogleFCM,直连",
-    "RULE-SET,SpeedTest,测速服务",
     "GEOSITE,GOOGLE-PLAY@CN,直连",
     "GEOSITE,TELEGRAM,Telegram",
     "GEOSITE,YOUTUBE@CN,直连",
@@ -500,12 +493,6 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/bilibili.png",
             "type": "select",
             "proxies": (hasTW && hasHK) ? ["直连", "台湾节点", "香港节点"] : defaultProxiesDirect
-        },
-        {
-            "name": "测速",
-            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Speedtest.png",
-            "type": "select",
-            "proxies": defaultProxies,
         },
         {
             "name": "SSH(22端口)",
