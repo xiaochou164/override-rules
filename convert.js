@@ -436,7 +436,7 @@ function buildProxyGroups({
         },
         {
             "name": "AI",
-            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.svg",
+            "icon": "https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.png",
             "type": "select",
             "proxies": defaultProxies
         },
