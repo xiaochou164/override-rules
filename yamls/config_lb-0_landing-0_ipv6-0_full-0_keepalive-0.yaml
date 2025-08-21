@@ -64,7 +64,7 @@ proxy-groups:
       - 手动切换
       - 直连
   - name: AI
-    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.svg
+    icon: https://cdn.jsdmirror.com/gh/powerfullz/override-rules@master/icons/chatgpt.png
     type: select
     proxies: *a1
   - name: Telegram
