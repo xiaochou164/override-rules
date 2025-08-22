@@ -21,24 +21,24 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
         .filter(item => item.count > 2)
         .map(item => item.country + "节点");
 
-    // defaultSelector (节点选择 组里展示的候选) 
-    // 故障转移, 落地节点(可选), 各地区节点, 低倍率节点(可选), 手动切换, DIRECT
+    // defaultSelector (选择节点 组里展示的候选) 
+    // 故障转移, 落地节点(可选), 各地区节点, 低倍率节点(可选), 手动选择, DIRECT
     const selector = ["故障转移"]; // 把 fallback 放在最前
     if (landing) selector.push("落地节点");
     selector.push(...countryGroupNames);
     if (lowCost) selector.push("低倍率节点");
-    selector.push("手动切换", "DIRECT");
+    selector.push("手动选择", "DIRECT");
 
     // defaultProxies (各分类策略引用) 
-    // 节点选择, 各地区节点, 低倍率节点(可选), 手动切换, 直连
-    const defaultProxies = ["节点选择", ...countryGroupNames];
+    // 选择节点, 各地区节点, 低倍率节点(可选), 手动选择, 直连
+    const defaultProxies = ["选择节点", ...countryGroupNames];
     if (lowCost) defaultProxies.push("低倍率节点");
-    defaultProxies.push("手动切换", "直连");
+    defaultProxies.push("手动选择", "直连");
 
     // direct 优先的列表
-    const defaultProxiesDirect = ["直连", ...countryGroupNames, "节点选择", "手动切换"]; // 直连优先
+    const defaultProxiesDirect = ["直连", ...countryGroupNames, "选择节点", "手动选择"]; // 直连优先
     if (lowCost) {
-        // 在直连策略里低倍率次于地区、早于节点选择
+        // 在直连策略里低倍率次于地区、早于选择节点
         defaultProxiesDirect.splice(1 + countryGroupNames.length, 0, "低倍率节点");
     }
 
@@ -46,8 +46,8 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
     if (landing) defaultFallback.push("落地节点");
     defaultFallback.push(...countryGroupNames);
     if (lowCost) defaultFallback.push("低倍率节点");
-    // 可选是否加入 手动切换 / DIRECT；按容灾语义加入。
-    defaultFallback.push("手动切换", "DIRECT");
+    // 可选是否加入 手动选择 / DIRECT；按容灾语义加入。
+    defaultFallback.push("手动选择", "DIRECT");
 
     return { defaultProxies, defaultProxiesDirect, defaultSelector: selector, defaultFallback, countryGroupNames };
 }
@@ -113,6 +113,11 @@ const ruleProviders = {
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/AdditionalCDNResources.list",
         "path": "./ruleset/AdditionalCDNResources.list"
     },
+    "Crypto": {
+        "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
+        "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Crypto.list",
+        "path": "./ruleset/Crypto.list"
+    }
 }
 
 const rules = [
@@ -124,21 +129,21 @@ const rules = [
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
     "RULE-SET,AI,AI",
+    "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
     "RULE-SET,TikTok,TikTok",
     "RULE-SET,SteamFix,直连",
     "RULE-SET,GoogleFCM,直连",
     "GEOSITE,GOOGLE-PLAY@CN,直连",
     "GEOSITE,TELEGRAM,Telegram",
-    "GEOSITE,YOUTUBE@CN,直连",
     "GEOSITE,YOUTUBE,YouTube",
     "GEOSITE,NETFLIX,Netflix",
     "GEOSITE,SPOTIFY,Spotify",
+    "GEOSITE,BAHAMUT,Bahamut",
     "GEOSITE,BILIBILI,Bilibili",
-    "GEOSITE,CATEGORY-SCHOLAR-CN,直连",
     "GEOSITE,MICROSOFT@CN,直连",
     "GEOSITE,PIKPAK,PikPak",
-    "GEOSITE,GFW,节点选择",
+    "GEOSITE,GFW,选择节点",
     "GEOSITE,CN,直连",
     "GEOSITE,PRIVATE,直连",
     "GEOIP,NETFLIX,Netflix,no-resolve",
@@ -146,7 +151,7 @@ const rules = [
     "GEOIP,CN,直连",
     "GEOIP,PRIVATE,直连",
     "DST-PORT,22,SSH(22端口)",
-    "MATCH,节点选择"
+    "MATCH,选择节点"
 ];
 
 const snifferConfig = {
@@ -385,20 +390,20 @@ function buildProxyGroups({
     const hasTW = countryList.includes("台湾");
     const hasHK = countryList.includes("香港");
     const hasUS = countryList.includes("美国");
-    // 排除落地节点、节点选择和故障转移以避免死循环
+    // 排除落地节点、选择节点和故障转移以避免死循环
     const frontProxySelector = [
         ...defaultSelector.filter(name => name !== "落地节点" && name !== "故障转移")
     ];
 
     return [
         {
-            "name": "节点选择",
+            "name": "选择节点",
             "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png",
             "type": "select",
             "proxies": defaultSelector
         },
         {
-            "name": "手动切换",
+            "name": "手动选择",
             "icon": "https://cdn.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png",
             "include-all": true,
             "type": "select"
@@ -492,7 +497,19 @@ function buildProxyGroups({
             "name": "Truth Social",
             "icon": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/TruthSocial.png",
             "type": "select",
-            "proxies": (hasUS) ? ["美国节点", "节点选择", "手动切换"] : defaultProxies
+            "proxies": (hasUS) ? ["美国节点", "选择节点", "手动选择"] : defaultProxies
+        },
+        {
+            "name": "Bahamut",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Bahamut.png",
+            "type": "select",
+            "proxies": (hasTW) ? ["台湾节点", "选择节点", "手动选择", "直连"] : defaultProxies
+        },
+        {
+            "name": "Crypto",
+            "icon": "https://cdn.jsdmirror.com/gh/Koolson/Qure@master/IconSet/Color/Cryptocurrency_3.png",
+            "type": "select",
+            "proxies": defaultProxies
         },
         {
             "name": "SSH(22端口)",
@@ -513,7 +530,7 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png",
             "type": "select",
             "proxies": [
-                "DIRECT", "节点选择"
+                "DIRECT", "选择节点"
             ]
         },
         {
