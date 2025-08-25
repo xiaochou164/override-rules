@@ -8,6 +8,9 @@ BACKUP_PREFIX="config.yaml"
 MAX_BACKUPS=7
 TMP_PATH="/tmp/config.yaml.tmp"
 LOG_FILE="/var/log/mihomo_update.log"
+RETRY_MAX=3
+RETRY_DELAY=5
+RETRY_BACKOFF=2
 
 # === 日志 ===
 log() {
@@ -33,18 +36,38 @@ backup_config() {
 # === 下载新配置 ===
 download_config() {
     log "开始下载新配置..."
-    curl -fsSL -o "$TMP_PATH" "$CONFIG_URL"
-    if [ $? -ne 0 ]; then
-        log "下载配置失败，请检查网络或地址"
-        return 1
-    fi
-    # 基本校验：检测文件体积
-    if [ ! -s "$TMP_PATH" ]; then
-        log "下载文件为空，停止更新"
-        return 2
-    fi
-    log "配置下载完成"
-    return 0
+
+    local attempt=1
+    local delay="$RETRY_DELAY"
+    while [ "$attempt" -le "$RETRY_MAX" ]; do
+        curl -fsSL -o "$TMP_PATH" "$CONFIG_URL"
+        local rc=$?
+
+        if [ $rc -eq 0 ] && [ -s "$TMP_PATH" ]; then
+            log "配置下载完成（第 $attempt 次尝试）"
+            return 0
+        fi
+
+        # 失败原因与日志
+        if [ $rc -ne 0 ]; then
+            log "下载失败（第 $attempt/$RETRY_MAX 次）：curl 返回码 $rc"
+        elif [ ! -s "$TMP_PATH" ]; then
+            log "下载失败（第 $attempt/$RETRY_MAX 次）：文件为空或校验未通过"
+        fi
+
+        # 若还有机会，等待后重试
+        if [ "$attempt" -lt "$RETRY_MAX" ]; then
+            log "将在 ${delay}s 后重试下载"
+            sleep "$delay"
+            delay=$((delay * RETRY_BACKOFF))
+        fi
+        attempt=$((attempt + 1))
+    done
+
+    # 清理无效临时文件
+    [ -f "$TMP_PATH" ] && [ ! -s "$TMP_PATH" ] && rm -f "$TMP_PATH"
+    log "下载配置多次失败，放弃更新"
+    return 1
 }
 
 # === 更新配置文件 ===
@@ -55,12 +78,25 @@ replace_config() {
 
 # === 重启 mihomo 服务 ===
 restart_service() {
-    systemctl restart mihomo
-    if [ $? -eq 0 ]; then
-        log "mihomo 服务已重启"
-    else
-        log "mihomo 服务重启失败，请手动检查"
-    fi
+    local attempt=1
+    local delay="$RETRY_DELAY"
+    while [ "$attempt" -le "$RETRY_MAX" ]; do
+        systemctl restart mihomo
+        local rc=$?
+        if [ $rc -eq 0 ]; then
+            log "mihomo 服务已重启（第 $attempt 次尝试）"
+            return 0
+        fi
+        log "mihomo 服务重启失败（第 $attempt/$RETRY_MAX 次），返回码 $rc"
+        if [ "$attempt" -lt "$RETRY_MAX" ]; then
+            log "将在 ${delay}s 后重试重启"
+            sleep "$delay"
+            delay=$((delay * RETRY_BACKOFF))
+        fi
+        attempt=$((attempt + 1))
+    done
+    log "mihomo 服务多次重启失败，请手动检查"
+    return 1
 }
 
 main() {
