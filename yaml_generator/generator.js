@@ -3,15 +3,8 @@
  * 使用 fake_proxies.json 中的假代理列表，载入 convert.js，
  * 组合不同参数调用其 main(config) 生成 Clash/Stash 配置，并输出为 YAML 文件。
  * 
- * 支持的布尔参数（与 convert.js 内保持一致）：
- *  - loadbalance
- *  - landing
- *  - ipv6
- *  - full
- *  - keepalive
- * 
- * 默认生成所有 2^5 = 32 种组合，文件命名格式：
- *   config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}.yaml
+ * 支持的布尔参数在下面的 FLAGS 数组中定义，与 convert.js 内保持一致。
+ * 生成所有可能的参数组合，文件名基于参数动态生成。
  * 
  * 可通过环境变量 LIMIT_COMBOS（整数）限制生成前 N 个组合。
  */
@@ -26,8 +19,8 @@ const BASE_DIR = path.resolve(__dirname, '..');
 const GENERATOR_DIR = __dirname;
 const CONVERT_FILE = path.join(BASE_DIR, 'convert.js');
 const FAKE_PROXIES_FILE = path.join(GENERATOR_DIR, 'fake_proxies.json');
-// 统一使用 plural 目录名，便于与 README / CI 对齐
 const OUTPUT_DIR = path.join(BASE_DIR, 'yamls');
+const FLAGS = ['loadbalance', 'landing', 'ipv6', 'full', 'keepalive', 'fakeip'];
 
 // 读取 fake proxies
 function loadFakeConfig() {
@@ -46,11 +39,10 @@ function toYAML(obj) {
 
 // 生成参数组合
 function generateArgCombos() {
-    const flags = ['loadbalance', 'landing', 'ipv6', 'full', 'keepalive', 'fakeip'];
     const combos = [];
-    for (let mask = 0; mask < (1 << flags.length); mask++) {
+    for (let mask = 0; mask < (1 << FLAGS.length); mask++) {
         const combo = {};
-        flags.forEach((flag, i) => {
+        FLAGS.forEach((flag, i) => {
             combo[flag] = Boolean(mask & (1 << i));
         });
         combos.push(combo);
@@ -77,7 +69,25 @@ function runConvert(baseConfig, args) {
 }
 
 function fileNameFromArgs(args) {
-    return `config_lb-${+args.loadbalance}_landing-${+args.landing}_ipv6-${+args.ipv6}_full-${+args.full}_keepalive-${+args.keepalive}.yaml`;
+    // 根据 FLAGS 数组动态生成文件名
+    const parts = FLAGS.map(flag => {
+        const shortName = getShortName(flag);
+        return `${shortName}-${+args[flag]}`;
+    });
+    return `config_${parts.join('_')}.yaml`;
+}
+
+// 获取参数的简短名称用于文件名
+function getShortName(flag) {
+    const shortNames = {
+        'loadbalance': 'lb',
+        'landing': 'landing',
+        'ipv6': 'ipv6',
+        'full': 'full',
+        'keepalive': 'keepalive',
+        'fakeip': 'fakeip'
+    };
+    return shortNames[flag] || flag;
 }
 
 function ensureDir(dir) {
@@ -88,14 +98,19 @@ function main() {
     const baseConfig = loadFakeConfig();
     ensureDir(OUTPUT_DIR);
     // 清理旧文件，避免残留无效组合
+    // 根据 FLAGS 数组动态生成正则表达式
+    const flagPatterns = FLAGS.map(flag => `${getShortName(flag)}-\\d`);
+    const cleanupRegex = new RegExp(`^config_${flagPatterns.join('_')}\\.yaml$`);
+    
     for (const f of fs.readdirSync(OUTPUT_DIR)) {
-        if (/^config_lb-\d_landing-\d_ipv6-\d_full-\d_keepalive-\d\.yaml$/.test(f)) {
+        if (cleanupRegex.test(f)) {
             try { fs.unlinkSync(path.join(OUTPUT_DIR, f)); } catch (_) {}
         }
     }
     const combos = generateArgCombos();
     const limit = process.env.LIMIT_COMBOS ? parseInt(process.env.LIMIT_COMBOS, 10) : combos.length;
     let count = 0;
+    console.log(`将生成 ${Math.min(limit, combos.length)} 个 YAML 文件 (共 ${combos.length} 种组合)`);
     for (const args of combos) {
         if (count >= limit) break;
     const config = runConvert(baseConfig, args);
