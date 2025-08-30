@@ -90,19 +90,25 @@ proxies:
 
 ### 关于自动生成的 YAML 格式覆写
 
-除了直接引用 convert.js 动态覆写，你也可以使用仓库中预先生成好的 32 份 YAML 格式覆写——它们都放在 yamls/ 目录里，由 GitHub Actions 在每次推送后自动重新生成、覆盖。适用于诸如 Clash Verge 等不支持 JS 覆写的客户端和转换服务。
+除了直接引用 convert.js 动态覆写，你也可以使用仓库中预先生成好的 YAML 格式覆写——它们都放在 yamls/ 目录里，由 GitHub Actions 在每次推送后自动重新生成、覆盖。适用于诸如 Clash Verge 等不支持 JS 覆写的客户端和转换服务。
 
 文件命名规则：
 
 ```
-config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}.yaml
+config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}_fakeip{0|1}.yaml
 ```
 
 示例（开启 full，其余关闭）：
 
 ```
-https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0.yaml
+https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0_fakeip-0.yaml
 ```
 
-CI 只是套用一份假的`fake_proxies.json`来生成覆写，所以不可能实现 JS 覆写自动根据节点匹配生成对应代理组的功能，只能把所有地区节点组都放进去。如果你已经搭建 Substore，并且想要「动态识别国家 + 传参」的灵活性，还是推荐使用 JS 覆写。
+CI 只是套用一份假的`fake_proxies.json`来生成覆写，所以不可能实现 JS 覆写自动根据节点匹配生成对应代理组的功能，只能做出取舍放入常用地区的节点。如果你有条件使用 Substore，并且想要动态识别国家和传参的灵活性，还是推荐使用 JS 覆写。
 
+### 本地生成 YAML 文件
+
+```shell
+npm install
+npm run generate
+```
