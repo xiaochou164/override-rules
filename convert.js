@@ -7,6 +7,7 @@ https://github.com/powerfullz/override-rules
 - ipv6: 启用 IPv6 支持 (默认false)
 - full: 启用完整配置，用于纯内核启动 (默认false)
 - keepalive: 启用 tcp-keep-alive (默认false)
+- fakeip: DNS 使用 FakeIP 而不是 RedirHost (默认false)
 */
 
 const inArg = typeof $arguments !== 'undefined' ? $arguments : {};
@@ -14,7 +15,8 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false,
-    keepAliveEnabled = parseBool(inArg.keepalive) || false;
+    keepAliveEnabled = parseBool(inArg.keepalive) || false,
+    fakeIPEnabled = parseBool(inArg.fakeip) || false;
 
 function buildBaseLists({ landing, lowCost, countryInfo }) {
     const countryGroupNames = countryInfo
@@ -187,9 +189,76 @@ const dnsConfig = {
     ],
     "nameserver": [
         "system",
+        "223.5.5.5",
+        "119.29.29.29",
+        "180.184.1.1",
+    ],
+    "fallback": [
+        "quic://dns0.eu",
+        "https://dns.cloudflare.com/dns-query",
+        "https://dns.sb/dns-query",
+        "tcp://208.67.222.222",
+        "tcp://8.26.56.2"
+    ],
+    "proxy-server-nameserver": [
         "quic://223.5.5.5",
         "tls://dot.pub",
-        "tls://dns.alidns.com",
+    ]
+};
+
+const dnsConfig2 = {
+    // 提供使用 FakeIP 的 DNS 配置
+    "enable": true,
+    "ipv6": ipv6Enabled,
+    "prefer-h3": true,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-filter": [
+        "localhost",
+        "gateway",
+        "*.lan",
+        "*.local",
+        "*.home.arpa",
+        "router.asus.com",
+        "miwifi.com",
+        "*.microsoft.com",
+        "*.msn.com",
+        "*.msftconnecttest.com",
+        "*.windows.com",
+        "*.live.com",
+        "msftncsi.com",
+        "*.apple.com",
+        "*.icloud.com",
+        "*.stun.*.*",
+        "*.stun.*.*.*",
+        "stun.l.google.com",
+        "stun.qq.com",
+        "*.spotify.com",
+        "*.adobe.com",
+        "music.163.com",
+        "*.music.163.com",
+        "*.126.net",
+        "*.steampowered.com",
+        "*.steamstatic.com",
+        "*.ubisoft.com",
+        "*.ea.com",
+        "*.epicgames.com",
+        "*.playstation.net",
+        "*.nintendo.net",
+        "*.battlenet.com.cn",
+        "*.ntp.org.cn",
+        "*.pool.ntp.org",
+        "time.windows.com",
+        "time.apple.com"
+    ],
+    "default-nameserver": [
+        "119.29.29.29",
+        "223.5.5.5",
+    ],
+    "nameserver": [
+        "system",
+        "223.5.5.5",
+        "119.29.29.29",
+        "180.184.1.1",
     ],
     "fallback": [
         "quic://dns0.eu",
@@ -618,7 +687,7 @@ function main(config) {
         "rule-providers": ruleProviders,
         "rules": rules,
         "sniffer": snifferConfig,
-        "dns": dnsConfig,
+        "dns": fakeIPEnabled ? dnsConfig2 : dnsConfig,
         "geodata-mode": true,
         "geox-url": geoxURL,
     });

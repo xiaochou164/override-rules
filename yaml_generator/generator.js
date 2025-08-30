@@ -46,7 +46,7 @@ function toYAML(obj) {
 
 // 生成参数组合
 function generateArgCombos() {
-    const flags = ['loadbalance', 'landing', 'ipv6', 'full', 'keepalive'];
+    const flags = ['loadbalance', 'landing', 'ipv6', 'full', 'keepalive', 'fakeip'];
     const combos = [];
     for (let mask = 0; mask < (1 << flags.length); mask++) {
         const combo = {};
