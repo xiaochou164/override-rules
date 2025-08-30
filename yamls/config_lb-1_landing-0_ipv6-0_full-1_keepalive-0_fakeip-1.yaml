@@ -21,16 +21,10 @@ proxy-groups:
     proxies:
       - 故障转移
       - 香港节点
-      - 澳门节点
       - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
       - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
+      - 日本节点
+      - 美国节点
       - 低倍率节点
       - 手动选择
       - DIRECT
@@ -44,16 +38,10 @@ proxy-groups:
     url: https://cp.cloudflare.com/generate_204
     proxies:
       - 香港节点
-      - 澳门节点
       - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
       - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
+      - 日本节点
+      - 美国节点
       - 低倍率节点
       - 手动选择
       - DIRECT
@@ -66,16 +54,10 @@ proxy-groups:
     proxies: &a1
       - 选择节点
       - 香港节点
-      - 澳门节点
       - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
       - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
+      - 日本节点
+      - 美国节点
       - 低倍率节点
       - 手动选择
       - 直连
@@ -171,40 +153,10 @@ proxy-groups:
     filter: (?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong|🇭🇰
     exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
-  - name: 澳门节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Macao.png
-    include-all: true
-    filter: (?i)澳门|MO|Macau|🇲🇴
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
   - name: 台湾节点
     icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     filter: (?i)台|新北|彰化|TW|Taiwan|🇹🇼
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
-  - name: 美国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
-    include-all: true
-    filter: (?i)美国|美|US|United States|🇺🇸
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
-  - name: 英国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_Kingdom.png
-    include-all: true
-    filter: (?i)英国|United Kingdom|UK|伦敦|London|🇬🇧
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
-  - name: 日本节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
-    include-all: true
-    filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|🇯🇵
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
-  - name: 韩国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Korea.png
-    include-all: true
-    filter: (?i)KR|Korea|KOR|首尔|韩|韓|🇰🇷
     exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: 新加坡节点
@@ -213,22 +165,16 @@ proxy-groups:
     filter: (?i)新加坡|坡|狮城|SG|Singapore|🇸🇬
     exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
-  - name: 德国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Germany.png
+  - name: 日本节点
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
-    filter: (?i)德国|德|DE|Germany|🇩🇪
+    filter: (?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|🇯🇵
     exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
-  - name: 法国节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/France.png
+  - name: 美国节点
+    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
-    filter: (?i)法国|法|FR|France|🇫🇷
-    exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
-    type: load-balance
-  - name: 加拿大节点
-    icon: https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Canada.png
-    include-all: true
-    filter: (?i)加拿大|Canada|CA|🇨🇦
+    filter: (?i)美国|美|US|United States|🇺🇸
     exclude-filter: 0.[0-5]|低倍率|省流|大流量|实验性
     type: load-balance
   - name: GLOBAL
@@ -258,16 +204,10 @@ proxy-groups:
       - 广告拦截
       - 低倍率节点
       - 香港节点
-      - 澳门节点
       - 台湾节点
-      - 美国节点
-      - 英国节点
-      - 日本节点
-      - 韩国节点
       - 新加坡节点
-      - 德国节点
-      - 法国节点
-      - 加拿大节点
+      - 日本节点
+      - 美国节点
 rule-providers:
   ADBlock:
     type: http
