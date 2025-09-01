@@ -13,14 +13,14 @@
 
 ### 使用方法
 
-**Mihomo Party/Sparkle**
+**Clash Party/Sparkle**
 
 1. 推荐直接使用 JS 动态覆写：`https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js`
-2. 打开 Mihomo Party → 左侧「覆写」→ 粘贴上述链接导入。
+2. 打开 Clash Party → 左侧「覆写」→ 粘贴上述链接导入。
 3. 打开「订阅管理」→ 目标订阅右上角三个点 → 「编辑信息」→ 选择该覆写脚本 → 保存。
-4. Mihomo Party 不支持给脚本传入参数，如果需要传入参数，请使用集成的 Substore。
+4. Clash Party 不支持给脚本传入参数，如果需要传入参数，请使用集成的 Substore。
 
-需要注意，Mihomo Party 在默认设置下还会接管 DNS 和 SNI（域名嗅探），需要手动在设置中关闭「控制 DNS 设置」和「控制域名嗅探」两个选项。
+需要注意，Clash Party 在默认设置下还会接管 DNS 和 SNI（域名嗅探），需要手动在设置中关闭「控制 DNS 设置」和「控制域名嗅探」两个选项。
 
 **SubStore**
 
@@ -41,6 +41,7 @@ https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/conv
 - `ipv6`: 启用 IPv6 支持 (默认false)
 - `full`：生成完整配置（默认false，用于纯内核启动）
 - `keepalive`: 启用 TCP Keep Alive（默认 false）[^fn2]
+- `fakeip`：DNS 增强模式使用`fake-ip`而不是`redir-host`（默认false）
 
 [^fn2]: 无特殊需求不要启用，否则会造成[移动设备异常耗电问题](https://github.com/vernesong/OpenClash/issues/2614)。
 
