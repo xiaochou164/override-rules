@@ -59,6 +59,11 @@ const ruleProviders = {
         "url": "https://adrules.top/adrules_domainset.txt",
         "path": "./ruleset/ADBlock.txt"
     },
+    "ProxyDomain": {
+        "type": "http","behavior": "classical","format": "text","interval": 86400,
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
+        "path": "./ruleset/ProxyDomain.txt"
+    },
     "TruthSocial": {
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list",
         "path": "./ruleset/TruthSocial.list",
@@ -135,6 +140,7 @@ const rules = [
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
     "RULE-SET,AI,AI",
+    "RULE-SET,ProxyDomain,选择节点",
     "RULE-SET,Google,Google",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
@@ -189,26 +195,45 @@ const dnsConfig = {
     "prefer-h3": true,
     "enhanced-mode": "redir-host",
     "default-nameserver": [
-        "119.29.29.29",
-        "223.5.5.5",
+        "119.29.29.29",  // 腾讯DNS
+        "223.5.5.5",     // 阿里DNS
+        "114.114.114.114", // 114DNS
+        "8.8.8.8"        // Google DNS
     ],
     "nameserver": [
         "system",
         "quic://223.5.5.5",
         "tls://dot.pub",
         "tls://dns.alidns.com",
+        "https://doh.pub/dns-query",  // 添加国内DoH
+        "https://dns.alidns.com/dns-query"  // 添加阿里DoH
     ],
     "fallback": [
         "quic://dns0.eu",
         "https://dns.cloudflare.com/dns-query",
         "https://dns.sb/dns-query",
         "tcp://208.67.222.222",
-        "tcp://8.26.56.2"
+        "tcp://8.26.56.2",
+        "tls://1.1.1.1",  // 添加Cloudflare DoT
+        "tls://8.8.8.8"   // 添加Google DoT
     ],
     "proxy-server-nameserver": [
         "quic://223.5.5.5",
         "tls://dot.pub",
-    ]
+        "https://doh.pub/dns-query"  // 添加国内DoH
+    ],
+    "fallback-filter": {
+        "geoip": true,
+        "geoip-code": "CN",
+        "ipcidr": ["240.0.0.0/4"],
+        "domain": [
+            "+.google.com",
+            "+.facebook.com",
+            "+.twitter.com",
+            "+.youtube.com",
+            "+.telegram.org"
+        ]
+    }
 };
 
 const geoxURL = {
