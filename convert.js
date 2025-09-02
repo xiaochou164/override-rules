@@ -118,6 +118,11 @@ const ruleProviders = {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Crypto.list",
         "path": "./ruleset/Crypto.list"
+    },
+    "Google": {
+        "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
+        "url": "https://ruleset.skk.moe/Clash/non_ip/google.txt",
+        "path": "./ruleset/Google.txt"
     }
 }
 
@@ -130,6 +135,7 @@ const rules = [
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
     "RULE-SET,AI,AI",
+    "RULE-SET,Google,Google",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
     "RULE-SET,TikTok,TikTok",
@@ -541,6 +547,12 @@ function buildProxyGroups({
             "proxies": [
                 "REJECT", "直连"
             ]
+        },
+        {
+            "name": "Google",
+            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
+            "type": "select",
+            "proxies": (hasUS) ? ["美国节点", "选择节点", "手动选择"] : defaultProxies
         },
         (lowCost) ? {
             "name": "低倍率节点",
