@@ -9,6 +9,7 @@ https://github.com/powerfullz/override-rules
 - keepalive: 启用 tcp-keep-alive (默认false)
 */
 
+// 解析传入参数，设置默认值
 const inArg = typeof $arguments !== 'undefined' ? $arguments : {};
 const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
@@ -594,7 +595,7 @@ function main(config) {
     );
 
     if (fullConfig) Object.assign(config, {
-        "mixed-port": 7890,
+        "mixed-port": 6000,
         "redir-port": 7892,
         "tproxy-port": 7893,
         "routing-mark": 7894,
@@ -606,8 +607,9 @@ function main(config) {
         "find-process-mode": "off",
         "log-level": "info",
         "geodata-loader": "standard",
-        "external-controller": ":9999",
+        "external-controller": ":6001",
         "disable-keep-alive": !keepAliveEnabled,
+        "secret": "Zhupo222",
         "profile": {
             "store-selected": true,
         }
