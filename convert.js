@@ -123,11 +123,6 @@ const ruleProviders = {
         "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/Crypto.list",
         "path": "./ruleset/Crypto.list"
-    },
-    "Google": {
-        "type": "http", "behavior": "classical", "format": "text", "interval": 86400,
-        "url": "https://ruleset.skk.moe/Clash/non_ip/google.txt",
-        "path": "./ruleset/Google.txt"
     }
 }
 
@@ -141,7 +136,6 @@ const rules = [
     "RULE-SET,AdditionalCDNResources,静态资源",
     "RULE-SET,AI,AI",
     "RULE-SET,ProxyDomain,选择节点",
-    "RULE-SET,Google,Google",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
     "RULE-SET,TikTok,TikTok",
@@ -209,13 +203,9 @@ const dnsConfig = {
         "https://dns.alidns.com/dns-query"  // 添加阿里DoH
     ],
     "fallback": [
-        "quic://dns0.eu",
-        "https://dns.cloudflare.com/dns-query",
-        "https://dns.sb/dns-query",
-        "tcp://208.67.222.222",
-        "tcp://8.26.56.2",
-        "tls://1.1.1.1",  // 添加Cloudflare DoT
-        "tls://8.8.8.8"   // 添加Google DoT
+        "101.6.6.6:5353",
+        "tls://1.1.1.1:853",  // 添加Cloudflare DoT
+        "tls://1.0.0.1:853"   // 添加Google DoT
     ],
     "proxy-server-nameserver": [
         "quic://223.5.5.5",
@@ -572,12 +562,6 @@ function buildProxyGroups({
             "proxies": [
                 "REJECT", "直连"
             ]
-        },
-        {
-            "name": "Google",
-            "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
-            "type": "select",
-            "proxies": (hasUS) ? ["美国节点", "选择节点", "手动选择"] : defaultProxies
         },
         (lowCost) ? {
             "name": "低倍率节点",
