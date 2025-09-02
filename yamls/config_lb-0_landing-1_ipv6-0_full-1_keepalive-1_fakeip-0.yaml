@@ -175,7 +175,7 @@ proxy-groups:
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
-    interval: 180
+    interval: 60
     tolerance: 20
     lazy: false
   - name: 台湾节点
@@ -185,7 +185,7 @@ proxy-groups:
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
-    interval: 180
+    interval: 60
     tolerance: 20
     lazy: false
   - name: 新加坡节点
@@ -195,7 +195,7 @@ proxy-groups:
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
-    interval: 180
+    interval: 60
     tolerance: 20
     lazy: false
   - name: 日本节点
@@ -205,7 +205,7 @@ proxy-groups:
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
-    interval: 180
+    interval: 60
     tolerance: 20
     lazy: false
   - name: 美国节点
@@ -215,7 +215,7 @@ proxy-groups:
     exclude-filter: (?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0.[0-5]|低倍率|省流|大流量|实验性
     type: url-test
     url: https://cp.cloudflare.com/generate_204
-    interval: 180
+    interval: 60
     tolerance: 20
     lazy: false
   - name: GLOBAL
