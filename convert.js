@@ -185,7 +185,7 @@ const snifferConfig = {
 
 const dnsConfig = {
     "enable": true,
-    "ipv6": ipv6Enabled,
+    "ipv6": false,
     "prefer-h3": true,
     "enhanced-mode": "redir-host",
     "default-nameserver": [
