@@ -7,15 +7,16 @@ https://github.com/powerfullz/override-rules
 - ipv6: 启用 IPv6 支持 (默认false)
 - full: 启用完整配置，用于纯内核启动 (默认false)
 - keepalive: 启用 tcp-keep-alive (默认false)
+- fakeip: DNS 使用 FakeIP 而不是 RedirHost (默认false)
 */
 
-// 解析传入参数，设置默认值
 const inArg = typeof $arguments !== 'undefined' ? $arguments : {};
 const loadBalance = parseBool(inArg.loadbalance) || false,
     landing = parseBool(inArg.landing) || false,
     ipv6Enabled = parseBool(inArg.ipv6) || false,
     fullConfig = parseBool(inArg.full) || false,
-    keepAliveEnabled = parseBool(inArg.keepalive) || false;
+    keepAliveEnabled = parseBool(inArg.keepalive) || false,
+    fakeIPEnabled = parseBool(inArg.fakeip) || false;
 
 function buildBaseLists({ landing, lowCost, countryInfo }) {
     const countryGroupNames = countryInfo
@@ -58,11 +59,6 @@ const ruleProviders = {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
         "url": "https://adrules.top/adrules_domainset.txt",
         "path": "./ruleset/ADBlock.txt"
-    },
-    "ProxyDomain": {
-        "type": "http","behavior": "classical","format": "text","interval": 86400,
-        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
-        "path": "./ruleset/ProxyDomain.txt"
     },
     "TruthSocial": {
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list",
@@ -135,7 +131,6 @@ const rules = [
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
     "RULE-SET,AI,AI",
-    "RULE-SET,ProxyDomain,选择节点",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
     "RULE-SET,TikTok,TikTok",
@@ -185,45 +180,70 @@ const snifferConfig = {
 
 const dnsConfig = {
     "enable": true,
-    "ipv6": false,
+    "ipv6": ipv6Enabled,
     "prefer-h3": true,
     "enhanced-mode": "redir-host",
     "default-nameserver": [
-        "119.29.29.29",  // 腾讯DNS
-        "223.5.5.5",     // 阿里DNS
-        "114.114.114.114", // 114DNS
-        "8.8.8.8"        // Google DNS
+        "119.29.29.29",
+        "223.5.5.5",
     ],
     "nameserver": [
         "system",
-        "quic://223.5.5.5",
-        "tls://dot.pub",
-        "tls://dns.alidns.com",
-        "https://doh.pub/dns-query",  // 添加国内DoH
-        "https://dns.alidns.com/dns-query"  // 添加阿里DoH
+        "223.5.5.5",
+        "119.29.29.29",
+        "180.184.1.1",
     ],
     "fallback": [
-        "101.6.6.6:5353",
-        "tls://1.1.1.1:853",  // 添加Cloudflare DoT
-        "tls://1.0.0.1:853"   // 添加Google DoT
+        "quic://dns0.eu",
+        "https://dns.cloudflare.com/dns-query",
+        "https://dns.sb/dns-query",
+        "tcp://208.67.222.222",
+        "tcp://8.26.56.2"
     ],
     "proxy-server-nameserver": [
         "quic://223.5.5.5",
         "tls://dot.pub",
-        "https://doh.pub/dns-query"  // 添加国内DoH
+    ]
+};
+
+const dnsConfig2 = {
+    // 提供使用 FakeIP 的 DNS 配置
+    "enable": true,
+    "ipv6": ipv6Enabled,
+    "prefer-h3": true,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-filter": [
+        "geosite:private",
+        "geosite:connectivity-check",
+        "geosite:cn",
+        "Mijia Cloud",
+        "dig.io.mi.com",
+        "localhost.ptlogin2.qq.com",
+        "*.icloud.com",
+        "*.stun.*.*",
+        "*.stun.*.*.*"
     ],
-    "fallback-filter": {
-        "geoip": true,
-        "geoip-code": "CN",
-        "ipcidr": ["240.0.0.0/4"],
-        "domain": [
-            "+.google.com",
-            "+.facebook.com",
-            "+.twitter.com",
-            "+.youtube.com",
-            "+.telegram.org"
-        ]
-    }
+    "default-nameserver": [
+        "119.29.29.29",
+        "223.5.5.5",
+    ],
+    "nameserver": [
+        "system",
+        "223.5.5.5",
+        "119.29.29.29",
+        "180.184.1.1",
+    ],
+    "fallback": [
+        "quic://dns0.eu",
+        "https://dns.cloudflare.com/dns-query",
+        "https://dns.sb/dns-query",
+        "tcp://208.67.222.222",
+        "tcp://8.26.56.2"
+    ],
+    "proxy-server-nameserver": [
+        "quic://223.5.5.5",
+        "tls://dot.pub",
+    ]
 };
 
 const geoxURL = {
@@ -386,7 +406,7 @@ function buildCountryProxyGroups(countryList) {
             if (!loadBalance) {
                 Object.assign(groupConfig, {
                     "url": "https://cp.cloudflare.com/generate_204",
-                    "interval": 180,
+                    "interval": 60,
                     "tolerance": 20,
                     "lazy": false
                 });
@@ -616,7 +636,7 @@ function main(config) {
     );
 
     if (fullConfig) Object.assign(config, {
-        "mixed-port": 6000,
+        "mixed-port": 7890,
         "redir-port": 7892,
         "tproxy-port": 7893,
         "routing-mark": 7894,
@@ -628,9 +648,8 @@ function main(config) {
         "find-process-mode": "off",
         "log-level": "info",
         "geodata-loader": "standard",
-        "external-controller": ":6001",
+        "external-controller": ":9999",
         "disable-keep-alive": !keepAliveEnabled,
-        "secret": "Zhupo222",
         "profile": {
             "store-selected": true,
         }
@@ -641,7 +660,7 @@ function main(config) {
         "rule-providers": ruleProviders,
         "rules": rules,
         "sniffer": snifferConfig,
-        "dns": dnsConfig,
+        "dns": fakeIPEnabled ? dnsConfig2 : dnsConfig,
         "geodata-mode": true,
         "geox-url": geoxURL,
     });
