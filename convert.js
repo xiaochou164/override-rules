@@ -60,6 +60,11 @@ const ruleProviders = {
         "url": "https://adrules.top/adrules_domainset.txt",
         "path": "./ruleset/ADBlock.txt"
     },
+    "AutoDirect": {
+        "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
+        "url": "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@main/direct.txt",
+        "path": "./ruleset/AutoDirect.txt"
+    },
     "TruthSocial": {
         "url": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list",
         "path": "./ruleset/TruthSocial.list",
@@ -130,6 +135,7 @@ const rules = [
     "RULE-SET,StaticResources,静态资源",
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
+    "RULE-SET,AutoDirect,AutoDirect",
     "RULE-SET,AI,AI",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
@@ -480,6 +486,14 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Cloudflare.png",
             "type": "select",
             "proxies": defaultProxies,
+        },
+        {
+            "name": "AutoDirect",
+            "icon": "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@master/icons/AutoDirect.png",
+            "type": "select",
+            "proxies": [
+                "直连", "REJECT"
+            ]
         },
         {
             "name": "AI",
