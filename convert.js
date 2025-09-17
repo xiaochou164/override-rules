@@ -492,7 +492,7 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@master/icons/AutoDirect.png",
             "type": "select",
             "proxies": [
-                "直连", "REJECT"
+                "Direct"
             ]
         },
         {
