@@ -135,7 +135,7 @@ const rules = [
     "RULE-SET,StaticResources,静态资源",
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
-    "RULE-SET,AutoDirect,AutoDirect",
+    "RULE-SET,AutoDirect,直连",
     "RULE-SET,AI,AI",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
