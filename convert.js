@@ -62,7 +62,7 @@ const ruleProviders = {
     },
     "AutoDirect": {
         "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
-        "url": "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@main/direct.txt",
+        "url": "https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/direct.txt",
         "path": "./ruleset/AutoDirect.txt"
     },
     "TruthSocial": {
