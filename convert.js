@@ -135,7 +135,7 @@ const rules = [
     "RULE-SET,StaticResources,静态资源",
     "RULE-SET,CDNResources,静态资源",
     "RULE-SET,AdditionalCDNResources,静态资源",
-    "RULE-SET,AutoDirect,DIRECT",
+    "RULE-SET,AutoDirect,直连",
     "RULE-SET,AI,AI",
     "RULE-SET,Crypto,Crypto",
     "RULE-SET,EHentai,E-Hentai",
@@ -492,7 +492,7 @@ function buildProxyGroups({
             "icon": "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@master/icons/AutoDirect.png",
             "type": "select",
             "proxies": [
-                "Direct"
+                "直连"
             ]
         },
         {
