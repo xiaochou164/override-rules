@@ -1,14 +1,12 @@
 /*
-powerfullz 的 Substore 订阅转换脚本
-https://github.com/powerfullz/override-rules
+SubStore 订阅转换脚本（基于你提供的版本改造）
+新增：
+- UserRules：从 GitHub txt 读取自定义 Clash 规则（方案B：每行包含策略）
+- Google：谷歌全家桶策略组 + GEOSITE,GOOGLE,Google 分流
+- AI优选：按关键词筛选（国家/关键词 + 专线类；排除香港/低倍率/落地/星链）
 
-传入参数：
-- loadbalance: 启用负载均衡 (默认false)
-- landing: 启用落地节点功能 (默认false)
-- ipv6: 启用 IPv6 支持 (默认false)
-- full: 启用完整配置，用于纯内核启动 (默认false)
-- keepalive: 启用 tcp-keep-alive (默认false)
-- fakeip: DNS 使用 FakeIP 而不是 RedirHost (默认false)
+移除：
+- TikTok / EHentai / PikPak / Crypto / Bahamut / Spotify 的分组与规则
 */
 
 const inArg = typeof $arguments !== 'undefined' ? $arguments : {};
@@ -24,21 +22,16 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
     .filter(item => item.count > 2)
     .map(item => item.country + "节点");
 
-  // defaultSelector：选择节点组里展示的候选
-  // 故障转移, 落地节点(可选), 各地区节点, 低倍率节点(可选), 手动选择, DIRECT
   const selector = ["故障转移"];
   if (landing) selector.push("落地节点");
   selector.push(...countryGroupNames);
   if (lowCost) selector.push("低倍率节点");
   selector.push("手动选择", "DIRECT");
 
-  // defaultProxies：各分类策略引用
-  // 选择节点, 各地区节点, 低倍率节点(可选), 手动选择, 直连
   const defaultProxies = ["选择节点", ...countryGroupNames];
   if (lowCost) defaultProxies.push("低倍率节点");
   defaultProxies.push("手动选择", "直连");
 
-  // direct 优先的列表
   const defaultProxiesDirect = ["直连", ...countryGroupNames, "选择节点", "手动选择"];
   if (lowCost) {
     defaultProxiesDirect.splice(1 + countryGroupNames.length, 0, "低倍率节点");
@@ -54,6 +47,14 @@ function buildBaseLists({ landing, lowCost, countryInfo }) {
 }
 
 const ruleProviders = {
+  "UserRules": {
+    "type": "http",
+    "behavior": "classical",
+    "format": "text",
+    "interval": 86400,
+    "url": "https://raw.githubusercontent.com/xiaochou164/clash_rule/refs/heads/main/add_rule.txt",
+    "path": "./ruleset/UserRules.txt"
+  },
   "ADBlock": {
     "type": "http", "behavior": "domain", "format": "text", "interval": 86400,
     "url": "https://adrules.top/adrules_domainset.txt",
@@ -112,6 +113,9 @@ const ruleProviders = {
 };
 
 const rules = [
+  // 最高优先：你的自定义规则（方案B：每行自带策略）
+  "RULE-SET,UserRules,选择节点",
+
   "RULE-SET,ADBlock,广告拦截",
   "RULE-SET,AdditionalFilter,广告拦截",
   "RULE-SET,SogouInput,搜狗输入法",
@@ -120,13 +124,21 @@ const rules = [
   "RULE-SET,CDNResources,静态资源",
   "RULE-SET,AdditionalCDNResources,静态资源",
   "RULE-SET,AutoDirect,直连",
+
   "RULE-SET,AI,AI",
+
   "RULE-SET,SteamFix,直连",
   "RULE-SET,GoogleFCM,直连",
+
   "GEOSITE,GOOGLE-PLAY@CN,直连",
+
+  // 谷歌全家桶（如果你希望 YouTube 也算 Google，就放在 YouTube 之前）
+  "GEOSITE,GOOGLE,Google",
+
   "GEOSITE,TELEGRAM,Telegram",
   "GEOSITE,YOUTUBE,YouTube",
   "GEOSITE,NETFLIX,Netflix",
+
   "GEOSITE,BILIBILI,Bilibili",
   "GEOSITE,MICROSOFT@CN,直连",
   "GEOSITE,GFW,选择节点",
@@ -230,7 +242,6 @@ const geoxURL = {
   "asn": "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 };
 
-// 地区元数据
 const countriesMeta = {
   "香港": {
     pattern: "(?i)香港|港|HK|hk|Hong Kong|HongKong|hongkong|🇭🇰",
@@ -393,12 +404,7 @@ function buildAISelectGroup() {
     "interval": 60,
     "tolerance": 20,
     "lazy": false,
-
-    // 必须包含：美国/🇺🇸/US/United States 或 日本 或 德国 或 gemini（任一）
-    // 同时必须包含：专线 或 高级专线(允许中间有空格) 或 高速
     "filter": "(?i)(🇺🇸|美国|\\bUS\\b|United States|日本|德国|gemini).*(专线|高级\\s*专线|高速)",
-
-    // 显式排除：香港 + 低倍率/落地/星链
     "exclude-filter": "(?i)(🇭🇰|香港|\\bHK\\b|Hong Kong|HongKong|hongkong|0\\.[0-5]|低倍率|落地|星链|Starlink)"
   };
 }
@@ -482,6 +488,14 @@ function buildProxyGroups({
       "icon": "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
       "type": "select",
       "proxies": ["AI优选", ...defaultProxies]
+    },
+
+    // 谷歌全家桶
+    {
+      "name": "Google",
+      "icon": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
+      "type": "select",
+      "proxies": defaultProxies
     },
 
     {
