@@ -4,9 +4,11 @@ SubStore 订阅转换脚本（基于你提供的版本改造）
 - UserRules：从 GitHub txt 读取自定义 Clash 规则（方案B：每行包含策略）
 - Google：谷歌全家桶策略组 + GEOSITE,GOOGLE,Google 分流
 - AI优选：按关键词筛选（国家/关键词 + 专线类；排除香港/低倍率/落地/星链）
-- 链式代理（Clash Meta relay）：前置代理 -> Socks5 落地
-  - 仅 AI、Google 分组优先走链式代理
+- 链式代理（Clash Meta relay）：前置代理 -> Socks5 落地（保留兼容）
+- dialer-proxy（mihomo 新版）：在 Socks5 节点上设置 dialer-proxy: 前置代理（新增兼容）
+  - AI、Google 分组优先走链式（优先 relay，其次 dialer socks）
   - 通过 arguments 注入 socks5 节点：socks_host / socks_port / socks_user / socks_pass / socks_name
+  - 新增开关：dialer / relay（默认都 true）
 
 移除：
 - TikTok / EHentai / PikPak / Crypto / Bahamut / Spotify 的分组与规则
@@ -21,6 +23,10 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
   keepAliveEnabled = parseBool(inArg.keepalive) || false,
   fakeIPEnabled = parseBool(inArg.fakeip) || false;
 
+// 新增：链式实现方式开关（默认都启用，确保 relay 兼容也保留）
+const dialerEnabled = inArg.dialer === undefined ? true : parseBool(inArg.dialer);
+const relayEnabledArg = inArg.relay === undefined ? true : parseBool(inArg.relay);
+
 // ---- socks5 落地参数（SubStore arguments 传入）----
 const socksHost = (inArg.socks_host || "").trim();
 const socksPort = Number(inArg.socks_port || 1080);
@@ -31,9 +37,13 @@ const socksName = (inArg.socks_name || "Socks5-落地").trim();
 // relay 组名
 const relayGroupName = "链式-落地";
 
-// 仅当 landing=true 且 socks_host 配置了，才启用链式
+function isDialerEnabled() {
+  return dialerEnabled && landing && !!socksHost;
+}
+
+// relay 仍保留，但受 relay 参数控制（并且依赖 landing + socksHost）
 function isRelayEnabled() {
-  return landing && !!socksHost;
+  return relayEnabledArg && landing && !!socksHost;
 }
 
 function buildBaseLists({ landing, lowCost, countryInfo }) {
@@ -451,11 +461,15 @@ function buildProxyGroups({
 
   const frontProxySelector = [...defaultSelector.filter((name) => name !== "落地节点" && name !== "故障转移")];
 
-  // 链式开关（landing + socks_host）
   const relayEnabled = isRelayEnabled();
+  const dialerOn = isDialerEnabled();
 
-  // AI/Google 分组优先走链式（链式组 + 原 defaultProxies）
-  const proxiesPreferRelay = relayEnabled ? [relayGroupName, ...defaultProxies] : defaultProxies;
+  // AI/Google：优先 relay；否则（有 dialer）优先 socksName；否则走默认
+  const proxiesPreferChain = relayEnabled
+    ? [relayGroupName, ...defaultProxies]
+    : dialerOn
+      ? [socksName, ...defaultProxies]
+      : defaultProxies;
 
   const aiBest = buildAISelectGroup();
 
@@ -494,7 +508,7 @@ function buildProxyGroups({
         }
       : null,
 
-    // 新增：链式 relay 组（前置代理 -> socks5 落地）
+    // 兼容：relay 组（前置代理 -> socks5）
     relayEnabled
       ? {
           name: relayGroupName,
@@ -530,20 +544,20 @@ function buildProxyGroups({
     // AI 优选
     aiBest,
 
-    // AI：优先走 链式-落地（如果启用），其次 defaultProxies
+    // AI：优先走 链式（relay 优先，其次 dialer socks）
     {
       name: "AI",
       icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
       type: "select",
-      proxies: ["AI优选", ...proxiesPreferRelay],
+      proxies: ["AI优选", ...proxiesPreferChain],
     },
 
-    // 谷歌全家桶：优先走 链式-落地（如果启用），其次 defaultProxies
+    // 谷歌全家桶：优先走 链式（relay 优先，其次 dialer socks）
     {
       name: "Google",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
       type: "select",
-      proxies: proxiesPreferRelay,
+      proxies: proxiesPreferChain,
     },
 
     {
@@ -630,6 +644,13 @@ function main(config) {
         port: socksPort,
         udp: true,
       };
+
+      // 新增：dialer-proxy（mihomo 新版链式）
+      // 表示“连接 socksHost:socksPort 这一步，通过 前置代理 去拨号建立连接”
+      if (isDialerEnabled()) {
+        node["dialer-proxy"] = "前置代理";
+      }
+
       if (socksUser) node.username = socksUser;
       if (socksPass) node.password = socksPass;
       config.proxies.push(node);
