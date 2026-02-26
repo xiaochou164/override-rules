@@ -132,6 +132,21 @@ DOMAIN-SUFFIX,anz.com
 DOMAIN-SUFFIX,kiwibank.co.nz
 DOMAIN-SUFFIX,bnz.co.nz
 
+# 新型银行 / 金融科技（常见）
+DOMAIN-SUFFIX,n26.com
+DOMAIN-SUFFIX,n26.io
+DOMAIN-SUFFIX,tech26.de
+DOMAIN-SUFFIX,neverless.com
+DOMAIN-KEYWORD,neverless
+DOMAIN-SUFFIX,wise.com
+DOMAIN-SUFFIX,transferwise.com
+DOMAIN-SUFFIX,revolut.com
+DOMAIN-SUFFIX,monzo.com
+DOMAIN-SUFFIX,starlingbank.com
+DOMAIN-SUFFIX,bunq.com
+DOMAIN-SUFFIX,curve.com
+DOMAIN-SUFFIX,chime.com
+
 # 海外加密货币交易所（常见）
 DOMAIN-SUFFIX,binance.com
 DOMAIN-SUFFIX,binance.us
