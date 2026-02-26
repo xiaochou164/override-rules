@@ -1,4 +1,4 @@
-## powerfullz 的覆写规则仓库
+## xiaochou164 的覆写规则仓库
 
 此处存放我用于 Mihomo/Substore 的覆写规则（**不建议用于 Stash**），Inspired by [mihomo-party-org/override-hub](https://github.com/mihomo-party-org/override-hub) 内的 ACL4SSR，具有以下优点：
 
@@ -15,7 +15,7 @@
 
 **Clash Party/Sparkle**
 
-1. 推荐直接使用 JS 动态覆写：`https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js`
+1. 推荐直接使用 JS 动态覆写：`https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/convert.js`
 2. 打开 Clash Party → 左侧「覆写」→ 粘贴上述链接导入。
 3. 打开「订阅管理」→ 目标订阅右上角三个点 → 「编辑信息」→ 选择该覆写脚本 → 保存。
 4. Clash Party 不支持给脚本传入参数，如果需要传入参数，请使用集成的 Substore。
@@ -29,7 +29,7 @@
 2025/06/17 更新：新增 JavaScript 格式覆写，支持传入参数，更易于维护，已经成为首选方式。例如，有链式代理需求，使用如下覆写脚本链接即可：
 
 ```
-https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/convert.js#landing=true
+https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/convert.js#landing=true
 ```
 
 传入多个参数时，用`&`分隔，例如`landing=true&loadbalance=true`。
@@ -102,7 +102,7 @@ config_lb-{0|1}_landing-{0|1}_ipv6-{0|1}_full-{0|1}_keepalive-{0|1}_fakeip{0|1}.
 示例（开启 full，其余关闭）：
 
 ```
-https://raw.githubusercontent.com/powerfullz/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0_fakeip-0.yaml
+https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/yamls/config_lb-0_landing-0_ipv6-0_full-1_keepalive-0_fakeip-0.yaml
 ```
 
 CI 只是套用一份假的`fake_proxies.json`来生成覆写，所以不可能实现 JS 覆写自动根据节点匹配生成对应代理组的功能，只能做出取舍放入常用地区的节点。如果你有条件使用 Substore，并且想要动态识别国家和传参的灵活性，还是推荐使用 JS 覆写。

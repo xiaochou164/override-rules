@@ -106,6 +106,14 @@ const ruleProviders = {
     url: "https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/direct.txt",
     path: "./ruleset/AutoDirect.txt",
   },
+  WalletBank: {
+    type: "http",
+    behavior: "classical",
+    format: "text",
+    interval: 86400,
+    url: "https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/ruleset/WalletBank.list",
+    path: "./ruleset/WalletBank.list",
+  },
   TruthSocial: {
     url: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/ruleset/TruthSocial.list",
     path: "./ruleset/TruthSocial.list",
@@ -183,6 +191,7 @@ const ruleProviders = {
 const rules = [
   // 最高优先：你的自定义规则（你写的是“每行带策略”，但这里仍按你原注释保留）
   "RULE-SET,UserRules,选择节点",
+  "RULE-SET,WalletBank,钱包/银行",
 
   "RULE-SET,ADBlock,广告拦截",
   "RULE-SET,AdditionalFilter,广告拦截",
@@ -539,6 +548,12 @@ function buildProxyGroups({
       icon: "https://cdn.jsdelivr.net/gh/xiaochou164/override-rules@master/icons/AutoDirect.png",
       type: "select",
       proxies: ["直连"],
+    },
+    {
+      name: "钱包/银行",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Direct.png",
+      type: "select",
+      proxies: ["直连", "选择节点", "手动选择"],
     },
 
     // AI 优选
