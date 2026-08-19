@@ -3,7 +3,6 @@ SubStore 订阅转换脚本（基于你提供的版本改造）
 新增：
 - UserRules：从 GitHub txt 读取自定义 Clash 规则（方案B：每行包含策略）
 - Google：谷歌全家桶策略组 + GEOSITE,GOOGLE,Google 分流
-- AI优选：按关键词筛选（国家/关键词 + 专线类；排除香港/低倍率/落地/星链）
 - 链式代理（Clash Meta relay）：前置代理 -> Socks5 落地（保留兼容）
 - dialer-proxy（mihomo 新版）：在 Socks5 节点上设置 dialer-proxy: 前置代理（新增兼容）
   - AI、Google 分组优先走链式（优先 relay，其次 dialer socks）
@@ -496,21 +495,6 @@ function buildCountryProxyGroups(countryList) {
   return countryProxyGroups;
 }
 
-function buildAISelectGroup() {
-  return {
-    name: "AI优选",
-    icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AI.png",
-    type: "url-test",
-    "include-all": true,
-    url: "https://cp.cloudflare.com/generate_204",
-    interval: 60,
-    tolerance: 20,
-    lazy: false,
-    filter: "(?i)(🇺🇸|美国|\\bUS\\b|United States|日本|德国|gemini).*(专线|高级\\s*专线|高速)",
-    "exclude-filter": "(?i)(🇭🇰|香港|\\bHK\\b|Hong Kong|HongKong|hongkong|0\\.[0-5]|低倍率|落地|星链|Starlink)",
-  };
-}
-
 function buildProxyGroups({
   countryList,
   countryProxyGroups,
@@ -536,9 +520,7 @@ function buildProxyGroups({
       ? [socksName, ...defaultProxies]
       : defaultProxies;
 
-  const aiBest = buildAISelectGroup();
-
-  // AI 分组默认使用美国节点；不把 AI 优选和香港节点作为 AI 的候选项。
+  // AI 分组默认使用美国节点，不包含香港节点。
   // 这里同时过滤嵌套的国家策略组，避免香港节点通过同名策略组间接进入 AI。
   const aiExcludedGroups = new Set([
     "美国节点",
@@ -627,11 +609,8 @@ function buildProxyGroups({
       proxies: ["直连", "选择节点", "手动选择"],
     },
 
-    // AI 优选仍保留为独立策略组，供需要时手动使用；不再作为 AI 分组的候选项。
-    aiBest,
-
     // AI：默认优先美国节点；优先走链式（relay 优先，其次 dialer socks），
-    // 不包含 AI 优选和香港节点。
+    // 不包含香港节点。
     {
       name: "AI",
       icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
