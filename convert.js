@@ -615,12 +615,20 @@ function buildProxyGroups({
     // AI 优选
     aiBest,
 
-    // AI：优先走 链式（relay 优先，其次 dialer socks）
+    // AI：优先走 链式（relay 优先，其次 dialer socks）；美国节点兜底，
+    // 避免 AI优选 在当前订阅匹配不到节点时空转成 COMPATIBLE
     {
       name: "AI",
       icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
-      type: "select",
-      proxies: ["AI优选", ...proxiesPreferChain],
+      type: "fallback",
+      url: "https://cp.cloudflare.com/generate_204",
+      interval: 60,
+      tolerance: 20,
+      proxies: [
+        "AI优选",
+        "美国节点",
+        ...proxiesPreferChain.filter((n) => n !== "美国节点"),
+      ],
     },
 
     // 谷歌全家桶：优先走 链式（relay 优先，其次 dialer socks）
