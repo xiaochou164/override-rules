@@ -189,6 +189,9 @@ const ruleProviders = {
 };
 
 const rules = [
+  // IPv6 始终直连，避免代理故障影响公网 IPv6 访问
+  "IP-CIDR6,::/0,DIRECT,no-resolve",
+
   // 最高优先：你的自定义规则（你写的是“每行带策略”，但这里仍按你原注释保留）
   "RULE-SET,UserRules,选择节点",
   "RULE-SET,WalletBank,钱包/银行",
@@ -364,6 +367,59 @@ function parseBool(value) {
   if (typeof value === "boolean") return value;
   if (typeof value === "string") return value.toLowerCase() === "true" || value === "1";
   return false;
+}
+
+// 节点去重与重名修复：
+// 1. 完全相同的节点（除 name 外）只保留一份；
+// 2. 不同入口但订阅给了相同 name 时，追加 #2/#3，避免 Clash/Mihomo
+//    把多个节点视为同一个代理；
+// 3. 保留不同入口，不因重名误删真实节点。
+function stableSerialize(value) {
+  if (Array.isArray(value)) return `[${value.map(stableSerialize).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value)
+      .filter((key) => key !== "name")
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableSerialize(value[key])}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function normalizeAndDeduplicateProxies(proxies) {
+  const result = [];
+  const fingerprints = new Set();
+  const usedNames = new Set();
+  const nameCounts = new Map();
+
+  for (const [index, original] of (proxies || []).entries()) {
+    if (!original || typeof original !== "object") continue;
+
+    const proxy = { ...original };
+    // 订阅可能携带指向外部策略组的 dialer-proxy；若当前转换未启用
+    // landing/dialer，就移除悬空引用，否则 Mihomo 会拒绝整份配置。
+    if (proxy["dialer-proxy"] && !isDialerEnabled()) {
+      delete proxy["dialer-proxy"];
+    }
+
+    const fingerprint = stableSerialize(proxy);
+    if (fingerprints.has(fingerprint)) continue;
+    fingerprints.add(fingerprint);
+
+    const baseName = String(proxy.name || `节点-${index + 1}`).trim() || `节点-${index + 1}`;
+    let count = (nameCounts.get(baseName) || 0) + 1;
+    let name = count === 1 ? baseName : `${baseName} #${count}`;
+    while (usedNames.has(name)) {
+      count += 1;
+      name = `${baseName} #${count}`;
+    }
+    nameCounts.set(baseName, count);
+    usedNames.add(name);
+    proxy.name = name;
+    result.push(proxy);
+  }
+
+  return result;
 }
 
 function hasLowCost(config) {
@@ -644,8 +700,9 @@ function buildProxyGroups({
 }
 
 function main(config) {
-  // 保留订阅节点
-  config = { proxies: config.proxies };
+  // 只保留节点，但先去除完全重复项并修复重复名称。
+  // 不直接复用上游订阅的 proxy-groups/rules，由本脚本统一生成。
+  config = { proxies: normalizeAndDeduplicateProxies(config.proxies) };
 
   // 注入 SOCKS5 落地节点（仅在 socks_host 配置时）
   if (socksHost) {
