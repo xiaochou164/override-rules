@@ -538,6 +538,21 @@ function buildProxyGroups({
 
   const aiBest = buildAISelectGroup();
 
+  // AI 分组默认使用美国节点；不把 AI 优选和香港节点作为 AI 的候选项。
+  // 这里同时过滤嵌套的国家策略组，避免香港节点通过同名策略组间接进入 AI。
+  const aiExcludedGroups = new Set([
+    "美国节点",
+    "香港节点",
+    "选择节点",
+    "手动选择",
+    "直连",
+    "DIRECT",
+  ]);
+  const aiProxies = [
+    ...(hasUS ? ["美国节点"] : []),
+    ...proxiesPreferChain.filter((name) => !aiExcludedGroups.has(name)),
+  ];
+
   return [
     {
       name: "选择节点",
@@ -612,11 +627,11 @@ function buildProxyGroups({
       proxies: ["直连", "选择节点", "手动选择"],
     },
 
-    // AI 优选
+    // AI 优选仍保留为独立策略组，供需要时手动使用；不再作为 AI 分组的候选项。
     aiBest,
 
-    // AI：优先走 链式（relay 优先，其次 dialer socks）；美国节点兜底，
-    // 避免 AI优选 在当前订阅匹配不到节点时空转成 COMPATIBLE
+    // AI：默认优先美国节点；优先走链式（relay 优先，其次 dialer socks），
+    // 不包含 AI 优选和香港节点。
     {
       name: "AI",
       icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
@@ -624,11 +639,7 @@ function buildProxyGroups({
       url: "https://cp.cloudflare.com/generate_204",
       interval: 60,
       tolerance: 20,
-      proxies: [
-        "AI优选",
-        "美国节点",
-        ...proxiesPreferChain.filter((n) => n !== "美国节点"),
-      ],
+      proxies: aiProxies,
     },
 
     // 谷歌全家桶：优先走 链式（relay 优先，其次 dialer socks）
