@@ -534,6 +534,12 @@ function buildProxyGroups({
     ...(hasUS ? ["美国节点"] : []),
     ...proxiesPreferChain.filter((name) => !aiExcludedGroups.has(name)),
   ];
+  const aiAutoProxies = aiProxies.length ? aiProxies : ["故障转移"];
+
+  // Google：自动组保留链式/落地优先级，但排除需要人工选择的策略组和直连。
+  const googleAutoExcludedGroups = new Set(["选择节点", "手动选择", "直连", "DIRECT"]);
+  const googleAutoProxies = proxiesPreferChain.filter((name) => !googleAutoExcludedGroups.has(name));
+  if (!googleAutoProxies.length) googleAutoProxies.push("故障转移");
 
   // Telegram：顶层保持 select，自动能力下沉到两个专用子组。
   // 地区优先级用于 TG自动；不存在的地区会自动过滤，其余已生成地区随后补入。
@@ -624,24 +630,40 @@ function buildProxyGroups({
       proxies: ["直连", "选择节点", "手动选择"],
     },
 
-    // AI：默认优先美国节点；优先走链式（relay 优先，其次 dialer socks），
-    // 不包含香港节点。
+    // AI：顶层保留手动选择，AI自动负责稳定优先的故障转移。
     {
-      name: "AI",
+      name: "AI自动",
       icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
       type: "fallback",
       url: "https://cp.cloudflare.com/generate_204",
       interval: 60,
       tolerance: 20,
-      proxies: aiProxies,
+      lazy: false,
+      proxies: aiAutoProxies,
+    },
+    {
+      name: "AI",
+      icon: "https://cdn.jsdelivr.net/gh/powerfullz/override-rules@master/icons/chatgpt.png",
+      type: "select",
+      proxies: ["AI自动", ...aiProxies, "手动选择"],
     },
 
-    // 谷歌全家桶：优先走 链式（relay 优先，其次 dialer socks）
+    // Google：顶层保留手动选择，Google自动负责链式/地区出口的自动容灾。
+    {
+      name: "Google自动",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
+      type: "fallback",
+      url: "https://cp.cloudflare.com/generate_204",
+      interval: 60,
+      tolerance: 20,
+      lazy: false,
+      proxies: googleAutoProxies,
+    },
     {
       name: "Google",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google.png",
       type: "select",
-      proxies: proxiesPreferChain,
+      proxies: ["Google自动", ...proxiesPreferChain],
     },
 
     {
@@ -698,7 +720,7 @@ function buildProxyGroups({
       name: "SSH(22端口)",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Server.png",
       type: "select",
-      proxies: defaultProxies,
+      proxies: ["直连", "故障转移", ...availableCountryGroups, "手动选择", "选择节点"],
     },
     {
       name: "搜狗输入法",
