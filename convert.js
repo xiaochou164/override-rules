@@ -535,6 +535,21 @@ function buildProxyGroups({
     ...proxiesPreferChain.filter((name) => !aiExcludedGroups.has(name)),
   ];
 
+  // Telegram：顶层保持 select，自动能力下沉到两个专用子组。
+  // 地区优先级用于 TG自动；不存在的地区会自动过滤，其余已生成地区随后补入。
+  const telegramPriority = ["香港节点", "日本节点", "新加坡节点", "台湾节点", "美国节点"];
+  const availableCountryGroups = countryList.map((country) => `${country}节点`);
+  const telegramCountryGroups = [
+    ...telegramPriority.filter((name) => availableCountryGroups.includes(name)),
+    ...availableCountryGroups.filter((name) => !telegramPriority.includes(name)),
+  ];
+  const telegramAutoProxies = telegramCountryGroups.length
+    ? [...telegramCountryGroups, "故障转移"]
+    : ["故障转移"];
+  const telegramLowLatencyProxies = telegramCountryGroups.length
+    ? telegramCountryGroups
+    : ["故障转移"];
+
   return [
     {
       name: "选择节点",
@@ -630,10 +645,30 @@ function buildProxyGroups({
     },
 
     {
+      name: "TG自动",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
+      type: "fallback",
+      proxies: telegramAutoProxies,
+      url: "https://api.telegram.org",
+      interval: 60,
+      tolerance: 20,
+      lazy: false,
+    },
+    {
+      name: "TG低延迟",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
+      type: "url-test",
+      proxies: telegramLowLatencyProxies,
+      url: "https://api.telegram.org",
+      interval: 60,
+      tolerance: 50,
+      lazy: false,
+    },
+    {
       name: "Telegram",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png",
       type: "select",
-      proxies: defaultProxies,
+      proxies: ["TG自动", "TG低延迟", ...defaultProxies],
     },
     {
       name: "YouTube",
