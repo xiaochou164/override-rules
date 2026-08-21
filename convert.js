@@ -679,7 +679,7 @@ function buildProxyGroups({
     },
     {
       name: "广告拦截",
-      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlock.png",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png",
       type: "select",
       proxies: ["REJECT", "直连"],
     },
