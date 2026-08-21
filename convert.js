@@ -99,7 +99,7 @@ const ruleProviders = {
   },
   AutoDirect: {
     type: "http",
-    behavior: "domain",
+    behavior: "classical",
     format: "text",
     interval: 86400,
     url: "https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/direct.txt",
@@ -679,7 +679,7 @@ function buildProxyGroups({
     },
     {
       name: "广告拦截",
-      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlock.png",
       type: "select",
       proxies: ["REJECT", "直连"],
     },
