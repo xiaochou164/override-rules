@@ -536,8 +536,8 @@ function buildProxyGroups({
   ];
   const aiAutoProxies = aiProxies.length ? aiProxies : ["故障转移"];
 
-  // Google：自动组保留链式/落地优先级，但排除需要人工选择的策略组和直连。
-  const googleAutoExcludedGroups = new Set(["选择节点", "手动选择", "直连", "DIRECT"]);
+  // Google：自动组保留链式/落地优先级，但排除香港及需要人工选择的策略组和直连。
+  const googleAutoExcludedGroups = new Set(["香港节点", "选择节点", "手动选择", "直连", "DIRECT"]);
   const googleAutoProxies = proxiesPreferChain.filter((name) => !googleAutoExcludedGroups.has(name));
   if (!googleAutoProxies.length) googleAutoProxies.push("故障转移");
 
