@@ -64,6 +64,31 @@ function parseSocksNodes() {
 const socksNodes = parseSocksNodes();
 const socksNames = socksNodes.map((node) => node.name);
 
+function parseChainNodeNames() {
+  const raw = String(inArg.chain_nodes || "").trim();
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return [...new Set(parsed.map((name) => String(name).trim()).filter(Boolean))];
+    }
+  } catch {
+    return [...new Set(raw.split(",").map((name) => name.trim()).filter(Boolean))];
+  }
+  return [];
+}
+
+const chainNodeNames = parseChainNodeNames();
+
+function escapeRegex(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function chainNodeFilter() {
+  if (!chainNodeNames.length) return "(?i)^(新加坡 B1|US-Balancer.*|TW-X1.*)$";
+  return `(?i)^(?:${chainNodeNames.map(escapeRegex).join("|")})$`;
+}
+
 // relay 组名（单落地时保持旧名称，多落地时每个落地一个 relay 组）
 const relayGroupName = "链式-落地";
 
@@ -552,7 +577,12 @@ function materializeCountryGroups(groups, proxyNames) {
     } catch {
       continue;
     }
-    group.proxies = proxyNames.filter((name) => matcher?.test(name) && !excludeMatcher?.test(name));
+    group.proxies = proxyNames.filter(
+      (name) =>
+        (!chainNodeNames.length || chainNodeNames.includes(name)) &&
+        matcher?.test(name) &&
+        !excludeMatcher?.test(name),
+    );
     delete group["include-all"];
     delete group.filter;
     delete group["exclude-filter"];
@@ -643,10 +673,12 @@ function buildProxyGroups({
       ? {
           name: "前置代理",
           icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Route.png",
-          type: "select",
-          "include-all": true,
-          filter: "(?i)^(新加坡 B1|US-Balancer.*|TW-X1.*)$",
-          "exclude-filter": "(?i)落地|链式|前置",
+          type: "url-test",
+          url: "https://cp.cloudflare.com/generate_204",
+          interval: 60,
+          tolerance: 50,
+          lazy: false,
+          proxies: frontProxySelector,
         }
       : null,
     landing
