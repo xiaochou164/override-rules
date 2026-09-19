@@ -225,6 +225,7 @@ const rules = [
   "RULE-SET,UserRules,选择节点",
   "IP-CIDR,172.245.228.215/32,DIRECT,no-resolve",
   "DOMAIN-SUFFIX,anyrouter.top,选择节点",
+  "DOMAIN-SUFFIX,gds.google.com,Google",
   "RULE-SET,WalletBank,钱包/银行",
 
   "RULE-SET,ADBlock,广告拦截",
