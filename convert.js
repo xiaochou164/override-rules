@@ -905,6 +905,7 @@ function main(config) {
     rules: rules,
     sniffer: snifferConfig,
     dns: fakeIPEnabled ? dnsConfig2 : dnsConfig,
+    ipv6: ipv6Enabled,
     "geodata-mode": true,
     "geox-url": geoxURL,
   });
