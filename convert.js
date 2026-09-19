@@ -223,6 +223,7 @@ const rules = [
 
   // 最高优先：你的自定义规则（你写的是“每行带策略”，但这里仍按你原注释保留）
   "RULE-SET,UserRules,选择节点",
+  "DOMAIN-SUFFIX,anyrouter.top,选择节点",
   "RULE-SET,WalletBank,钱包/银行",
 
   "RULE-SET,ADBlock,广告拦截",
