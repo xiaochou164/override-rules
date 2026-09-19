@@ -536,6 +536,26 @@ function buildCountryProxyGroups(countryList) {
   return countryProxyGroups;
 }
 
+function materializeCountryGroups(groups, proxyNames) {
+  for (const group of groups) {
+    const filter = String(group.filter || "").replace(/^\(\?i\)/, "");
+    const exclude = String(group["exclude-filter"] || "").replace(/^\(\?i\)/, "");
+    let matcher;
+    let excludeMatcher;
+    try {
+      matcher = filter ? new RegExp(filter, "i") : null;
+      excludeMatcher = exclude ? new RegExp(exclude, "i") : null;
+    } catch {
+      continue;
+    }
+    group.proxies = proxyNames.filter((name) => matcher?.test(name) && !excludeMatcher?.test(name));
+    delete group["include-all"];
+    delete group.filter;
+    delete group["exclude-filter"];
+  }
+  return groups;
+}
+
 function buildProxyGroups({
   countryList,
   countryProxyGroups,
@@ -828,7 +848,10 @@ function main(config) {
   const { defaultProxies, defaultProxiesDirect, defaultSelector, defaultFallback, countryGroupNames: targetCountryList } =
     buildBaseLists({ landing, lowCost, countryInfo });
 
-  const countryProxyGroups = buildCountryProxyGroups(targetCountryList.map((n) => n.replace(/节点$/, "")));
+  const countryProxyGroups = materializeCountryGroups(
+    buildCountryProxyGroups(targetCountryList.map((n) => n.replace(/节点$/, ""))),
+    config.proxies.map((proxy) => proxy.name),
+  );
 
   const proxyGroups = buildProxyGroups({
     countryList: targetCountryList.map((n) => n.replace(/节点$/, "")),
