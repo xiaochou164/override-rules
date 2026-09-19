@@ -81,7 +81,6 @@ function buildBaseLists({ landing, lowCost, countryInfo, countryNames }) {
     .map((item) => item.country + "节点");
 
   const selector = ["故障转移"];
-  if (landing) selector.push("落地节点");
   selector.push(...countryGroupNames);
   if (lowCost) selector.push("低倍率节点");
   selector.push("手动选择", "DIRECT");
