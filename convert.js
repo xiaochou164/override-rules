@@ -246,6 +246,7 @@ const rules = [
 
   "GEOSITE,TELEGRAM,Telegram",
   "GEOSITE,YOUTUBE,YouTube",
+  "GEOSITE,TWITTER,X",
   "GEOSITE,NETFLIX,Netflix",
 
   "GEOSITE,BILIBILI,Bilibili",
@@ -757,6 +758,12 @@ function buildProxyGroups({
     {
       name: "YouTube",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png",
+      type: "select",
+      proxies: defaultProxies,
+    },
+    {
+      name: "X",
+      icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Twitter.png",
       type: "select",
       proxies: defaultProxies,
     },
