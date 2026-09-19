@@ -509,7 +509,9 @@ function buildProxyGroups({
   const hasHK = countryList.includes("香港");
   const hasUS = countryList.includes("美国");
 
-  const frontProxySelector = [...defaultSelector.filter((name) => name !== "落地节点" && name !== "故障转移")];
+  // 前置代理只保留按地区生成的策略组，不把订阅中的每个具体节点直接展开。
+  // 这样在客户端里选择“前置代理”时，仍可进入地区组选择节点，但列表保持简洁。
+  const frontProxySelector = countryList.length ? countryList.map((country) => `${country}节点`) : ["手动选择", "DIRECT"];
 
   const relayEnabled = isRelayEnabled();
   const dialerOn = isDialerEnabled();
@@ -577,7 +579,6 @@ function buildProxyGroups({
           name: "前置代理",
           icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Area.png",
           type: "select",
-          "include-all": true,
           "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
           proxies: frontProxySelector,
         }
