@@ -75,8 +75,8 @@ function isRelayEnabled() {
   return relayEnabledArg && landing && socksNodes.length > 0;
 }
 
-function buildBaseLists({ landing, lowCost, countryInfo }) {
-  const countryGroupNames = countryInfo
+function buildBaseLists({ landing, lowCost, countryInfo, countryNames }) {
+  const countryGroupNames = countryNames || countryInfo
     .filter((item) => item.count > 2)
     .map((item) => item.country + "节点");
 
@@ -516,8 +516,8 @@ function buildCountryProxyGroups(countryList) {
         "include-all": true,
         filter: pattern,
         "exclude-filter": landing
-          ? "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地|0\\.[0-5]|低倍率|省流|大流量|实验性"
-          : "0\\.[0-5]|低倍率|省流|大流量|实验性",
+          ? "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地"
+          : "",
         type: loadBalance ? "load-balance" : "url-test",
       };
 
@@ -554,7 +554,7 @@ function materializeCountryGroups(groups, proxyNames) {
     delete group.filter;
     delete group["exclude-filter"];
   }
-  return groups;
+  return groups.filter((group) => Array.isArray(group.proxies) && group.proxies.length > 0);
 }
 
 function buildProxyGroups({
@@ -852,16 +852,19 @@ function main(config) {
   const countryInfo = parseCountries(config);
   const lowCost = hasLowCost(config);
 
-  const { defaultProxies, defaultProxiesDirect, defaultSelector, defaultFallback, countryGroupNames: targetCountryList } =
-    buildBaseLists({ landing, lowCost, countryInfo });
+  const initialLists = buildBaseLists({ landing, lowCost, countryInfo });
+  const initialCountryList = initialLists.countryGroupNames;
 
-  const countryProxyGroups = materializeCountryGroups(
-    buildCountryProxyGroups(targetCountryList.map((n) => n.replace(/节点$/, ""))),
+  let countryProxyGroups = materializeCountryGroups(
+    buildCountryProxyGroups(initialCountryList.map((n) => n.replace(/节点$/, ""))),
     config.proxies.map((proxy) => proxy.name),
   );
+  const usableCountryNames = countryProxyGroups.map((group) => group.name);
+  const { defaultProxies, defaultProxiesDirect, defaultSelector, defaultFallback } =
+    buildBaseLists({ landing, lowCost, countryInfo, countryNames: usableCountryNames });
 
   const proxyGroups = buildProxyGroups({
-    countryList: targetCountryList.map((n) => n.replace(/节点$/, "")),
+    countryList: usableCountryNames.map((n) => n.replace(/节点$/, "")),
     countryProxyGroups,
     lowCost,
     defaultProxies,
