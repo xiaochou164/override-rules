@@ -27,23 +27,52 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
 const dialerEnabled = inArg.dialer === undefined ? true : parseBool(inArg.dialer);
 const relayEnabledArg = inArg.relay === undefined ? false : parseBool(inArg.relay);
 
-// ---- socks5 落地参数（SubStore arguments 传入）----
+// ---- Socks5 落地参数（Sub-Store arguments 传入）----
+// 兼容旧的单节点参数，同时支持 socks_nodes JSON 配置多个落地节点。
 const socksHost = (inArg.socks_host || "").trim();
 const socksPort = Number(inArg.socks_port || 1080);
 const socksUser = (inArg.socks_user || "").trim();
 const socksPass = (inArg.socks_pass || "").trim();
 const socksName = (inArg.socks_name || "Socks5-落地").trim();
 
-// relay 组名
+function parseSocksNodes() {
+  const raw = String(inArg.socks_nodes || "").trim();
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const nodes = parsed
+          .map((item, index) => ({
+            name: String(item.name || `Socks5-落地-${index + 1}`).trim(),
+            host: String(item.host || item.server || "").trim(),
+            port: Number(item.port || 1080),
+            user: String(item.user || item.username || "").trim(),
+            pass: String(item.pass || item.password || "").trim(),
+          }))
+          .filter((item) => item.host);
+        if (nodes.length) return nodes;
+      }
+    } catch {
+      // JSON 无效时回退到兼容的单节点参数。
+    }
+  }
+  return socksHost
+    ? [{ name: socksName, host: socksHost, port: socksPort, user: socksUser, pass: socksPass }]
+    : [];
+}
+
+const socksNodes = parseSocksNodes();
+const socksNames = socksNodes.map((node) => node.name);
+
+// relay 组名（单落地时保持旧名称，多落地时每个落地一个 relay 组）
 const relayGroupName = "链式-落地";
 
 function isDialerEnabled() {
-  return dialerEnabled && landing && !!socksHost;
+  return dialerEnabled && landing && socksNodes.length > 0;
 }
 
-// relay 仍保留，但受 relay 参数控制（并且依赖 landing + socksHost）
 function isRelayEnabled() {
-  return relayEnabledArg && landing && !!socksHost;
+  return relayEnabledArg && landing && socksNodes.length > 0;
 }
 
 function buildBaseLists({ landing, lowCost, countryInfo }) {
@@ -516,11 +545,12 @@ function buildProxyGroups({
   const relayEnabled = isRelayEnabled();
   const dialerOn = isDialerEnabled();
 
-  // AI/Google：优先 relay；否则（有 dialer）优先 socksName；否则走默认
+  // AI/Google：优先链式落地节点；多个 Socks5 落地时由 fallback 自动择优。
+  const relayNames = socksNames.map((name, index) => socksNames.length === 1 ? relayGroupName : `${relayGroupName}-${index + 1}`);
   const proxiesPreferChain = relayEnabled
-    ? [relayGroupName, ...defaultProxies]
+    ? [...relayNames, ...defaultProxies]
     : dialerOn
-      ? [socksName, ...defaultProxies]
+      ? [...socksNames, ...defaultProxies]
       : defaultProxies;
 
   // AI 分组默认使用美国节点，不包含香港节点。
@@ -593,16 +623,15 @@ function buildProxyGroups({
         }
       : null,
 
-    // 兼容：relay 组（前置代理 -> socks5）
-    relayEnabled
-      ? {
-          name: relayGroupName,
+    // 兼容：每个落地节点单独生成 relay 组，避免多个落地被错误串成多跳链路。
+    ...(relayEnabled
+      ? socksNames.map((name, index) => ({
+          name: socksNames.length === 1 ? relayGroupName : `${relayGroupName}-${index + 1}`,
           icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Route.png",
           type: "relay",
-          proxies: ["前置代理", socksName],
-        }
-      : null,
-
+          proxies: ["前置代理", name],
+        }))
+      : []),
     {
       name: "故障转移",
       icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bypass.png",
@@ -761,29 +790,25 @@ function main(config) {
   // 不直接复用上游订阅的 proxy-groups/rules，由本脚本统一生成。
   config = { proxies: normalizeAndDeduplicateProxies(config.proxies) };
 
-  // 注入 SOCKS5 落地节点（仅在 socks_host 配置时）
-  if (socksHost) {
+  // 注入 SOCKS5 落地节点（兼容单节点参数，并支持 socks_nodes 多节点）
+  for (const socksNode of socksNodes) {
     config.proxies = config.proxies || [];
-    const exists = config.proxies.some((p) => p && p.name === socksName);
-    if (!exists) {
-      const node = {
-        name: socksName,
-        type: "socks5",
-        server: socksHost,
-        port: socksPort,
-        udp: true,
-      };
+    const exists = config.proxies.some((p) => p && p.name === socksNode.name);
+    if (exists) continue;
 
-      // 新增：dialer-proxy（mihomo 新版链式）
-      // 表示“连接 socksHost:socksPort 这一步，通过 前置代理 去拨号建立连接”
-      if (isDialerEnabled()) {
-        node["dialer-proxy"] = "前置代理";
-      }
+    const node = {
+      name: socksNode.name,
+      type: "socks5",
+      server: socksNode.host,
+      port: socksNode.port,
+      udp: true,
+    };
 
-      if (socksUser) node.username = socksUser;
-      if (socksPass) node.password = socksPass;
-      config.proxies.push(node);
-    }
+    // 表示“连接落地 Socks5 的这一步，通过前置代理去拨号建立连接”。
+    if (isDialerEnabled()) node["dialer-proxy"] = "前置代理";
+    if (socksNode.user) node.username = socksNode.user;
+    if (socksNode.pass) node.password = socksNode.pass;
+    config.proxies.push(node);
   }
 
   const countryInfo = parseCountries(config);

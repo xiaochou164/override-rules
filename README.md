@@ -84,13 +84,16 @@ Play 商店修复和 Steam	修复代理组已经默认直连，又省流量又�
 convert.js#landing=true&dialer=true&relay=false
 ```
 
-使用 Sub-Store 时，还需要在参数中填写 `socks_host` 和 `socks_port`，脚本会注入一个 `Socks5-落地` 节点，并设置：
+使用 Sub-Store 时，单个落地节点可以继续使用 `socks_host`、`socks_port`、`socks_user`、`socks_pass`、`socks_name`。如果需要多个落地节点，改用 `socks_nodes`，值为 JSON 数组：
 
-```yaml
-dialer-proxy: "前置代理"
+```json
+[
+  {"name":"Socks5-落地-香港","host":"hk.example.com","port":45678,"user":"user1","pass":"pass1"},
+  {"name":"Socks5-落地-日本","host":"jp.example.com","port":45678,"user":"user2","pass":"pass2"}
+]
 ```
 
-链路为「前置代理 → Socks5 落地」。其中「落地节点」会自动匹配名称包含「家宽」「家庭」「商宽」「落地」「Starlink/星链」等关键词的节点，其他诸如「香港节点」等国家分组会自动剔除这些落地节点。
+每个落地节点都会自动设置 `dialer-proxy: "前置代理"`，并加入 AI/Google 的自动故障转移。
 
 如需兼容仍依赖 Clash Meta `relay` 策略组的旧客户端，可显式使用 `relay=true`。此时会额外生成「链式-落地」策略组：
 
