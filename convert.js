@@ -273,28 +273,39 @@ const snifferConfig = {
   "skip-domain": ["Mijia Cloud", "dlg.io.mi.com", "+.push.apple.com"],
 };
 
-const dnsConfig = {
+const secureDnsCommon = {
   enable: true,
   ipv6: ipv6Enabled,
   "prefer-h3": true,
+  "default-nameserver": ["223.5.5.5", "119.29.29.29"],
+  // 国内域名走国内 DoH，避免 system/明文 DNS 泄露。
+  nameserver: ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"],
+  // 国外域名使用加密 DNS；Mihomo 会按规则选择并通过代理访问。
+  fallback: ["https://1.1.1.1/dns-query", "https://dns.google/dns-query"],
+  "fallback-filter": {
+    geoip: true,
+    "geoip-code": "CN",
+    geosite: ["gfw"],
+  },
+  "nameserver-policy": {
+    "geosite:cn": ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"],
+    "geosite:geolocation-!cn": ["https://1.1.1.1/dns-query", "https://dns.google/dns-query"],
+  },
+  "proxy-server-nameserver": ["223.5.5.5", "119.29.29.29"],
+  "respect-rules": true,
+  "direct-nameserver": ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"],
+  "direct-nameserver-follow-policy": true,
+};
+
+const dnsConfig = {
+  ...secureDnsCommon,
   "enhanced-mode": "redir-host",
-  "default-nameserver": ["119.29.29.29", "223.5.5.5"],
-  nameserver: ["system", "223.5.5.5", "119.29.29.29", "180.184.1.1"],
-  fallback: [
-    "quic://dns0.eu",
-    "https://dns.cloudflare.com/dns-query",
-    "https://dns.sb/dns-query",
-    "tcp://208.67.222.222",
-    "tcp://8.26.56.2",
-  ],
-  "proxy-server-nameserver": ["quic://223.5.5.5", "tls://dot.pub"],
 };
 
 const dnsConfig2 = {
-  enable: true,
-  ipv6: ipv6Enabled,
-  "prefer-h3": true,
+  ...secureDnsCommon,
   "enhanced-mode": "fake-ip",
+  "fake-ip-range": "198.18.0.1/16",
   "fake-ip-filter": [
     "geosite:private",
     "geosite:connectivity-check",
