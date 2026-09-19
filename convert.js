@@ -22,9 +22,10 @@ const loadBalance = parseBool(inArg.loadbalance) || false,
   keepAliveEnabled = parseBool(inArg.keepalive) || false,
   fakeIPEnabled = parseBool(inArg.fakeip) || false;
 
-// 新增：链式实现方式开关（默认都启用，确保 relay 兼容也保留）
+// 链式实现方式开关：默认使用 Mihomo/Stash 推荐的 dialer-proxy，关闭已弃用的 relay。
+// 如需兼容旧版 Clash Meta，可显式传入 relay=true。
 const dialerEnabled = inArg.dialer === undefined ? true : parseBool(inArg.dialer);
-const relayEnabledArg = inArg.relay === undefined ? true : parseBool(inArg.relay);
+const relayEnabledArg = inArg.relay === undefined ? false : parseBool(inArg.relay);
 
 // ---- socks5 落地参数（SubStore arguments 传入）----
 const socksHost = (inArg.socks_host || "").trim();

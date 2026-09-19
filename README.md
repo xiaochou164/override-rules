@@ -26,13 +26,15 @@
 
 参考[最速 Substore 订阅管理指南](https://blog.l3zc.com/2025/03/clash-subscription-convert/)。
 
-2025/06/17 更新：新增 JavaScript 格式覆写，支持传入参数，更易于维护，已经成为首选方式。例如，有链式代理需求，使用如下覆写脚本链接即可：
+2025/06/17 更新：新增 JavaScript 格式覆写，支持传入参数，更易于维护，已经成为首选方式。例如，启用适用于 Mihomo、Stash、Clash Verge Rev 的链式代理：
 
 ```
-https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/convert.js#landing=true
+https://raw.githubusercontent.com/xiaochou164/override-rules/refs/heads/main/convert.js#landing=true&dialer=true&relay=false
 ```
 
-传入多个参数时，用`&`分隔，例如`landing=true&loadbalance=true`。
+如果使用 Sub-Store 的参数设置，还需要传入 Socks5 落地参数：`socks_host`、`socks_port`，可选传入 `socks_user`、`socks_pass`、`socks_name`。
+
+传入多个参数时，用`&`分隔，例如`landing=true&dialer=true&relay=false`。
 
 目前支持的参数：
 
@@ -76,7 +78,31 @@ Play 商店修复和 Steam	修复代理组已经默认直连，又省流量又�
 
 ### 关于链式代理的说明
 
-若有链式代理需求，直接在 JS 链接后加 `landing=true` 参数即可（例如：`convert.js#landing=true`）。这样会新增「落地节点」和「前置代理」两个代理组，其中「落地节点」会自动匹配名称包含「家宽」「家庭」「商宽」「落地」「Starlink/星链」等关键词的节点，其他诸如「香港节点」等国家分组会自动剔除这些落地节点。需要被链式代理的落地节点请在你的订阅里为该节点配置 `dialer-proxy: "前置代理"`，示例：
+本仓库默认使用 Mihomo/Stash 推荐的 `dialer-proxy` 实现链式代理，并默认关闭已弃用的 `relay` 策略组。推荐使用：
+
+```text
+convert.js#landing=true&dialer=true&relay=false
+```
+
+使用 Sub-Store 时，还需要在参数中填写 `socks_host` 和 `socks_port`，脚本会注入一个 `Socks5-落地` 节点，并设置：
+
+```yaml
+dialer-proxy: "前置代理"
+```
+
+链路为「前置代理 → Socks5 落地」。其中「落地节点」会自动匹配名称包含「家宽」「家庭」「商宽」「落地」「Starlink/星链」等关键词的节点，其他诸如「香港节点」等国家分组会自动剔除这些落地节点。
+
+如需兼容仍依赖 Clash Meta `relay` 策略组的旧客户端，可显式使用 `relay=true`。此时会额外生成「链式-落地」策略组：
+
+```yaml
+- name: 链式-落地
+  type: relay
+  proxies:
+    - 前置代理
+    - Socks5-落地
+```
+
+如果是订阅中已有的落地节点，也可以手工添加：
 
 ```yaml
 proxies:
@@ -113,3 +139,20 @@ CI 只是套用一份假的`fake_proxies.json`来生成覆写，所以不可能�
 npm install
 npm run generate
 ```
+
+### Override Studio 编辑工作台
+
+仓库内置一个零构建依赖的本地编辑工作台，可直接维护 `ruleset/` 下的规则集、`convert.js` 和预生成 YAML。工作台会在保存前校验 YAML/JSON/JavaScript 语法，并限制编辑范围，避免误写仓库外文件。
+
+```shell
+npm install
+npm run workbench
+```
+
+然后打开 `http://127.0.0.1:3088`。如需修改端口：
+
+```shell
+WORKBENCH_PORT=3088 npm run workbench
+```
+
+工作台适合放在本机或内网使用；未内置登录鉴权，不建议直接暴露到公网。
