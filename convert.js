@@ -223,6 +223,7 @@ const rules = [
 
   // 最高优先：你的自定义规则（你写的是“每行带策略”，但这里仍按你原注释保留）
   "RULE-SET,UserRules,选择节点",
+  "IP-CIDR,172.245.228.215/32,DIRECT,no-resolve",
   "DOMAIN-SUFFIX,anyrouter.top,选择节点",
   "RULE-SET,WalletBank,钱包/银行",
 
@@ -640,10 +641,11 @@ function buildProxyGroups({
     landing
       ? {
           name: "前置代理",
-          icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Area.png",
+          icon: "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Route.png",
           type: "select",
-          "exclude-filter": "(?i)家宽|家庭|家庭宽带|商宽|商业宽带|星链|Starlink|落地",
-          proxies: frontProxySelector,
+          "include-all": true,
+          filter: "(?i)^(新加坡 B1|US-Balancer.*|TW-X1.*)$",
+          "exclude-filter": "(?i)落地|链式|前置",
         }
       : null,
     landing
