@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Override Studio</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">⌁</div><div><strong>Override Studio</strong><span>Sub-Store rule workspace</span></div></div>
+    <button class="new-btn" id="newRule">＋ 新建规则集</button>
+    <label class="search"><span>⌕</span><input id="search" placeholder="搜索文件…" autocomplete="off"></label>
+    <div class="nav-label">WORKSPACE</div><div id="fileList" class="file-list"></div>
+    <div class="sidebar-foot"><span class="dot"></span><span>本地工作区</span><code id="fileCount">—</code></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">RULE CONFIGURATION</div><h1 id="pageTitle">选择一个文件开始编辑</h1></div><div class="actions"><span id="dirty" class="dirty">● 已保存</span><button id="validate" class="ghost">校验</button><button id="save" class="primary" disabled>保存更改 <kbd>⌘ S</kbd></button></div></header>
+    <section class="dashboard" id="dashboard">
+      <div class="hero-card"><div><span class="pill">SUB-STORE DATABASE</span><h2>把规则维护<br><em>变成一件小事。</em></h2><p>集中管理规则集、动态覆写脚本和预生成配置。修改前校验，保存后立即生效。</p></div><div class="hero-orbit"><div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><div class="orbit-core">S</div><i class="orb-dot d1"></i><i class="orb-dot d2"></i></div></div>
+      <div class="stat-grid"><div class="stat"><span>规则集</span><strong id="rulesets">—</strong><small>ruleset directory</small></div><div class="stat"><span>预生成 YAML</span><strong id="yamls">—</strong><small>generated configs</small></div><div class="stat accent"><span>当前状态</span><strong>READY</strong><small>local workspace</small></div></div>
+      <div class="quick"><div class="section-heading"><div><span class="eyebrow">QUICK ACCESS</span><h3>常用入口</h3></div><span class="hint">点击文件名直接打开编辑器</span></div><div class="quick-grid" id="quickGrid"></div></div>
+    </section>
+    <section class="editor-wrap hidden" id="editorWrap"><div class="editor-toolbar"><div class="crumb" id="crumb">—</div><div class="editor-meta" id="editorMeta"></div></div><div class="editor-body"><textarea id="editor" spellcheck="false" disabled></textarea><div class="line-info"><span id="cursorInfo">Ln 1, Col 1</span><span id="syntaxInfo">TEXT</span></div></div><div class="editor-foot"><span id="validationMessage">就绪</span><span>自动保存关闭 · 使用保存按钮提交</span></div></section>
+  </main>
+</div>
+<div class="toast" id="toast"></div><dialog id="newDialog"><form method="dialog" id="newForm"><div class="dialog-title">新建规则集</div><p>创建一个可被 Sub-Store 引用的文本规则文件。</p><label>文件名<input id="newName" placeholder="MyRules.list" required pattern="[\\w.-]+\\.(list|txt)"></label><label>初始内容<textarea id="newContent" placeholder="# 每行一条规则\nDOMAIN-SUFFIX,example.com"></textarea></label><div class="dialog-actions"><button value="cancel" class="ghost">取消</button><button value="default" class="primary">创建并编辑</button></div></form></dialog>
+<script src="/app.js"></script></body></html>

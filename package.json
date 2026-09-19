@@ -6,7 +6,9 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "generate": "node yaml_generator/generator.js"
+    "generate": "node yaml_generator/generator.js",
+    "workbench": "node workbench/server.js",
+    "start": "node workbench/server.js"
   },
   "dependencies": {
     "yaml": "^2.5.0"
